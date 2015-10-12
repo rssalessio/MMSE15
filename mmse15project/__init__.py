@@ -6,7 +6,7 @@ __author__ = 'tobias'
 
 
 def main():
-    M = Model()
-    V = MainView()
-    C = MainController(M, V)
-    V.mainloop()
+    m = Model()
+    v = MainView()
+    c = MainController(m, v)
+    v.mainloop()

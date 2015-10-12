@@ -1,8 +1,8 @@
 import tkinter as tk
 import tkinter.ttk as ttk
 
-
 __author__ = 'tobias'
+
 
 class MainView(tk.Tk):
     def __init__(self):
