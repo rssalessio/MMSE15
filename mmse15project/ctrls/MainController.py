@@ -8,9 +8,10 @@ class MainController:
         self.model = model
         self.view = view
 
-    def set_frame(self, class_):
-        self.clear_frame(self.view.container)
-        class_(self, self.view.container)
+    def set_frame(self, frame_class):
+        self.clear_frame(self.view.container)  # clear container
+        frame = frame_class(self.view.container, self)
+        frame.pack()
 
     def clear_frame(self, frame):
         for widget in frame.winfo_children():

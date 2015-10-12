@@ -4,10 +4,9 @@ __author__ = 'tobias'
 
 
 class Login(tk.Frame):
-    def __init__(self, ctrl, master=None):
-        self.ctrl = ctrl
+    def __init__(self, master, ctrl):
         tk.Frame.__init__(self, master)
-        self.pack()
+        self.ctrl = ctrl
         self.auth()
 
     def auth(self):
