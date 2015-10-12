@@ -35,6 +35,6 @@ class Login(tk.Frame):
                        command=lambda: self.ctrl.login_try_again(self))
         b2 = tk.Button(self, text="Quit",
                        command=lambda: self.ctrl.login_quit())
-        l1.grid(columnspan=2)
+        l1.grid(row=0, columnspan=2)
         b1.grid(row=1, column=0)
         b2.grid(row=1, column=1)

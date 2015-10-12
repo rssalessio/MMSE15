@@ -11,10 +11,10 @@ class MainView(tk.Tk):
         self.attributes("-topmost", True)
 
         self.container = tk.Frame(self)
+        separator = ttk.Separator(self, orient=tk.HORIZONTAL)
         company = tk.Label(self, text="© 2015 Swedish Events Planners (SEP)",
                            font="-slant italic")
-        separator = ttk.Separator(self, orient=tk.HORIZONTAL)
 
         self.container.grid(row=0, column=0)
-        separator.grid(sticky="ew")  # east to west
+        separator.grid(row=1, sticky="ew")  # east to west
         company.grid(row=2, column=0)
