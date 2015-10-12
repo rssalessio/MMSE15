@@ -11,7 +11,8 @@ class MainView(tk.Tk):
         self.attributes("-topmost", True)
 
         self.container = tk.Frame(self)
-        company = tk.Label(self, text="© 2015 Swedish Events Planners SEP", font="-slant italic")
+        company = tk.Label(self, text="© 2015 Swedish Events Planners (SEP)",
+                           font="-slant italic")
         separator = ttk.Separator(self, orient=tk.HORIZONTAL)
 
         self.container.grid(row=0, column=0)
