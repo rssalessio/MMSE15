@@ -1,12 +1,12 @@
 import sys
-
-__author__ = 'tobias'
+__author__ = ('tobias','alessior@kth.se')
 
 
 class MainController:
-    def __init__(self, model, view):
+    def __init__(self, model, view,database):
         self.model = model
         self.view = view
+        self.database = database
 
     def set_frame(self, frame_class):
         self.clear_frame(self.view.container)  # clear container
@@ -18,7 +18,7 @@ class MainController:
             widget.destroy()
 
     def login_auth(self, login, username, password):
-        print("%s:%s" % (username, password))
+        response = self.database.login(username,password)
         self.clear_frame(login)
         login.fail()
 
