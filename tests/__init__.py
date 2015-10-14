@@ -1,5 +1,5 @@
 from  tests.DBInterface.DBTests import *
-from tests.AccountTests import  *
+from tests.model.AccountTests import  *
 
 __author__ = ('tobias','alessior@kth.se')
 

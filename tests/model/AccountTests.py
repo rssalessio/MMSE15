@@ -1,4 +1,4 @@
-from mmse15project.Account import  *
+from mmse15project.model.Account import  *
 
 __author__ = ('tobias','alessior@kth.se')
 
