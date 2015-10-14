@@ -1,7 +1,5 @@
 import tkinter as tk
 
-__author__ = 'tobias'
-
 
 class Login(tk.Frame):
     def __init__(self, master, ctrl):
