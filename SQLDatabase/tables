@@ -1,3 +1,9 @@
+
+/*
+    Table account stores the employees account.
+    The key of the table is the email of the employee, it's used as reference to the employee
+*/
+
 DROP TABLE account;
 
 CREATE TABLE IF NOT EXISTS account
@@ -5,5 +11,127 @@ CREATE TABLE IF NOT EXISTS account
     email text PRIMARY KEY NOT NULL,
     password text NOT NULL,
     name text NOT NULL,
-    accountType INTEGER
+    accountType INTEGER,
+    department text
+);
+
+/*
+    Table client stores data about customers
+    There may be multiple customers with same name, but emails are unique. An ID is the primary key, that is auto incremented each time a row is inserted into the table
+*/
+
+DROP TABLE client;
+CREATE TABLE IF NOT EXISTS client
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    email text NOT NULL UNIQUE,
+    name text  NOT NULL,
+    address text NOT NULL ,
+    city    text NOT NULL ,
+    state   text NOT NULL ,
+    birthdate text NOT NULL
+);
+
+
+/*
+    Table request stores details written by the customer service when receiving a request from a customer.
+    There is a requestID which is incremented each time a row is inserted. ClientID references the id in the client table.
+    status is a ternary type, 0 for pending, 1 for accepted, 2 for rejected
+*/
+
+DROP TABLE request;
+CREATE TABLE IF NOT EXISTS request
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    clientID INTEGER,
+    eventType text,
+    startDate text,
+    endDate   text,
+    expectedParticipants integer,
+    expectedBudget integer,
+    preferences text,
+    status integer,
+    FOREIGN KEY(clientID) REFERENCES client(id)
+);
+
+/*
+    requestReview: each operation done on a request is commented. The table includes the type of operation "reviewing, editing,..", the operator
+    which is just the email of the employee and the date.
+*/
+
+DROP TABLE requestReview;
+CREATE TABLE IF NOT EXISTS requestReview
+(
+    requestID INTEGER,
+    operation text,
+    comment  text,
+    date   text,
+    operator text,
+    FOREIGN KEY(requestID) REFERENCES request(id),
+    FOREIGN KEY(operator) REFERENCES account(email)
+);
+
+/* Recruitment request, type denotes the type of recruitment */
+
+DROP TABLE recruitmentRequest;
+CREATE TABLE IF NOT EXISTS recruitmentRequest
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    type integer,
+    date text,
+    department text,
+    title text,
+    description text
+);
+
+
+/*
+  Financial request, requestID references the id of the request table
+*/
+DROP TABLE financialRequest;
+CREATE TABLE IF NOT EXISTS financialRequest
+(
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    date text,
+    department text,
+    requestID integer,
+    amount integer,
+    reason  text,
+    FOREIGN KEY(requestID) REFERENCES request(id)
+);
+
+
+
+DROP TABLE requestDetails;
+CREATE TABLE IF NOT EXISTS requestDetails
+(
+    id INTEGER PRIMARY KEY,
+    detail1 text,
+    detail2 text,
+    detail3 text,
+    detail4 text,
+    detail5 text,
+    detail6 text,
+    needs text
+    FOREIGN KEY(id) REFERENCES request(id)
+);
+
+DROP TABLE task;
+CREATE TABLE IF NOT EXISTS task
+(
+    requestID integer,
+    description text,
+    operator text,
+    priority integer,
+    deadline text,
+    FOREIGN KEY(requestID) references request(id),
+    FOREIGN KEY(operator) references account(email)
+);
+
+DROP TABLE department
+(
+    name text PRIMARY KEY,
+    manager text,
+    managerEmail text,
+    FOREIGN KEY(managerEmail) REFERENCES account(email)
 );
