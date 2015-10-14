@@ -3,10 +3,9 @@ __author__ = ('tobias','alessior@kth.se')
 
 
 class MainController:
-    def __init__(self, model, view,database):
+    def __init__(self, model, view):
         self.model = model
         self.view = view
-        self.database = database
 
     def set_frame(self, frame_class):
         self.clear_frame(self.view.container)  # clear container
