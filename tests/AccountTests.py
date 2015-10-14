@@ -1,6 +1,7 @@
+from mmse15project.Account import  *
+
 __author__ = ('tobias','alessior@kth.se')
 
-from mmse15project.Account import  *
 
 def AccountTest():
     acc = Account()

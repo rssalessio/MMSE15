@@ -1,4 +1,3 @@
-#!/usr/bin/env python3
 from  tests.DBInterface.DBTests import *
 from tests.AccountTests import  *
 
