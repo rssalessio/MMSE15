@@ -10,7 +10,7 @@ from mmse15project.model.Account import  Account
 #addAccount(account): given the Account object, it is added to the database.
 
 
-class DBInterfaceAccount:
+class AccountDBInterface:
     def __init__(self,database):
         self.database = database
 

@@ -1,17 +1,17 @@
 from mmse15project.model.DBConnectionSQLite import *
-from mmse15project.model.DBInterfaceAccount import *
+from mmse15project.model.AccountDBInterface import *
 from mmse15project.model.Account import *
 
 
-def DBTest(connectionName):
-    db = DBInterface(connectionName)
+def DBTest(connection_name):
+    db = DBConnectionSQLite(connection_name)
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE account")
     db.executeDoQuery(
         "CREATE TABLE IF NOT EXISTS account (email text PRIMARY KEY, password text, name text, accountType INTEGER)")
     db.executeDoQuery(
         "INSERT INTO account (email,password,name,accountType) VALUES ('test@kth.se','password','Alessio','1')")
-    DBAcc = DBInterfaceAccount(db)
+    DBAcc = AccountDBInterface(db)
     account = DBAcc.login('test@kth.se', 'password')
     assert (account.getPassword() == "password")
     assert (account.getEmail() == 'test@kth.se')

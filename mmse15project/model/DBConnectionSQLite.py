@@ -12,7 +12,7 @@ import sqlite3
 #functions: check DBConnection
 
 
-class DBInterface(DBConnection):
+class DBConnectionSQLite(DBConnection):
     def __init__(self, connectionName):
         self.connectionName = connectionName
         self.connection = sqlite3.connect(self.connectionName)

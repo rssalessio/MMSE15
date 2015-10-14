@@ -1,4 +1,5 @@
+from mmse15project.model.DBConnectionSQLite import *
+
 class Model:
     def __init__(self):
-        dummy = 0
-        #  init DB here
+        self.db = DBConnectionSQLite("sep.db")
