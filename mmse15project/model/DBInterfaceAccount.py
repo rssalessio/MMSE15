@@ -24,5 +24,4 @@ class DBInterfaceAccount:
 
     def addAccount(self,account):
         values = (account.getEmail(), account.getPassword(), account.getName(), account.getAccountType())
-        print(values)
         self.database.executeDoQuery('INSERT INTO account (email,password,name,accountType) VALUES (?,?,?,?)',values)
