@@ -1,6 +1,4 @@
 import sys
-__author__ = ('tobias','alessior@kth.se')
-
 
 class MainController:
     def __init__(self, model, view):

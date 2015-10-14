@@ -1,7 +1,6 @@
-__author__ = ('tobias','alessior@kth.se')
 from  mmse15project.model.DBConnection import DBConnection
-
 import sqlite3
+
 # DBConnectionSQLite is  an interface class done to ease the communication with the underlying database system. It's the main interface
 #to a sqlite database, it's a specialization of DBConnection
 #

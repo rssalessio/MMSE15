@@ -1,4 +1,3 @@
-__author__ = ('tobias','alessior@kth.se')
 from abc import ABCMeta, abstractmethod
 # DBConnection  is  an abstract class defining the basic methods to communicate with a SQL database
 #

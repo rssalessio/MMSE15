@@ -1,4 +1,3 @@
-__author__ = ('tobias','alessior@kth.se')
 from mmse15project.model.DBConnection import  DBConnection
 from mmse15project.model.Account import  Account
 # DBInterfaceAccount  is  a layer above DBConnection, it defines basic functions that interact with the database about matters regarding

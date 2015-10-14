@@ -1,4 +1,3 @@
-__author__ = 'alessior@kth.se'
 from mmse15project.model.DBConnectionSQLite import *
 from mmse15project.model.DBInterfaceAccount import *
 from mmse15project.model.Account import *

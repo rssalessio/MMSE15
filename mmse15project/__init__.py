@@ -4,8 +4,6 @@ from mmse15project.ctrls.MainController import MainController
 from mmse15project.views.Login import Login
 from mmse15project.model.DBConnectionSQLite import  DBInterface
 
-__author__ = ('tobias','alessior@kth.se')
-
 
 def main():
     m = Model()

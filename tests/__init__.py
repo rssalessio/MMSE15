@@ -1,8 +1,6 @@
 from  tests.DBInterface.DBTests import *
 from tests.model.AccountTests import  *
 
-__author__ = ('tobias','alessior@kth.se')
-
 
 def main():
     DBTest("test.db")
