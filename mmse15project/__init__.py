@@ -2,7 +2,7 @@ from mmse15project.model.Model import Model
 from mmse15project.views.MainView import MainView
 from mmse15project.ctrls.MainController import MainController
 from mmse15project.views.Login import Login
-from mmse15project.database.DBInterface import  DBInterface
+from mmse15project.model.DBConnectionSQLite import  DBInterface
 
 __author__ = ('tobias','alessior@kth.se')
 
