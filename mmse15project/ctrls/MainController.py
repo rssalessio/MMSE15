@@ -7,7 +7,7 @@ class MainController:
 
     def set_frame(self, frame_class):
         self.clear_frame(self.view.container)  # clear container
-        frame = frame_class(self.view.container, self)
+        frame = frame_class(self.view.container, self.model, self)
         frame.pack()
 
     def clear_frame(self, frame):

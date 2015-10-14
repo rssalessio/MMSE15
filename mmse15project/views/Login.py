@@ -2,8 +2,9 @@ import tkinter as tk
 
 
 class Login(tk.Frame):
-    def __init__(self, master, ctrl):
+    def __init__(self, master, model, ctrl):
         tk.Frame.__init__(self, master)
+        self.model = model
         self.ctrl = ctrl
         self.auth()
 
