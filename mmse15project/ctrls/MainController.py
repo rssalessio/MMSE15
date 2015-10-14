@@ -14,7 +14,8 @@ class MainController:
         for widget in frame.winfo_children():
             widget.destroy()
 
-    def login_auth(self, login, username, password):
+    def login_auth(self, login):
+        print("user: %s, pass: %s" % (login.e1.get(), login.e2.get()))
         self.clear_frame(login)
         login.fail()
 
