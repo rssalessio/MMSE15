@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 from  tests.DBInterface.DBTests import *
 from tests.AccountTests import  *
+
 __author__ = ('tobias','alessior@kth.se')
 
-def runtests():
+
+def main():
     DBTest("test.db")
     print("Database test passed")
     AccountTest()
