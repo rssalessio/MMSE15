@@ -3,8 +3,6 @@ from mmse15project.views.MainView import MainView
 from mmse15project.ctrls.MainController import MainController
 from mmse15project.views.Login import Login
 
-__author__ = ('tobias','alessior@kth.se')
-
 
 def main():
     m = Model()

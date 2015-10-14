@@ -1,5 +1,3 @@
-__author__ = ('tobias','alessior@kth.se')
-
 from enum import Enum
 
 class AccountType(Enum):

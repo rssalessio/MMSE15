@@ -1,5 +1,4 @@
 import sys
-__author__ = ('tobias','alessior@kth.se')
 
 
 class MainController:

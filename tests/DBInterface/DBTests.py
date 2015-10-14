@@ -1,4 +1,3 @@
-__author__ = 'alessior@kth.se'
 from mmse15project.database.DBInterface import *
 
 

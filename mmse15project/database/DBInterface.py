@@ -1,7 +1,5 @@
-__author__ = 'alessior@kth.se'
-
-
 import sqlite3
+
 # DBInterface is  an interface class done to ease the communication with the underlying database system
 #
 #Variables:
