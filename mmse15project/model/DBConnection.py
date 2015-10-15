@@ -21,3 +21,5 @@ class DBConnection:
     def executeDoQuery(self,query,var=()): raise NotImplementedError()
     @abstractmethod
     def executeKnowQuery(self,query,var): raise NotImplementedError()
+    @abstractmethod
+    def getLastRow(self): raise NotImplementedError()

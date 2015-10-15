@@ -35,6 +35,9 @@ class DBConnectionSQLite(DBConnection):
     def executeKnowQuery(self,query,var=()):
         return self.cursor.execute(query,var).fetchall()
 
+    def getLastRow(self):
+        return self.cursor.lastrowid
+
 
 
 

@@ -1,5 +1,6 @@
 from mmse15project.model.DBConnection import  DBConnection
 from mmse15project.model.Account import  Account
+from mmse15project.model.DBInterface import DBInterface
 # DBInterfaceAccount  is  a layer above DBConnection, it defines basic functions that interact with the database about matters regarding
 #the user account
 #
@@ -11,7 +12,7 @@ from mmse15project.model.Account import  Account
 #updateAccount(account): updates the data of an account given the account object. Can't change the email
 
 
-class AccountDBInterface:
+class AccountDBInterface(DBInterface):
     def __init__(self,database):
         self.database = database
 
@@ -24,17 +25,17 @@ class AccountDBInterface:
         ret.setAllData(ans)
         return ret
 
-    def addAccount(self,account):
+    def add(self,account):
         values = (account.getEmail(), account.getPassword(), account.getName(), account.getAccountType(),
                   account.getAccountTeam(), account.getAccountQualification(), account.getDepartment(), account.getComment())
         self.database.executeDoQuery('INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES (?,?,?,?,?,?,?,?)',values)
 
-    def updateAccount(self,account):
+    def update(self,account):
         values = (account.getEmail(), account.getPassword(), account.getName(), account.getAccountType(),
                   account.getAccountTeam(), account.getAccountQualification(), account.getDepartment(), account.getComment(),account.getEmail())
         self.database.executeDoQuery('UPDATE account SET email= ?, password= ? , name = ? , accountType = ?, accountTeam = ?, accountQualification=?, department = ?, comment = ? where email = ?',values)
 
-    def getAccount(self,account):
+    def get(self,account):
         ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ?', (account.getEmail(),))[0]
         if (len(ans) == 0):
             return False
