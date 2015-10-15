@@ -1,6 +1,5 @@
 from  mmse15project.model.DBConnection import DBConnection
 import sqlite3
-
 # DBConnectionSQLite is  an interface class done to ease the communication with the underlying database system. It's the main interface
 #to a sqlite database, it's a specialization of DBConnection
 #
@@ -33,7 +32,7 @@ class DBConnectionSQLite(DBConnection):
         self.cursor.execute(query,var)
         self.connection.commit()
 
-    def executeKnowQuery(self,query,var):
+    def executeKnowQuery(self,query,var=()):
         return self.cursor.execute(query,var).fetchall()
 
 

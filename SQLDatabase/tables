@@ -4,7 +4,7 @@
     The key of the table is the email of the employee, it's used as reference to the employee
 */
 
-DROP TABLE account;
+DROP TABLE IF EXISTS account;
 
 CREATE TABLE IF NOT EXISTS account
 (
@@ -12,7 +12,10 @@ CREATE TABLE IF NOT EXISTS account
     password text NOT NULL,
     name text NOT NULL,
     accountType INTEGER,
-    department text
+    accountTeam INTEGER,
+    accountQualification INTEGER,
+    department text,
+    comment text
 );
 
 /*
@@ -20,7 +23,7 @@ CREATE TABLE IF NOT EXISTS account
     There may be multiple customers with same name, but emails are unique. An ID is the primary key, that is auto incremented each time a row is inserted into the table
 */
 
-DROP TABLE client;
+DROP TABLE IF EXISTS  client;
 CREATE TABLE IF NOT EXISTS client
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -32,14 +35,13 @@ CREATE TABLE IF NOT EXISTS client
     birthdate text NOT NULL
 );
 
-
 /*
     Table request stores details written by the customer service when receiving a request from a customer.
     There is a requestID which is incremented each time a row is inserted. ClientID references the id in the client table.
     status is a ternary type, 0 for pending, 1 for accepted, 2 for rejected
 */
 
-DROP TABLE request;
+DROP TABLE IF EXISTS  request;
 CREATE TABLE IF NOT EXISTS request
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -54,12 +56,13 @@ CREATE TABLE IF NOT EXISTS request
     FOREIGN KEY(clientID) REFERENCES client(id)
 );
 
+
 /*
     requestReview: each operation done on a request is commented. The table includes the type of operation "reviewing, editing,..", the operator
     which is just the email of the employee and the date.
 */
 
-DROP TABLE requestReview;
+DROP TABLE IF EXISTS  requestReview;
 CREATE TABLE IF NOT EXISTS requestReview
 (
     requestID INTEGER,
@@ -71,9 +74,11 @@ CREATE TABLE IF NOT EXISTS requestReview
     FOREIGN KEY(operator) REFERENCES account(email)
 );
 
+
+
 /* Recruitment request, type denotes the type of recruitment */
 
-DROP TABLE recruitmentRequest;
+DROP TABLE IF EXISTS  recruitmentRequest;
 CREATE TABLE IF NOT EXISTS recruitmentRequest
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -88,7 +93,7 @@ CREATE TABLE IF NOT EXISTS recruitmentRequest
 /*
   Financial request, requestID references the id of the request table
 */
-DROP TABLE financialRequest;
+DROP TABLE IF EXISTS  financialRequest;
 CREATE TABLE IF NOT EXISTS financialRequest
 (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -102,7 +107,10 @@ CREATE TABLE IF NOT EXISTS financialRequest
 
 
 
-DROP TABLE requestDetails;
+
+
+
+DROP TABLE IF EXISTS  requestDetails;
 CREATE TABLE IF NOT EXISTS requestDetails
 (
     id INTEGER PRIMARY KEY,
@@ -112,11 +120,11 @@ CREATE TABLE IF NOT EXISTS requestDetails
     detail4 text,
     detail5 text,
     detail6 text,
-    needs text
+    needs text,
     FOREIGN KEY(id) REFERENCES request(id)
 );
 
-DROP TABLE task;
+DROP TABLE IF EXISTS  task;
 CREATE TABLE IF NOT EXISTS task
 (
     requestID integer,
@@ -128,10 +136,74 @@ CREATE TABLE IF NOT EXISTS task
     FOREIGN KEY(operator) references account(email)
 );
 
-DROP TABLE department
+DROP TABLE IF EXISTS  department;
+CREATE TABLE IF NOT EXISTS department
 (
     name text PRIMARY KEY,
-    manager text,
     managerEmail text,
     FOREIGN KEY(managerEmail) REFERENCES account(email)
 );
+
+DROP TABLE IF EXISTS  schedule;
+CREATE TABLE IF NOT EXISTS schedule
+(
+    id INTEGER PRIMARY KEY,
+    employee text,
+    startHour integer,
+    endHour integer,
+    date text,
+    FOREIGN KEY(employee) REFERENCES account(email)
+);
+
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('mike@sep.se','mike','mike',3,1,1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('simon@sep.se','simon','simon',2,2,1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('maria@sep.se','maria','maria',1,2,1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('janet@sep.se','janet','janet',2,3,1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('sarah@sep.se','sarah','sarah',1,3,1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('sam@sep.se','sam','sam',1,3,1, 'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('judy@sep.se','judy','judy',1,3, 1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('carine@sep.se','carine','carine',1,3,1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('david@sep.se','david','david',2,4,1,'Administration','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('emma@sep.se','emma','emma',1,4,1,'Administration','');
+
+
+
+
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('alice@sep.se','alice','alice',3,5,1,'Financial','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('fred@sep.se','fred','fred',1,5,1,'Financial','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('sophia@sep.se','sophia','sophia',1,5,1,'Financial','');
+
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('jack@sep.se','jack','jack',3,6,1,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('tobias@sep.se','tobias','tobias',1,6,2,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('magdalena@sep.se','magdalena','magdalena',1,6,2,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('antony@sep.se','antony','antony',1,6,3,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('adam@sep.se','adam','adam',1,6,3,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('magy@sep.se','magy','magy',1,6,5,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('ang@sep.se','ang','ang',1,6,5,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('don@sep.se','don','don',1,6,5,'Production','');
+
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('tom@sep.se','tom','tom',1,6,5,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('julia@sep.se','julia','julia',1,6,4,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('raym@sep.se','raym','raym',1,6,4,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('christ@sep.se','christ','christ',1,6,6,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('nico@sep.se','nico','nico',1,6,6,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('mich@sep.se','mich','mich',1,6,6,'Production','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('robert@sep.se','robert','robert',1,6,6,'Production','');
+
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('natalie@sep.se','natalie','natalie',3,7,1,'Service','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('helen@sep.se','helen','helen',1,7,7, 'Service','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('kate@sep.se','kate','kate',1,7,8,'Service','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('lauren@sep.se','lauren','lauren',1,7,8,'Service','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('johnny@sep.se','johnny','johnny',1,7,8,'Service','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('brad@sep.se','brad','brad',1,7,8,'Service','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('meryl@sep.se','meryl','meryl',1,7,8,'Service','');
+
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('charlie@sep.se','charlie','charlie',3,8,1,'Management','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('jenn@sep.se','jenn','jenn',1,8,1,'Management','');
+INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES ('cam@sep.se','cam','cam',1,8,1,'Management','');
+
+INSERT INTO department (name,managerEmail) VALUES ('Administration', 'mike@sep.se');
+INSERT INTO department (name,managerEmail) VALUES ('Financial', 'alice@sep.se');
+INSERT INTO department (name,managerEmail) VALUES ('Production', 'jack@sep.se');
+INSERT INTO department (name,managerEmail) VALUES ('Service', 'natalie@sep.se');
+INSERT INTO department (name,managerEmail) VALUES ('Management', 'charlie@sep.se');

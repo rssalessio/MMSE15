@@ -8,6 +8,7 @@ from mmse15project.model.Account import  Account
 #Functions:
 #login(email,password): check if the user account is present in the database. If not False is returned, otherwise an Account object is returned
 #addAccount(account): given the Account object, it is added to the database.
+#updateAccount(account): updates the data of an account given the account object. Can't change the email
 
 
 class AccountDBInterface:
@@ -16,11 +17,27 @@ class AccountDBInterface:
 
     def login(self, email, pwd):
         values= (email,pwd)
-        ans = self.database.executeKnowQuery('SELECT email,password, name, accountType FROM account WHERE email = ? and password = ?', values)[0]
+        ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ? and password = ?', values)[0]
         if (len(ans) == 0):
             return False
-        return Account(ans[0],ans[1],ans[2],ans[3])
+        ret = Account()
+        ret.setAllData(ans)
+        return ret
 
     def addAccount(self,account):
-        values = (account.getEmail(), account.getPassword(), account.getName(), account.getAccountType())
-        self.database.executeDoQuery('INSERT INTO account (email,password,name,accountType) VALUES (?,?,?,?)',values)
+        values = (account.getEmail(), account.getPassword(), account.getName(), account.getAccountType(),
+                  account.getAccountTeam(), account.getAccountQualification(), account.getDepartment(), account.getComment())
+        self.database.executeDoQuery('INSERT INTO account (email,password,name,accountType,accountTeam,accountQualification,department,comment) VALUES (?,?,?,?,?,?,?,?)',values)
+
+    def updateAccount(self,account):
+        values = (account.getEmail(), account.getPassword(), account.getName(), account.getAccountType(),
+                  account.getAccountTeam(), account.getAccountQualification(), account.getDepartment(), account.getComment(),account.getEmail())
+        self.database.executeDoQuery('UPDATE account SET email= ?, password= ? , name = ? , accountType = ?, accountTeam = ?, accountQualification=?, department = ?, comment = ? where email = ?',values)
+
+    def getAccount(self,account):
+        ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ?', (account.getEmail(),))[0]
+        if (len(ans) == 0):
+            return False
+        ret = Account()
+        ret.setAllData(ans)
+        return ret

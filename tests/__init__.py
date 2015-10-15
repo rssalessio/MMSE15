@@ -1,4 +1,4 @@
-from  tests.DBInterface.DBTests import *
+from  tests.model.DBTests import *
 from tests.model.AccountTests import  *
 
 
