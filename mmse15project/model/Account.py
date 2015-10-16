@@ -3,7 +3,7 @@ from enum import Enum
 class AccountType(Enum):
     invalidType                         = 0,
     employee                            = 1,
-    officer                             = 2,
+    senior                              = 2,
     manager                             = 3,
     freelancer                          = 4,
 
