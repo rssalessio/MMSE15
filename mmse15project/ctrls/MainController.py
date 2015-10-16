@@ -1,14 +1,24 @@
 import sys
-from mmse15project.views.ManagementStaff import ManagementStaff
+from mmse15project.views.Administration import Administration
+from mmse15project.views.CustomerService import CustomerService
+from mmse15project.views.Financial import Financial
+from mmse15project.views.HR import HR
+from mmse15project.views.Marketing import Marketing
+from mmse15project.views.Production import Production
+from mmse15project.views.Service import Service
+from mmse15project.views.TopManagement import TopManagement
 
 class MainController:
     def __init__(self, model, view):
         self.model = model
         self.view = view
 
-    def set_frame(self, frame_class):
+    def set_frame(self, frame_class, acc_type=None, user=None):
         self.clear_frame(self.view.container)  # clear container
-        frame = frame_class(self.view.container, self.model, self)
+        if (acc_type is None) and (user is None):
+            frame = frame_class(self.view.container, self.model, self)
+        else:
+            frame = frame_class(self.view.container, self.model, self, acc_type, user)
         frame.pack()
 
     def clear_frame(self, frame):
@@ -16,8 +26,23 @@ class MainController:
             widget.destroy()
 
     def login_auth(self, login):
-        if login.e1.get() == "management":
-            self.set_frame(ManagementStaff)
+
+        if login.e1.get() == "Administration":
+            self.set_frame(Administration, "[account type]", "[user]")
+        elif login.e1.get() == "CustomerService":
+            self.set_frame(CustomerService, "[account type]", "[user]")
+        elif login.e1.get() == "Financial":
+            self.set_frame(Financial, "[account type]", "[user]")
+        elif login.e1.get() == "HR":
+            self.set_frame(HR, "[account type]", "[user]")
+        elif login.e1.get() == "Marketing":
+            self.set_frame(Marketing, "[account type]", "[user]")
+        elif login.e1.get() == "Production":
+            self.set_frame(Production, "[account type]", "[user]")
+        elif login.e1.get() == "Service":
+            self.set_frame(Service, "[account type]", "[user]")
+        elif login.e1.get() == "TopManagement":
+            self.set_frame(TopManagement, "[account type]", "[user]")
         else:
             self.clear_frame(login)
             login.fail()

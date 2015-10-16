@@ -1,4 +1,4 @@
-from mmse15project.views.NewAccount import NewAccount
+from mmse15project.views.subviews.NewAccount import NewAccount
 from tests.views.FrameTests import FrameTests
 
 
