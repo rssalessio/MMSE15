@@ -1,4 +1,5 @@
 import sys
+from mmse15project.views.ManagementStaff import ManagementStaff
 
 class MainController:
     def __init__(self, model, view):
@@ -15,9 +16,11 @@ class MainController:
             widget.destroy()
 
     def login_auth(self, login):
-        print("user: %s, pass: %s" % (login.e1.get(), login.e2.get()))
-        self.clear_frame(login)
-        login.fail()
+        if login.e1.get() == "management":
+            self.set_frame(ManagementStaff)
+        else:
+            self.clear_frame(login)
+            login.fail()
 
     def login_try_again(self, login):
         self.clear_frame(login)
@@ -25,3 +28,6 @@ class MainController:
 
     def login_quit(self):
         sys.exit()
+
+    def newAccount_submit(self, newAccount):
+        print("New account for %s created" % newAccount.e3.get())
