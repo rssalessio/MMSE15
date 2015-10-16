@@ -3,7 +3,7 @@ from enum import Enum
 class AccountType(Enum):
     invalidType                         = 0,
     employee                            = 1,
-    senior                              = 2,
+    officer                             = 2,
     manager                             = 3,
     freelancer                          = 4,
 
@@ -18,14 +18,29 @@ class AccountTeam(Enum):
     service                             = 7,
     management                          = 8
 
+class AccountQualification(Enum):
+    invalidQualification                = 0,
+    generic                             = 1,
+    photographer                        = 2,
+    audio                               = 3,
+    graphic                             = 4,
+    decoration                          = 5,
+    technical                           = 6,
+    chef                                = 7,
+    waitress                            = 8
+
+
+
 
 class Account:
-    def __init__(self,email="",password="",name="",atype= AccountType.invalidType,accountTeam = AccountTeam.invalidTeam, comment=''):
+    def __init__(self,email="",password="",name="",atype= AccountType.invalidType,accountTeam = AccountTeam.invalidTeam, accountQualification= AccountQualification.invalidQualification,department='', comment=''):
         self.password = password
         self.email = email
         self.name = name
         self.accountType = atype
         self.accountTeam = accountTeam
+        self.accountQualification = accountQualification
+        self.department = department
         self.comment = comment
 
     def setName(self, name):
@@ -42,6 +57,12 @@ class Account:
 
     def setAccountTeam(self, at):
         self.accountTeam = at
+
+    def setAccountQualification(self,aq):
+        self.accountQualification =aq
+
+    def setDepartment(self,dep):
+        self.department = dep
 
     def setComment(self,comment):
         self.comment = comment
