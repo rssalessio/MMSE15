@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
+# MainView is the root view, have a container for AccountTeam views
 class MainView(tk.Tk):
     def __init__(self):
         tk.Tk.__init__(self)

@@ -1,6 +1,7 @@
 import tkinter.ttk as ttk
 
 
+# AccountTeam view for Administration
 class Administration(ttk.Frame):
     def __init__(self, master, model, ctrl, acc_type, user):
         ttk.Frame.__init__(self, master)

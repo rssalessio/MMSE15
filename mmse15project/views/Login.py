@@ -2,6 +2,7 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
+# Start up view
 class Login(ttk.Frame):
     def __init__(self, master, model, ctrl):
         ttk.Frame.__init__(self, master)
@@ -26,6 +27,9 @@ class Login(ttk.Frame):
         self.e2.grid(row=1, column=1)
 
         b1.grid(columnspan=2)
+
+    def get_all(self):
+        return [self.e1.get(), self.e2.get()]
 
     def fail(self):
         l1 = ttk.Label(self, text="Authentication failed")

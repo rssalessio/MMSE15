@@ -2,6 +2,7 @@ import tkinter.ttk as ttk
 from mmse15project.views.subviews.NewAccount import NewAccount
 
 
+# AccountTeam view for TopManagement
 class TopManagement(ttk.Frame):
     def __init__(self, master, model, ctrl, acc_type, user):
         ttk.Frame.__init__(self, master)

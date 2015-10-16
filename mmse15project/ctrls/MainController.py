@@ -1,4 +1,5 @@
 import sys
+from mmse15project.views.subviews.Sysadmin import Sysadmin
 from mmse15project.views.Administration import Administration
 from mmse15project.views.CustomerService import CustomerService
 from mmse15project.views.Financial import Financial
@@ -27,7 +28,11 @@ class MainController:
 
     def login_auth(self, login):
 
-        if login.e1.get() == "Administration":
+        print(login.get_all())
+
+        if login.e1.get() == "Sysadmin":
+            self.set_frame(Sysadmin)
+        elif login.e1.get() == "Administration":
             self.set_frame(Administration, "[account type]", "[user]")
         elif login.e1.get() == "CustomerService":
             self.set_frame(CustomerService, "[account type]", "[user]")
@@ -55,4 +60,4 @@ class MainController:
         sys.exit()
 
     def newAccount_submit(self, newAccount):
-        print("New account for %s created" % newAccount.e3.get())
+        print(newAccount.get_all())

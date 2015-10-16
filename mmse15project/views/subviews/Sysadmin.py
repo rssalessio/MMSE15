@@ -1,20 +1,18 @@
 import tkinter.ttk as ttk
 
 
-# AccountTeam view for Service
-class Service(ttk.Frame):
-    def __init__(self, master, model, ctrl, acc_type, user):
+# Sysadmin is not an AccountTeam, it can simply add users
+class Sysadmin(ttk.Frame):
+    def __init__(self, master, model, ctrl):
         ttk.Frame.__init__(self, master)
         self.model = model
         self.ctrl = ctrl
-        self.acc_type = acc_type
-        self.user = user
         self.create_view()
 
     def create_view(self):
         container = ttk.Frame(self)
         container.pack()
-        user_info = "Service, " + self.acc_type + " - logged in as " + self.user
+        user_info = "Sysadmin"
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
