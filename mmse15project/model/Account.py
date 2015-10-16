@@ -16,7 +16,7 @@ class AccountTeam(Enum):
     financial                           = 5,
     production                          = 6,
     service                             = 7,
-    management                          = 8
+    topManagement                       = 8
 
 class AccountQualification(Enum):
     invalidQualification                = 0,
