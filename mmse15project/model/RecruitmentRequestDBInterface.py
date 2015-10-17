@@ -39,3 +39,8 @@ class RecruitmentRequestDBInterface(DBInterface):
             temp.setAll(row)
             ret.append(temp)
         return ret
+
+    def getByID(self,request):
+        request = RecruitmentRequest()
+        request.id = id
+        return self.get(request)

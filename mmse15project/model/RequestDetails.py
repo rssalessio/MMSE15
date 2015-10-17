@@ -33,6 +33,6 @@ class RequestDetails:
         self.needs = values[7]
         
     def getAll(self):
-        return (self.id, self.detail1,self.detail2,self.detail3,self.detail4,self.detail5,self.detail6)
+        return (self.id, self.detail1,self.detail2,self.detail3,self.detail4,self.detail5,self.detail6,self.needs)
 
 
