@@ -14,10 +14,7 @@ class MainView(tk.Tk):
         ttk_root.pack()
 
         self.container = ttk.Frame(ttk_root)
-        separator = ttk.Separator(ttk_root, orient=tk.HORIZONTAL)
-        company = ttk.Label(ttk_root, text="© 2015 United Swedish Solutions (USS)",
-                           font="-slant italic")
-
-        self.container.grid(row=0, column=0)
-        separator.grid(row=1, sticky="ew")  # east to west
-        company.grid(row=2, column=0)
+        self.container.pack()
+        ttk.Separator(ttk_root, orient=tk.HORIZONTAL).pack()
+        ttk.Label(ttk_root, text="© 2015 United Swedish Solutions (USS)",
+                  font="-slant italic").pack()
