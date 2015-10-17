@@ -20,6 +20,6 @@ class TopManagement(ttk.Frame):
         n = ttk.Notebook(container)
         n.pack()
         f1 = NewAccount(n, self.model, self.ctrl)
-        f2 = NewAccount(n, self.model, self.ctrl)
+        f2 = ttk.Frame(self)
         n.add(f1, text='Create new account')
-        n.add(f2, text='Create new account')
+        n.add(f2, text='Two')

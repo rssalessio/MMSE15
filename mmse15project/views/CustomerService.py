@@ -1,5 +1,8 @@
 import tkinter.ttk as ttk
+import tkinter as tk
+from mmse15project.views.subviews.SearchClientRecord import SearchClientRecord
 from mmse15project.views.subviews.NewClientRecord import NewClientRecord
+from mmse15project.views.subviews.SearchRequestForEvent import SearchRequestForEvent
 from mmse15project.views.subviews.NewRequestForEvent import NewRequestForEvent
 
 # AccountTeam view for CustomerService
@@ -19,11 +22,11 @@ class CustomerService(ttk.Frame):
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
-        f1 = NewClientRecord(n, self.model, self.ctrl)
-        f2 = NewRequestForEvent(n, self.model, self.ctrl)
-        f3 = ttk.Frame(n)
-        f4 = ttk.Frame(n)
-        n.add(f1, text="Create client")
-        n.add(f2, text="Create Request for Event")
-        n.add(f3, text="Search for clients")
-        n.add(f4, text="Search for Request for Event")
+        f1 = SearchClientRecord(n, self.model, self.ctrl)
+        f2 = NewClientRecord(n, self.model, self.ctrl)
+        f3 = SearchRequestForEvent(n, self.model, self.ctrl)
+        f4 = NewRequestForEvent(n, self.model, self.ctrl)
+        n.add(f1, text="Search for client", sticky="NS")
+        n.add(f2, text="Create new client", sticky="NS")
+        n.add(f3, text="Search for Request for Event", sticky="NS")
+        n.add(f4, text="Create new Request for Event", sticky="NS")
