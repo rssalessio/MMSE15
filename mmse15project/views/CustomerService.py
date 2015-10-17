@@ -14,7 +14,7 @@ class CustomerService(ttk.Frame):
     def create_view(self):
         container = ttk.Frame(self)
         container.pack()
-        user_info = "Customer Service, " + self.acc_type + " - logged in as " + self.user
+        user_info = "Customer Service - logged in as " + self.user
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
