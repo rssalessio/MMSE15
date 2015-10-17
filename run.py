@@ -5,5 +5,5 @@ import tests
 
 
 #tests should always be run before the program starts
-tests.main()
+#ests.main()
 mmse15project.main()

@@ -5,9 +5,10 @@ from mmse15project.views.Login import Login
 from mmse15project.model.DBConnectionSQLite import *
 
 def main():
+    database = DBConnectionSQLite("sepdb.db")
     m = Model()
     v = MainView()
-    c = MainController(m, v)
+    c = MainController(m, v, database)
 
     c.set_frame(Login)
     v.mainloop()
