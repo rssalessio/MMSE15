@@ -6,7 +6,7 @@ from mmse15project.model.Account import *
 def DBTest(connection_name):
     db = DBConnectionSQLite(connection_name)
     assert (db.isConnectionOk() == 1)
-    db.executeDoQuery("DROP TABLE account")
+    db.executeDoQuery("DROP TABLE IF EXISTS account")
     db.executeDoQuery(
         "CREATE TABLE  account (email text PRIMARY KEY, password text,name text,accountType INTEGER,accountTeam INTEGER,accountQualification INTEGER, department text,comment text)")
     db.executeDoQuery(
