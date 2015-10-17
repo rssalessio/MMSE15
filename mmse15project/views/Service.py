@@ -22,6 +22,6 @@ class Service(ttk.Frame):
         f1 = ttk.Frame(n)
         f2 = ttk.Frame(n)
         f3 = ttk.Frame(n)
-        n.add(f1, text="Create new client record")
+        n.add(f1, text="One")
         n.add(f2, text="Two")
         n.add(f3, text="Three")
