@@ -2,18 +2,22 @@ from enum import Enum
 from datetime import datetime
 
 class RequestStatus(Enum):
-    invalid     = 0,
-    pending     = 1,
-    accepted    = 2,
-    rejected    = 3
+    invalid         = 0,
+    pending         = 1,
+    accepted        = 2,
+    rejected        = 3,
+    beingReviewed   = 4,
+    reviewed        = 5,
+    detailsCreated  = 6
+
 
 class Request:
-        def __init__(self,id=0,clientid=0,eventType='', startdate='01 jan 91', enddate='01 jan 91', epar = 0, ebudg=0,pref='',status=RequestStatus.invalid):
+        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.invalid):
             self.id = id
             self.clientid = clientid
             self.eventType = eventType
-            self.startdate = datetime.strptime(startdate, '%b-%d-%Y')
-            self.enddate  = datetime.strptime(enddate, '%b-%d-%Y')
+            self.startdate = startdate
+            self.enddate  = enddate
             self.expectedParticipants = epar
             self.expectedBudget = ebudg
             self.preferences = pref
@@ -33,8 +37,8 @@ class Request:
         def setID(self,id): self.id = id
         def setClientID(self,id): self.clientid = id
         def setEventType(self,et): self.eventType=et
-        def setStartDate(self,sd): self.startdate = datetime.strptime(sd, '%b-%d-%Y')
-        def setEndDate(self,ed): self.enddate = datetime.strptime(ed, '%b-%d-%Y')
+        def setStartDate(self,sd): self.startdate = sd
+        def setEndDate(self,ed): self.enddate = ed
         def setExpectedParticipants(self,ep): self.expectedParticipants = ep
         def setExpectedBudget(self,eb): self.expectedBudget = eb
         def setPreferences(self,p): self.preferences = p
@@ -43,8 +47,8 @@ class Request:
             self.id = values[0]
             self.clientid = values[1]
             self.eventType = values[2]
-            self.startdate = datetime.strptime(values[3], '%b-%d-%Y')
-            self.enddate  = datetime.strptime(values[4], '%b-%d-%Y')
+            self.startdate = values[3]
+            self.enddate  = values[4]
             self.expectedParticipants = values[5]
             self.expectedBudget = values[6]
             self.preferences = values[7]

@@ -19,9 +19,13 @@ class RequestDBInterface (DBInterface):
         self.database.executeDoQuery('UPDATE request SET clientID=?, eventType=?,startDate=?, endDate=?, expectedParticipants=?, expectedBudget=?, preferences=?, status=? where id=?',values)
 
     def get(self,request):
-        ans = self.database.executeKnowQuery('SELECT * FROM request WHERE clientID = ?', (request.getClientID(),))[0]
+        ans = self.database.executeKnowQuery('SELECT * FROM request WHERE clientID = ?', (request.getClientID(),))
         if (len(ans) == 0):
             return False
-        ret = Request()
-        ret.setAllData(ans)
+        ret = []
+        for row in ans:
+            req = Request()
+            req.setAllData(row)
+            ret.append(req)
         return ret
+

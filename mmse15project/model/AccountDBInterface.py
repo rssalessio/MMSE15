@@ -18,10 +18,10 @@ class AccountDBInterface(DBInterface):
 
     def login(self, email, pwd):
         values= (email,pwd)
-        print(values)
-        ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ? and password = ?', values)[0]
+        ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ? and password = ?', values)
         if (len(ans) == 0):
             return False
+        ans=ans[0]
         ret = Account()
         ret.setAllData(ans)
         return ret
@@ -37,9 +37,10 @@ class AccountDBInterface(DBInterface):
         self.database.executeDoQuery('UPDATE account SET email= ?, password= ? , name = ? , accountType = ?, accountTeam = ?, accountQualification=?, department = ?, comment = ? where email = ?',values)
 
     def get(self,account):
-        ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ?', (account.getEmail(),))[0]
+        ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ?', (account.getEmail(),))
         if (len(ans) == 0):
             return False
+        ans=ans[0]
         ret = Account()
         ret.setAllData(ans)
         return ret

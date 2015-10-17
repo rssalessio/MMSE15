@@ -5,14 +5,14 @@ from datetime import datetime
 
 
 class Client:
-    def __init__(self, id=0,email = '', name ='', address='',postalCode=0, city='', birthdate='1 jan 91'):
+    def __init__(self, id=0,email = '', name ='', address='',postalCode=0, city='', birthdate='01/01/1991'):
         self.id=id
         self.email = email
         self.name = name
         self.address = address
         self.postalCode = postalCode
         self.city = city
-        self.birthdate =  datetime.strptime(birthdate, '%b-%d-%Y')
+        self.birthdate =  birthdate
 
 
     def setAllData(self,values):
@@ -22,9 +22,9 @@ class Client:
         self.address = values[3]
         self.postalCode = values[4]
         self.city = values[5]
-        self.birthdate = datetime.strptime(values[6], '%b-%d-%Y')
+        self.birthdate =values[6]
 
-    def getAllData(self,values): return (self.id,self.email,self.name,self.address,self.postalCode,self.city,self.birthdate)
+    def getAllData(self): return (self.id,self.email,self.name,self.address,self.postalCode,self.city,self.birthdate)
 
     def getID(self): return self.id
     def getEmail(self): return self.email
@@ -40,4 +40,4 @@ class Client:
     def setAddress(self,address): self.address = address
     def setPostalCode(self, pc): self.postalCode = pc
     def setCity(self): self.city
-    def setBirthDate(self, bd): self.birthdate = datetime.strptime(bd, '%b-%d-%Y')
+    def setBirthDate(self, bd): self.birthdate = bd
