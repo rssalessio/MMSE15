@@ -8,11 +8,14 @@ from mmse15project.views.Marketing import Marketing
 from mmse15project.views.Production import Production
 from mmse15project.views.Service import Service
 from mmse15project.views.TopManagement import TopManagement
-
+from mmse15project.model.AccountDBInterface import  *
+from mmse15project.model.Account import *
 class MainController:
-    def __init__(self, model, view):
+    def __init__(self, model, view, database):
         self.model = model
         self.view = view
+        self.database = database
+        self.accountDB = AccountDBInterface(self.database)
 
     def set_frame(self, frame_class, acc_type=None, user=None):
         self.clear_frame(self.view.container)  # clear container
@@ -29,28 +32,30 @@ class MainController:
     def login_auth(self, login):
 
         print(login.get_all())
-
-        if login.e1.get() == "Sysadmin":
-            self.set_frame(Sysadmin)
-        elif login.e1.get() == "Administration":
-            self.set_frame(Administration, "[account type]", "[user]")
-        elif login.e1.get() == "CustomerService":
-            self.set_frame(CustomerService, "[account type]", "[user]")
-        elif login.e1.get() == "Financial":
-            self.set_frame(Financial, "[account type]", "[user]")
-        elif login.e1.get() == "HR":
-            self.set_frame(HR, "[account type]", "[user]")
-        elif login.e1.get() == "Marketing":
-            self.set_frame(Marketing, "[account type]", "[user]")
-        elif login.e1.get() == "Production":
-            self.set_frame(Production, "[account type]", "[user]")
-        elif login.e1.get() == "Service":
-            self.set_frame(Service, "[account type]", "[user]")
-        elif login.e1.get() == "TopManagement":
-            self.set_frame(TopManagement, "[account type]", "[user]")
-        else:
+        account = self.accountDB.login(login.e1.get()+"@sep.se", login.e2.get())
+        if (account == False):
             self.clear_frame(login)
             login.fail()
+        else:
+            if account.getAccountTeam() == AccountTeam.administration.value[0]:
+                self.set_frame(Administration, account.getAccountType(), account.getEmail())
+            elif account.getAccountTeam() == AccountTeam.customerService.value[0]:
+                self.set_frame(CustomerService, account.getAccountType(), account.getEmail())
+            elif account.getAccountTeam() == AccountTeam.financial.value[0]:
+                self.set_frame(Financial, account.getAccountType(), account.getEmail())
+            elif account.getAccountTeam() == AccountTeam.marketing.value[0]:
+                self.set_frame(Marketing, account.getAccountType(), account.getEmail())
+            elif account.getAccountTeam() == AccountTeam.production.value[0]:
+                self.set_frame(Production, account.getAccountType(), account.getEmail())
+            elif account.getAccountTeam() == AccountTeam.hr.value[0]:
+                self.set_frame(HR, account.getAccountType(), account.getEmail())
+            elif account.getAccountTeam() == AccountTeam.service.value[0]:
+                self.set_frame(Service, account.getAccountType(), account.getEmail())
+            elif account.getAccountTeam() == AccountTeam.topManagement.value[0]:
+                self.set_frame(TopManagement, account.getAccountType(), account.getEmail())
+            else:
+                self.clear_frame(login)
+                login.fail()
 
     def login_try_again(self, login):
         self.clear_frame(login)
