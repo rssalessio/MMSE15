@@ -18,6 +18,7 @@ class AccountDBInterface(DBInterface):
 
     def login(self, email, pwd):
         values= (email,pwd)
+        print(values)
         ans = self.database.executeKnowQuery('SELECT * FROM account WHERE email = ? and password = ?', values)[0]
         if (len(ans) == 0):
             return False
