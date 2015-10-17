@@ -11,7 +11,7 @@ class NewRequestForEvent(ttk.Frame):
         self.create_form()
 
     def create_form(self):
-        ttk.Label(self, text="Record number:").grid(row=0, sticky=tk.E)
+        ttk.Label(self, text="ClientID:").grid(row=0, sticky=tk.E)
         ttk.Label(self, text="Client name:").grid(row=1, sticky=tk.E)
         ttk.Label(self, text="Event type:").grid(row=2, sticky=tk.E)
         ttk.Label(self, text="From:").grid(row=3, sticky=tk.E)
@@ -20,13 +20,20 @@ class NewRequestForEvent(ttk.Frame):
         ttk.Label(self, text="Preferences", font="-underline true").grid(row=6, sticky=tk.E)
         ttk.Label(self, text="Expected budget:").grid(row=10, sticky=tk.E)
 
-        self.e1 = ttk.Entry(self)
-        self.e2 = ttk.Entry(self)
-        self.e3 = ttk.Entry(self)
-        self.e4 = ttk.Entry(self)
-        self.e5 = ttk.Entry(self)
-        self.e6 = ttk.Entry(self)
+        self.e1 = ttk.Entry(self)  # ClientID
+        self.e1.grid(row=0, column=1)
+        self.e2 = ttk.Entry(self)  # Client name
+        self.e2.grid(row=1, column=1)
+        self.e3 = ttk.Entry(self)  # Event type
+        self.e3.grid(row=2, column=1)
+        self.e4 = ttk.Entry(self)  # From
+        self.e4.grid(row=3, column=1)
+        self.e5 = ttk.Entry(self)  # To
+        self.e5.grid(row=4, column=1)
+        self.e6 = ttk.Entry(self)  # Attendees
+        self.e6.grid(row=5, column=1)
 
+        # Preferences
         self.e7 = tk.IntVar(self)
         ttk.Checkbutton(self, text="Decorations", variable=self.e7).grid(row=7, sticky=tk.W)
         self.e8 = tk.IntVar(self)
@@ -38,19 +45,11 @@ class NewRequestForEvent(ttk.Frame):
         self.e11 = tk.IntVar(self)
         ttk.Checkbutton(self, text="Photos/filming", variable=self.e11).grid(row=9, sticky=tk.W)
 
-        self.e12 = ttk.Entry(self)
-
-        b1 = ttk.Button(self, text="Submit",
-                       command=lambda: self.ctrl.newAccount_submit(self))
-
-        self.e1.grid(row=0, column=1)
-        self.e2.grid(row=1, column=1)
-        self.e3.grid(row=2, column=1)
-        self.e4.grid(row=3, column=1)
-        self.e5.grid(row=4, column=1)
-        self.e6.grid(row=5, column=1)
+        self.e12 = ttk.Entry(self) # Expected budget
         self.e12.grid(row=10, column=1)
 
+        b1 = ttk.Button(self, text="Submit",
+                       command=lambda: self.ctrl.submit(self))
         b1.grid(columnspan=2)
 
     def get_all(self):

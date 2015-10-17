@@ -6,4 +6,4 @@ class NewRequestForEventTests:
     def __init__(self):
         self.root = FrameTests(NewRequestForEvent)
 
-NewRequestForEvent().root.mainloop()
+NewRequestForEventTests().root.mainloop()

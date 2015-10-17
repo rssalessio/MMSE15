@@ -11,21 +11,16 @@ class Login(ttk.Frame):
         self.auth()
 
     def auth(self):
-        l1 = ttk.Label(self, text="User:")
-        l2 = ttk.Label(self, text="Pass:")
+        ttk.Label(self, text="User:").grid(row=0, sticky=tk.E)
+        ttk.Label(self, text="Pass:").grid(row=1, sticky=tk.E)
 
-        self.e1 = ttk.Entry(self)
-        self.e2 = ttk.Entry(self, show="*")
+        self.e1 = ttk.Entry(self)  # User
+        self.e1.grid(row=0, column=1)
+        self.e2 = ttk.Entry(self, show="*")  # Pass
+        self.e2.grid(row=1, column=1)
 
         b1 = ttk.Button(self, text="Login",
                        command=lambda: self.ctrl.login_auth(self))
-
-        l1.grid(row=0, sticky=tk.E)
-        l2.grid(row=1, sticky=tk.E)
-
-        self.e1.grid(row=0, column=1)
-        self.e2.grid(row=1, column=1)
-
         b1.grid(columnspan=2)
 
     def get_all(self):
