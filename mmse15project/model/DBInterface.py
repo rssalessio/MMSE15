@@ -9,3 +9,5 @@ class DBInterface:
     def update(self): raise NotImplementedError()
     @abstractmethod
     def get(self,query,var=()): raise NotImplementedError()
+    @abstractmethod
+    def getAll(self): raise NotImplementedError()

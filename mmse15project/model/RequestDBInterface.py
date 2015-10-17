@@ -44,3 +44,9 @@ class RequestDBInterface (DBInterface):
         temp = Request()
         temp.clientid = clientid
         return self.get(temp)
+
+    def getAll(self):
+        ans= self.database.executeKnowQuery('SELECT * from request')
+        if (len(ans)==0):
+            return False
+        return ans

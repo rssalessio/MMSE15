@@ -5,6 +5,8 @@ from mmse15project.model.ClientDBInterface import *
 from mmse15project.model.Client import *
 from mmse15project.model.Request import  *
 from mmse15project.model.RequestDBInterface import *
+from mmse15project.model.FinancialRequest import *
+from mmse15project.model.FinancialRequestDBInterface import *
 def AccountDBInterfaceTest(db):
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS account")
@@ -53,10 +55,9 @@ def ClientDBInterfaceTest(db):
     assert(len(client)==1)
     client=client[0]
     assert(client.getName() == 'Russo Alessio')
-    a = ClientDB.listOfClients()
+    a = ClientDB.getAll()
     assert(len(a) ==1)
     print("Passed ClientDBInterface test")
-
 
 def RequestDBInterfaceTest(db):
     assert (db.isConnectionOk() == 1)
@@ -77,9 +78,34 @@ def RequestDBInterfaceTest(db):
     request = reqDB.get(request)[0]
     assert(request.expectedBudget == 10)
     print("Passed RequestDBInterface test")
+def FinancialRequestDBInterfaceTest(db):
+    assert (db.isConnectionOk() == 1)
+    db.executeDoQuery("DROP TABLE IF EXISTS financialRequest")
+    db.executeDoQuery(
+        "CREATE TABLE IF NOT EXISTS financialRequest(id INTEGER PRIMARY KEY AUTOINCREMENT,date text,department text,requestID integer,amount integer,reason  text,status integer,FOREIGN KEY(requestID) REFERENCES request(id))")
+
+    reqDB = FinancialRequestDBInterface(db)
+    request = FinancialRequest(0,'10/10/2015','Administration',1,1000,'Test',FinancialRequestStatus.pending.value[0])
+    request.id=reqDB.add(request)
+    assert(request.id != 0)
+    request= reqDB.get(request)
+    assert(request.amount == 1000)
+    request.amount=2000
+    reqDB.update(request)
+    request = reqDB.get(request)
+    assert(request.amount == 2000)
+    a=reqDB.getAll()
+    assert(len(a)==1)
+    a=a[0]
+    assert(a.amount == 2000)
+    a=reqDB.getByRequestID(1)
+    assert(len(a)==1)
+    assert(a[0].amount == 2000)
+    print("FinancialRequestDBInterface test passed")
 
 def DBTest(connection_name):
     db = DBConnectionSQLite(connection_name)
     AccountDBInterfaceTest(db)
     ClientDBInterfaceTest(db)
     RequestDBInterfaceTest(db)
+    FinancialRequestDBInterfaceTest(db)

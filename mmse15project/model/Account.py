@@ -5,7 +5,7 @@ class AccountType(Enum):
     employee                            = 1,
     senior                              = 2,
     manager                             = 3,
-    freelancer                          = 4,
+    freelancer                          = 4
 
 class AccountTeam(Enum):
     invalidTeam                         = 0,

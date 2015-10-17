@@ -34,7 +34,9 @@ class ClientDBInterface(DBInterface):
         return self.get(temp)
 
     def getByName(self,name):
-        ans = self.listOfClients()
+        ans = self.getAll()
+        if (ans== False):
+            return False
         ret = []
         for row in ans:
             if (name not in row[2]) : continue
@@ -43,8 +45,11 @@ class ClientDBInterface(DBInterface):
             ret.append(temp)
         return ret
 
-    def listOfClients(self):
-        return self.database.executeKnowQuery('SELECT * from client')
+    def getAll(self):
+        ans= self.database.executeKnowQuery('SELECT * from client')
+        if (len(ans)==0):
+            return False
+        return ans
 
 
 
