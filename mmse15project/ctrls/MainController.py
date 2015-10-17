@@ -1,5 +1,4 @@
 import sys
-from mmse15project.views.subviews.Sysadmin import Sysadmin
 from mmse15project.views.Administration import Administration
 from mmse15project.views.CustomerService import CustomerService
 from mmse15project.views.Financial import Financial
@@ -8,14 +7,11 @@ from mmse15project.views.Marketing import Marketing
 from mmse15project.views.Production import Production
 from mmse15project.views.Service import Service
 from mmse15project.views.TopManagement import TopManagement
-from mmse15project.model.AccountDBInterface import  *
-from mmse15project.model.Account import *
+
 class MainController:
-    def __init__(self, model, view, database):
+    def __init__(self, model, view):
         self.model = model
         self.view = view
-        self.database = database
-        self.accountDB = AccountDBInterface(self.database)
 
     def set_frame(self, frame_class, acc_type=None, user=None):
         self.clear_frame(self.view.container)  # clear container
@@ -32,26 +28,26 @@ class MainController:
     def login_auth(self, login):
 
         print(login.get_all())
-        account = self.accountDB.login(login.e1.get()+"@sep.se", login.e2.get())
-        if (account == False):
+        account = self.model.accountDB.login(login.e1.get()+"@sep.se", login.e2.get())
+        if account is False:
             self.clear_frame(login)
             login.fail()
         else:
-            if account.getAccountTeam() == AccountTeam.administration.value[0]:
+            if account.getAccountTeam() == self.model.AccountTeam.administration.value[0]:
                 self.set_frame(Administration, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.customerService.value[0]:
+            elif account.getAccountTeam() == self.model.AccountTeam.customerService.value[0]:
                 self.set_frame(CustomerService, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.financial.value[0]:
+            elif account.getAccountTeam() == self.model.AccountTeam.financial.value[0]:
                 self.set_frame(Financial, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.marketing.value[0]:
+            elif account.getAccountTeam() == self.model.AccountTeam.marketing.value[0]:
                 self.set_frame(Marketing, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.production.value[0]:
+            elif account.getAccountTeam() == self.model.AccountTeam.production.value[0]:
                 self.set_frame(Production, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.hr.value[0]:
+            elif account.getAccountTeam() == self.model.AccountTeam.hr.value[0]:
                 self.set_frame(HR, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.service.value[0]:
+            elif account.getAccountTeam() == self.model.AccountTeam.service.value[0]:
                 self.set_frame(Service, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.topManagement.value[0]:
+            elif account.getAccountTeam() == self.model.AccountTeam.topManagement.value[0]:
                 self.set_frame(TopManagement, account.getAccountType(), account.getEmail())
             else:
                 self.clear_frame(login)
