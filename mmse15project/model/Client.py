@@ -15,7 +15,7 @@ class Client:
         self.birthdate =  birthdate
 
 
-    def setAllData(self,values):
+    def setAll(self,values):
         self.id = values[0]
         self.email = values[1]
         self.name = values[2]
@@ -24,7 +24,7 @@ class Client:
         self.city = values[5]
         self.birthdate =values[6]
 
-    def getAllData(self): return (self.id,self.email,self.name,self.address,self.postalCode,self.city,self.birthdate)
+    def getAll(self): return (self.id,self.email,self.name,self.address,self.postalCode,self.city,self.birthdate)
 
     def getID(self): return self.id
     def getEmail(self): return self.email

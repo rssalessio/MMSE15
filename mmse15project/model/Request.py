@@ -32,7 +32,7 @@ class Request:
         def getExpectedBudget(self):return self.expectedBudget
         def getPreferences(self):return self.preferences
         def getStatus(self): return self.status
-        def getAllData(self): return (self.id, self.clientid, self.eventType, self.startdate, self.enddate, self.expectedParticipants, self.expectedBudget,self.preferences,self.status)
+        def getAll(self): return (self.id, self.clientid, self.eventType, self.startdate, self.enddate, self.expectedParticipants, self.expectedBudget,self.preferences,self.status)
 
         def setID(self,id): self.id = id
         def setClientID(self,id): self.clientid = id
@@ -43,7 +43,7 @@ class Request:
         def setExpectedBudget(self,eb): self.expectedBudget = eb
         def setPreferences(self,p): self.preferences = p
         def setStatus(self,s): self.status = s
-        def setAllData(self,values):
+        def setAll(self,values):
             self.id = values[0]
             self.clientid = values[1]
             self.eventType = values[2]

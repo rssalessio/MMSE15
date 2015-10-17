@@ -67,7 +67,7 @@ class Account:
     def setComment(self,comment):
         self.comment = comment
 
-    def setAllData(self,list):
+    def setAll(self,list):
         self.email = list[0]
         self.password = list[1]
         self.name = list[2]
@@ -101,6 +101,6 @@ class Account:
     def getComment(self):
         return self.comment
 
-    def getAllData(self):
+    def getAll(self):
         return (self.getEmail(), self.getPassword(), self.getName(), self.getAccountType(),
                   self.getAccountTeam(), self.getAccountQualification(), self.getDepartment(), self.getComment())

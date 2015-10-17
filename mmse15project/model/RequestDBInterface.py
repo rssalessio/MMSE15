@@ -8,14 +8,14 @@ class RequestDBInterface (DBInterface):
         self.database = database
 
     def add(self, request):
-        values = request.getAllData()
+        values = request.getAll()
         values =tuple_without(values,0)
         self.database.executeDoQuery('INSERT INTO request (clientID, eventType,startDate, endDate, expectedParticipants, expectedBudget, preferences, status ) VALUES (?,?,?,?,?,?,?,?)',values)
         request.setID(self.database.getLastRow())
         return request.getID()
 
     def update(self,request):
-        values = request.getAllData()
+        values = request.getAll()
         values =tuple_without(values,0)
         values = values+  (request.getID(),)
         self.database.executeDoQuery('UPDATE request SET clientID=?, eventType=?,startDate=?, endDate=?, expectedParticipants=?, expectedBudget=?, preferences=?, status=? where id=?',values)
@@ -27,7 +27,7 @@ class RequestDBInterface (DBInterface):
         ret = []
         for row in ans:
             req = Request()
-            req.setAllData(row)
+            req.setAll(row)
             ret.append(req)
         return ret
 
@@ -37,7 +37,7 @@ class RequestDBInterface (DBInterface):
             return False
         ans=ans[0]
         ret = Request()
-        ret.setAllData(ans)
+        ret.setAll(ans)
         return ret
 
     def getByClientID(self,clientid):

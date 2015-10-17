@@ -7,14 +7,14 @@ class ClientDBInterface(DBInterface):
         self.database = database
 
     def add(self, client):
-        values = client.getAllData()
+        values = client.getAll()
         values = tuple_without(values,0)
         self.database.executeDoQuery('INSERT INTO client (email,name,address,postalCode,city,birthdate ) VALUES (?,?,?,?,?,?)',values)
         client.setID(self.database.getLastRow())
         return client.getID()
 
     def update(self,client):
-        values = client.getAllData()
+        values = client.getAll()
         values =tuple_without(values,0)
         values = values +  (client.getEmail(),)
         self.database.executeDoQuery('UPDATE client SET email=?,name = ?,address = ?,postalCode=?,city = ? ,birthdate = ? where email=?',values)
@@ -25,7 +25,7 @@ class ClientDBInterface(DBInterface):
             return False
         ans = ans[0]
         ret = Client()
-        ret.setAllData(ans)
+        ret.setAll(ans)
         return ret
 
     def getByEmail(self,email):
@@ -41,7 +41,7 @@ class ClientDBInterface(DBInterface):
         for row in ans:
             if (name not in row[2]) : continue
             temp = Client()
-            temp.setAllData(row)
+            temp.setAll(row)
             ret.append(temp)
         return ret
 

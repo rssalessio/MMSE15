@@ -101,7 +101,7 @@ def FinancialRequestDBInterfaceTest(db):
     a=reqDB.getByRequestID(1)
     assert(len(a)==1)
     assert(a[0].amount == 2000)
-    print("FinancialRequestDBInterface test passed")
+    print("Passed FinancialRequestDBInterface test")
 
 def DBTest(connection_name):
     db = DBConnectionSQLite(connection_name)

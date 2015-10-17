@@ -13,14 +13,14 @@ class Schedule:
     def getStartHour(self): return self.starthour
     def getEndHour(self): return self.endhour
     def getDate(self): return self.date
-    def getAllData(self): return (self.id, self.employee, self.starthour, self.endhour, self.date)
+    def getAll(self): return (self.id, self.employee, self.starthour, self.endhour, self.date)
 
     def setID(self,id): self.id = id
     def setEmployee(self,e): self.employee = e
     def setStartHour(self,sh): self.starthour = sh
     def setEndHour(self,eh): self.endhour =eh
     def setDate(self,date): self.date = date
-    def setAllData(self,values):
+    def setAll(self,values):
         self.id = values[0]
         self.employee = values[1]
         self.starthour = values[2]

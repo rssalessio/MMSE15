@@ -23,7 +23,7 @@ class AccountDBInterface(DBInterface):
             return False
         ans=ans[0]
         ret = Account()
-        ret.setAllData(ans)
+        ret.setAll(ans)
         return ret
 
     def add(self,account):
@@ -42,5 +42,5 @@ class AccountDBInterface(DBInterface):
             return False
         ans=ans[0]
         ret = Account()
-        ret.setAllData(ans)
+        ret.setAll(ans)
         return ret
