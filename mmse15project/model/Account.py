@@ -1,39 +1,42 @@
 from enum import Enum
 
+
 class AccountType(Enum):
-    invalidType                         = 0,
-    employee                            = 1,
-    senior                              = 2,
-    manager                             = 3,
-    freelancer                          = 4
+    InvalidType                         = 0
+    Employee                            = 1
+    Senior                              = 2
+    Manager                             = 3
+    Freelancer                          = 4
+
 
 class AccountTeam(Enum):
-    invalidTeam                         = 0,
-    administration                      = 1,
-    hr                                  = 2,
-    customerService                     = 3,
-    marketing                           = 4,
-    financial                           = 5,
-    production                          = 6,
-    service                             = 7,
-    topManagement                       = 8
+    InvalidTeam                         = 0
+    Administration                      = 1
+    HR                                  = 2
+    CustomerService                     = 3
+    Marketing                           = 4
+    Financial                           = 5
+    Production                          = 6
+    Service                             = 7
+    TopManagement                       = 8
+
 
 class AccountQualification(Enum):
-    invalidQualification                = 0,
-    generic                             = 1,
-    photographer                        = 2,
-    audio                               = 3,
-    graphic                             = 4,
-    decoration                          = 5,
-    technical                           = 6,
-    chef                                = 7,
-    waitress                            = 8
+    InvalidQualification                = 0
+    Generic                             = 1
+    Photographer                        = 2
+    Audio                               = 3
+    Graphic                             = 4
+    Decoration                          = 5
+    Technical                           = 6
+    Chef                                = 7
+    Waitress                            = 8
 
 
 
 
 class Account:
-    def __init__(self,email="",password="",name="",atype= AccountType.invalidType,accountTeam = AccountTeam.invalidTeam, accountQualification= AccountQualification.invalidQualification,department='', comment=''):
+    def __init__(self,email="",password="",name="",atype= AccountType.InvalidType,accountTeam = AccountTeam.InvalidTeam, accountQualification= AccountQualification.InvalidQualification,department='', comment=''):
         self.password = password
         self.email = email
         self.name = name
