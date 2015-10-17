@@ -1,21 +1,21 @@
 from mmse15project.model.DBConnection import  DBConnection
 from mmse15project.model.Client import  Client
 from mmse15project.model.DBInterface import DBInterface
-
+from mmse15project.GenericMethods import *
 class ClientDBInterface(DBInterface):
     def __init__(self,database):
         self.database = database
 
     def add(self, client):
         values = client.getAllData()
-        values = tuple(filter(lambda el: el != client.getID(), values))
+        values = tuple_without(values,0)
         self.database.executeDoQuery('INSERT INTO client (email,name,address,postalCode,city,birthdate ) VALUES (?,?,?,?,?,?)',values)
         client.setID(self.database.getLastRow())
         return client.getID()
 
     def update(self,client):
         values = client.getAllData()
-        values = tuple(filter(lambda el: el != client.getID(), values))
+        values =tuple_without(values,0)
         values = values +  (client.getEmail(),)
         self.database.executeDoQuery('UPDATE client SET email=?,name = ?,address = ?,postalCode=?,city = ? ,birthdate = ? where email=?',values)
 

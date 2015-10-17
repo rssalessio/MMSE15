@@ -64,6 +64,18 @@ def RequestDBInterfaceTest(db):
     db.executeDoQuery(
         "CREATE TABLE IF NOT EXISTS request(id INTEGER PRIMARY KEY AUTOINCREMENT,clientID INTEGER,eventType text,startDate text,endDate   text,expectedParticipants integer,expectedBudget integer,preferences text,status integer,FOREIGN KEY(clientID) REFERENCES client(id))")
     reqDB = RequestDBInterface(db)
+    request = Request(0,1,'Party','10/10/2015','10/10/2015',100,10000,'None',RequestStatus.pending.value[0])
+    request.id = reqDB.add(request)
+    request = reqDB.getByID(request.id)
+    assert(request.clientid == 1)
+    ans = reqDB.getByClientID(1)
+    assert(len(ans)==1)
+    request= ans[0]
+    assert(request.clientid == 1)
+    request.expectedBudget=10
+    reqDB.update(request)
+    request = reqDB.get(request)[0]
+    assert(request.expectedBudget == 10)
     print("Passed RequestDBInterface test")
 
 def DBTest(connection_name):
