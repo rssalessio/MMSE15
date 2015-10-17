@@ -7,6 +7,8 @@ from mmse15project.model.Request import  *
 from mmse15project.model.RequestDBInterface import *
 from mmse15project.model.FinancialRequest import *
 from mmse15project.model.FinancialRequestDBInterface import *
+from mmse15project.model.RecruitmentRequestDBInterface import *
+from mmse15project.model.RecruitmentRequest import *
 def AccountDBInterfaceTest(db):
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS account")
@@ -103,9 +105,30 @@ def FinancialRequestDBInterfaceTest(db):
     assert(a[0].amount == 2000)
     print("Passed FinancialRequestDBInterface test")
 
+def RecruitmentRequestDBInterfaceTest(db):
+    assert (db.isConnectionOk() == 1)
+    db.executeDoQuery("DROP TABLE IF EXISTS recruitmentRequest")
+    db.executeDoQuery(
+        "CREATE TABLE IF NOT EXISTS recruitmentRequest(id INTEGER PRIMARY KEY AUTOINCREMENT,type integer,date text,department text,title text,status integer,description text)")
+    reqDB = RecruitmentRequestDBInterface(db)
+    request = RecruitmentRequest(0,RecruitmentType.hire.value,'10/10/2015','Administration','Customer Service Operator',RecruitmentStatus.active.value[0],'none')
+    request.id = reqDB.add(request)
+    assert(request.id != 0)
+    request=reqDB.get(request)
+    assert(request.department=='Administration')
+    request.department='HR'
+    reqDB.update(request)
+    request= reqDB.get(request)
+    assert(request.department == 'HR')
+    a=reqDB.getAll()
+    assert(len(a)==1)
+    assert(a[0].department=='HR')
+    print('Passed RecruitmentRequestDBInterface test')
+
 def DBTest(connection_name):
     db = DBConnectionSQLite(connection_name)
     AccountDBInterfaceTest(db)
     ClientDBInterfaceTest(db)
     RequestDBInterfaceTest(db)
     FinancialRequestDBInterfaceTest(db)
+    RecruitmentRequestDBInterfaceTest(db)
