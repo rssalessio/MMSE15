@@ -51,7 +51,7 @@ class MainController:
                 self.set_frame(HR, account.getAccountType(), account.getEmail())
             elif account.getAccountTeam() == AccountTeam.service.value[0]:
                 self.set_frame(Service, account.getAccountType(), account.getEmail())
-            elif account.getAccountTeam() == AccountTeam.topManagement.value[0]:
+            elif account.getAccountTeam() == AccountTeam.topManagement.value:
                 self.set_frame(TopManagement, account.getAccountType(), account.getEmail())
             else:
                 self.clear_frame(login)

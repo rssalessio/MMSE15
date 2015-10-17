@@ -30,6 +30,7 @@ CREATE TABLE IF NOT EXISTS client
     email text NOT NULL UNIQUE,
     name text  NOT NULL,
     address text NOT NULL ,
+    postalCode integer,
     city    text NOT NULL ,
     birthdate text NOT NULL
 );
