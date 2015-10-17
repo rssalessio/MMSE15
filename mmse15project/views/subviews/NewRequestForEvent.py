@@ -2,8 +2,8 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-# Form for creating a new event request
-class NewEventRequest(ttk.Frame):
+# Form for creating a new request for event
+class NewRequestForEvent(ttk.Frame):
     def __init__(self, master, model, ctrl):
         ttk.Frame.__init__(self, master)
         self.model = model
