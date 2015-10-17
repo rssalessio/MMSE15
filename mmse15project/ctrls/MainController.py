@@ -59,5 +59,5 @@ class MainController:
     def login_quit(self):
         sys.exit()
 
-    def newAccount_submit(self, newAccount):
-        print(newAccount.get_all())
+    def submit(self, subview):
+        print(subview.get_all())
