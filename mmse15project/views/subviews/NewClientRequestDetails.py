@@ -53,7 +53,7 @@ class NewClientRequestDetails(ttk.Frame):
         editArea = tkst.ScrolledText(
             master = self,
             wrap   = tk.WORD,
-            width  = 20,
+            width  = 30,
             height = 10
         )
         editArea.grid(row=5, columnspan=2)

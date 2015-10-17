@@ -1,5 +1,6 @@
 import tkinter.ttk as ttk
-
+from mmse15project.views.subviews.NewClientRecord import NewClientRecord
+from mmse15project.views.subviews.NewRequestForEvent import NewRequestForEvent
 
 # AccountTeam view for CustomerService
 class CustomerService(ttk.Frame):
@@ -14,13 +15,15 @@ class CustomerService(ttk.Frame):
     def create_view(self):
         container = ttk.Frame(self)
         container.pack()
-        user_info = "Customer Service, " + self.acc_type + " - logged in as " + self.user
+        user_info = "Customer Service - logged in as " + self.user
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
-        f1 = ttk.Frame(n)
-        f2 = ttk.Frame(n)
+        f1 = NewClientRecord(n, self.model, self.ctrl)
+        f2 = NewRequestForEvent(n, self.model, self.ctrl)
         f3 = ttk.Frame(n)
-        n.add(f1, text="One")
-        n.add(f2, text="Two")
-        n.add(f3, text="Three")
+        f4 = ttk.Frame(n)
+        n.add(f1, text="Create client")
+        n.add(f2, text="Create Request for Event")
+        n.add(f3, text="Search for clients")
+        n.add(f4, text="Search for Request for Event")
