@@ -69,7 +69,7 @@ def RequestDBInterfaceTest(db):
     db.executeDoQuery(
         "CREATE TABLE IF NOT EXISTS request(id INTEGER PRIMARY KEY AUTOINCREMENT,clientID INTEGER,eventType text,startDate text,endDate   text,expectedParticipants integer,expectedBudget integer,preferences text,status integer,FOREIGN KEY(clientID) REFERENCES client(id))")
     reqDB = RequestDBInterface(db)
-    request = Request(0,1,'Party','10/10/2015','10/10/2015',100,10000,'None',RequestStatus.pending.value[0])
+    request = Request(0,1,'Party','10/10/2015','10/10/2015',100,10000,'None',RequestStatus.pending.value)
     request.id = reqDB.add(request)
     request = reqDB.getByID(request.id)
     assert(request.clientid == 1)
@@ -89,7 +89,7 @@ def FinancialRequestDBInterfaceTest(db):
         "CREATE TABLE IF NOT EXISTS financialRequest(id INTEGER PRIMARY KEY AUTOINCREMENT,date text,department text,requestID integer,amount integer,reason  text,status integer,FOREIGN KEY(requestID) REFERENCES request(id))")
 
     reqDB = FinancialRequestDBInterface(db)
-    request = FinancialRequest(0,'10/10/2015','Administration',1,1000,'Test',FinancialRequestStatus.pending.value[0])
+    request = FinancialRequest(0,'10/10/2015','Administration',1,1000,'Test',FinancialRequestStatus.pending.value)
     request.id=reqDB.add(request)
     assert(request.id != 0)
     request= reqDB.get(request)
@@ -113,7 +113,7 @@ def RecruitmentRequestDBInterfaceTest(db):
     db.executeDoQuery(
         "CREATE TABLE IF NOT EXISTS recruitmentRequest(id INTEGER PRIMARY KEY AUTOINCREMENT,type integer,date text,department text,title text,status integer,description text)")
     reqDB = RecruitmentRequestDBInterface(db)
-    request = RecruitmentRequest(0,RecruitmentType.hire.value,'10/10/2015','Administration','Customer Service Operator',RecruitmentStatus.active.value[0],'none')
+    request = RecruitmentRequest(0,RecruitmentType.hire.value,'10/10/2015','Administration','Customer Service Operator',RecruitmentStatus.active.value,'none')
     request.id = reqDB.add(request)
     assert(request.id != 0)
     request=reqDB.get(request)

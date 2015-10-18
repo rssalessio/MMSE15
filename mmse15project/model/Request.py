@@ -2,13 +2,14 @@ from enum import Enum
 from datetime import datetime
 
 class RequestStatus(Enum):
-    invalid         = 0,
-    pending         = 1,
-    accepted        = 2,
-    rejected        = 3,
-    beingReviewed   = 4,
-    reviewed        = 5,
-    detailsCreated  = 6
+    invalid         = 0
+    pending         = 1  #senior officer need to review
+    accepted        = 2
+    rejected        = 3
+    firstStage      = 4 #financial manager
+    secondStage     = 5 #administration
+    thirdStage      = 6 #back to senior officer
+    detailsCreated  = 7
 
 
 class Request:
