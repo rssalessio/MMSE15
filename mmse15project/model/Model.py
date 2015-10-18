@@ -9,7 +9,7 @@ from mmse15project.model.RequestDetailsDBInterface     import RequestDetailsDBIn
 
 class Model:
     def __init__(self):
-        database = DBConnectionSQLite("sepdb.db")
+        database = DBConnectionSQLite("SEP.db")
         self.account_db             = AccountDBInterface(database)
         self.client_db              = ClientDBInterface(database)
         self.financial_request_db   = FinancialRequestDBInterface(database)

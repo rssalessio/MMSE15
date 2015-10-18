@@ -33,6 +33,6 @@ class SearchClient(ttk.Frame):
             self.create_widgets()
 
         def create_widgets(self):
-            self.model.client_db.getByEmail("test")
+            #self.model.client_db.getByEmail("test")
             ttk.Label(self, text="[result]").grid(row=0, sticky=tk.E)
 
