@@ -2,17 +2,17 @@ from enum import Enum
 from datetime import datetime
 
 class RequestStatus(Enum):
-    invalid         = 0,
-    pending         = 1,
-    accepted        = 2,
-    rejected        = 3,
-    beingReviewed   = 4,
-    reviewed        = 5,
+    invalid         = 0
+    pending         = 1
+    accepted        = 2
+    rejected        = 3
+    beingReviewed   = 4
+    reviewed        = 5
     detailsCreated  = 6
 
 
 class Request:
-        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.invalid):
+        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.invalid.value):
             self.id = id
             self.clientid = clientid
             self.eventType = eventType

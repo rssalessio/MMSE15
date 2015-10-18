@@ -33,7 +33,7 @@ class CustomerService(ttk.Frame):
         n.add(f3, text="Search request", sticky="NS")
         n.add(f4, text="New request", sticky="NS")
         if self.acc_type == "Senior":
-            f5 = NewRequestDetails(n, self.model, self.ctrl)
+            f5 = SearchRequestDetails(n, self.model, self.ctrl)
             n.add(f5, text="Search request details", sticky="NS")
-            f6 = SearchRequestDetails(n, self.model, self.ctrl)
+            f6 = NewRequestDetails(n, self.model, self.ctrl, id=0)
             n.add(f6, text="New request details", sticky="NS")

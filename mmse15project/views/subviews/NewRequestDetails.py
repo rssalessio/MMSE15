@@ -5,61 +5,46 @@ import tkinter.scrolledtext as tkst
 
 # Form for creating a new RequestDetails
 class NewRequestDetails(ttk.Frame):
-    def __init__(self, master, model, ctrl):
+    def __init__(self, master, model, ctrl, id):
         ttk.Frame.__init__(self, master)
         self.model = model
         self.ctrl = ctrl
+        self.id = id
         self.create_form()
 
     def create_form(self):
-        self.line_entries()
-        self.text_boxes()
+
+        self.e1 = tkst.ScrolledText(self, width=30, height=5)
+        self.e2 = tkst.ScrolledText(self, width=30, height=5)
+        self.e3 = tkst.ScrolledText(self, width=30, height=5)
+        self.e4 = tkst.ScrolledText(self, width=30, height=5)
+        self.e5 = tkst.ScrolledText(self, width=30, height=5)
+        self.e6 = tkst.ScrolledText(self, width=30, height=5)
+        self.e7 = tkst.ScrolledText(self, width=60, height=5)
+
+        ttk.Label(self, text="Decorations", font="-underline true").grid(row=0, column=0, sticky="E")
+        self.e1.grid(row=1, column=0, columnspan=2)
+        ttk.Label(self, text="Filming/Photos", font="-underline true").grid(row=2, column=0, sticky="E")
+        self.e2.grid(row=3, column=0, columnspan=2)
+        ttk.Label(self, text="Filming/Photos", font="-underline true").grid(row=4, column=0, sticky="E")
+        self.e3.grid(row=5, column=0, columnspan=2)
+
+        ttk.Label(self, text="Food/Drinks", font="-underline true").grid(row=0, column=2, sticky="E")
+        self.e4.grid(row=1, column=2, columnspan=2)
+        ttk.Label(self, text="Music", font="-underline true").grid(row=2, column=2, sticky="E")
+        self.e5.grid(row=3, column=2, columnspan=2)
+        ttk.Label(self, text="Computer-Related Issues", font="-underline true").grid(row=4, column=2, sticky="E")
+        self.e6.grid(row=5, column=2, columnspan=2)
+
+        ttk.Label(self, text="Other needs", font="-underline true").grid(row=6, column=0, sticky="E")
+        self.e7.grid(row=7, column=0, columnspan=4)
 
         b1 = ttk.Button(self, text="Submit",
-                       command=lambda: self.ctrl.submit(self))
+                       command=lambda: self.ctrl.new_request_details_submit(self))
         b1.grid(columnspan=4)
 
-    def line_entries(self):
-        ttk.Label(self, text="ClientID:").grid(row=0, sticky=tk.E)
-        ttk.Label(self, text="Client name:").grid(row=1, sticky=tk.E)
-        ttk.Label(self, text="Event type:").grid(row=2, sticky=tk.E)
-        ttk.Label(self, text="Description:").grid(row=3, sticky=tk.E)
-        ttk.Label(self, text="From:").grid(row=4, sticky=tk.E)
-
-        self.e1 = ttk.Entry(self)  # ClientID
-        self.e1.grid(row=0, column=1)
-        self.e2 = ttk.Entry(self)  # Client name
-        self.e2.grid(row=1, column=1)
-        self.e3 = ttk.Entry(self)  # Event type
-        self.e3.grid(row=2, column=1)
-        self.e4 = ttk.Entry(self)  # Description
-        self.e4.grid(row=3, column=1)
-        self.e5 = ttk.Entry(self)  # From
-        self.e5.grid(row=4, column=1)
-
-        ttk.Label(self, text="Attendees:").grid(row=1, column=2, sticky=tk.E)
-        ttk.Label(self, text="Planned budget:").grid(row=2, column=2, sticky=tk.E)
-        ttk.Label(self, text="To:").grid(row=4, column=2, sticky=tk.E)
-
-        self.e6 = ttk.Entry(self)  # Attendees
-        self.e6.grid(row=1, column=3)
-        self.e6 = ttk.Entry(self)  # Planned budget
-        self.e6.grid(row=2, column=3)
-        self.e6 = ttk.Entry(self)  # To
-        self.e6.grid(row=4, column=3)
-
-    def text_boxes(self):
-        self.e7 = tkst.ScrolledText(
-            master = self,
-            wrap   = tk.WORD,
-            width  = 70,
-            height = 10,
-            undo=True
-        )
-
-        ttk.Label(self, text="Comments", font="-underline true").grid(row=5, column=0, sticky="E")
-        self.e7.grid(row=6, column=0, columnspan=4)
-
     def get_all(self):
-        return [self.e1.get(), self.e2.get(), self.e3.get(), self.e4.get(),
-                self.e5.get(), self.e6.get(), self.e7.get()]
+        return [self.id, self.e1.get(1.0, tk.END), self.e2.get(1.0, tk.END),
+                self.e3.get(1.0, tk.END), self.e4.get(1.0, tk.END),
+                self.e5.get(1.0, tk.END), self.e6.get(1.0, tk.END),
+                self.e7.get(1.0, tk.END)]
