@@ -5,7 +5,7 @@ from mmse15project.model.FinancialRequestDBInterface   import FinancialRequestDB
 from mmse15project.model.RecruitmentRequestDBInterface import RecruitmentRequestDBInterface
 from mmse15project.model.RequestDBInterface            import RequestDBInterface
 from mmse15project.model.RequestDetailsDBInterface     import RequestDetailsDBInterface
-
+from mmse15project.model.DiscountDBInterface           import DiscountDBinterface
 
 class Model:
     def __init__(self):
@@ -16,3 +16,4 @@ class Model:
         self.recruitment_request_db = RecruitmentRequestDBInterface(database)
         self.request_db             = RequestDBInterface(database)
         self.request_details_db     = RequestDetailsDBInterface(database)
+        self.discount_db            = DiscountDBinterface(database)
