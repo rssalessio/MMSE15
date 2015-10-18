@@ -6,7 +6,7 @@ class Schedule:
         self.employee = employee
         self.starthour = starth
         self.endhour = endh
-        self.date = datetime.strptime(date, '%b-%d-%Y')
+        self.date = date
 
     def getID(self): return self.id
     def getEmployee(self): return self.employee
@@ -25,4 +25,4 @@ class Schedule:
         self.employee = values[1]
         self.starthour = values[2]
         self.endhour = values[3]
-        self.date = datetime.strptime(values[4], '%b-%d-%Y')
+        self.date = values[4]

@@ -12,6 +12,9 @@ from mmse15project.model.RecruitmentRequest import *
 from mmse15project.model.RequestDetails import *
 from mmse15project.model.RequestDetailsDBInterface import *
 from mmse15project.model.DiscountDBInterface import *
+from mmse15project.model.TaskDBInterface               import *
+from mmse15project.model.ClientMeetingDBInterface      import *
+from mmse15project.model.ScheduleDBInterface           import *
 def AccountDBInterfaceTest(db):
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS account")
@@ -170,6 +173,69 @@ def DiscountDBInterfaceTest(db):
     assert(a[1].amount == 2000)
     print('Passed DiscountDBInterface test')
 
+def ClientMeetingDBInterfaceTest(db):
+    assert (db.isConnectionOk() == 1)
+    db.executeDoQuery("DROP TABLE IF EXISTS clientMeeting")
+    db.executeDoQuery(
+        "CREATE TABLE IF NOT EXISTS clientMeeting(clientID integer,date text,comment text,FOREIGN KEY(clientid) REFERENCES client(id))")
+    reqDB = ClientMeetingDBInterface(db)
+    meeting = ClientMeeting(1,'20/10/2015','a meeting')
+    reqDB.add(meeting)
+    meeting = reqDB.get(meeting)
+    assert(meeting.clientID==1)
+    meeting.date= '10/10/2015'
+    reqDB.update(meeting)
+    meeting = reqDB.get(meeting)
+    assert(meeting.date=='10/10/2015')
+    temp = ClientMeeting(1,'22/10/2015','a meeting')
+    reqDB.add(temp)
+    a = reqDB.getAll()
+    assert(len(a)==2)
+    assert(a[1].date =='22/10/2015')
+    print('Passed ClientMeetingDBInterface test')
+
+def TaskDBInterfaceTest(db):
+    assert (db.isConnectionOk() == 1)
+    db.executeDoQuery("DROP TABLE IF EXISTS task")
+    db.executeDoQuery(
+        "CREATE TABLE IF NOT EXISTS task(requestID integer,description text,operator text,priority integer,deadline text,status integer,comment text,FOREIGN KEY(requestID) references request(id),FOREIGN KEY(operator) references account(email))")
+    reqDB = TaskDBInterface(db)
+    task = Task(1,'just cook','sarah@sep.se',TaskPriority.high.value,'20/10/2015',TaskStatus.pending.value,'no comments!')
+    reqDB.add(task)
+    task = reqDB.get(task)
+    assert(task.deadline=='20/10/2015')
+    task.deadline= '10/10/2015'
+    reqDB.update(task)
+    task = reqDB.get(task)
+    assert(task.deadline=='10/10/2015')
+    temp = Task(1,'just clean','sarah@sep.se',TaskPriority.high.value,'21/10/2015',TaskStatus.pending.value,'no comments!')
+    reqDB.add(temp)
+    a = reqDB.getAll()
+    assert(len(a)==2)
+    assert(a[1].deadline =='21/10/2015')
+    print('Passed TaskDBInterface test')
+
+def ScheduleDBInterfaceTest(db):
+    assert (db.isConnectionOk() == 1)
+    db.executeDoQuery("DROP TABLE IF EXISTS schedule")
+    db.executeDoQuery(
+        "CREATE TABLE IF NOT EXISTS schedule(id INTEGER PRIMARY KEY AUTOINCREMENT,employee text,startHour integer,endHour integer,date text,FOREIGN KEY(employee) REFERENCES account(email))")
+    reqDB = ScheduleDBInterface(db)
+    schedule = Schedule(0,'sarah@sep.se',10,20,'20/10/2015')
+    schedule.id=reqDB.add(schedule)
+    schedule = reqDB.get(schedule)
+    assert(schedule.employee=='sarah@sep.se')
+    schedule.date= '10/10/2015'
+    reqDB.update(schedule)
+    schedule = reqDB.get(schedule)
+    assert(schedule.date=='10/10/2015')
+    temp = Schedule(0,'sarah@sep.se',10,20,'22/10/2015')
+    temp.id=reqDB.add(temp)
+    a = reqDB.getAll()
+    assert(len(a)==2)
+    assert(a[1].date =='22/10/2015')
+    print('Passed ScheduleDBInterface test')
+
 def DBTest(connection_name):
     db = DBConnectionSQLite(connection_name)
     AccountDBInterfaceTest(db)
@@ -179,3 +245,15 @@ def DBTest(connection_name):
     RecruitmentRequestDBInterfaceTest(db)
     RequestDetailsDBInterfaceTest(db)
     DiscountDBInterfaceTest(db)
+    ClientDBInterfaceTest(db)
+    TaskDBInterfaceTest(db)
+    ScheduleDBInterfaceTest(db)
+
+
+
+
+
+
+
+
+

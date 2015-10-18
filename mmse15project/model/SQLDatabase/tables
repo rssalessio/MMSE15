@@ -151,7 +151,7 @@ CREATE TABLE IF NOT EXISTS department
 DROP TABLE IF EXISTS  schedule;
 CREATE TABLE IF NOT EXISTS schedule
 (
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     employee text,
     startHour integer,
     endHour integer,
