@@ -7,9 +7,9 @@ class SearchRequest(ttk.Frame):
         ttk.Frame.__init__(self, master)
         self.model = model
         self.ctrl = ctrl
-        self.create_form()
+        self.create_widgets()
 
-    def create_form(self):
+    def create_widgets(self):
         ttk.Label(self, text="ClientID:").grid(row=0, sticky=tk.E)
 
         self.e1 = ttk.Entry(self)  # ClientID

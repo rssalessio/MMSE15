@@ -15,9 +15,9 @@ class CustomerService(ttk.Frame):
         self.ctrl = ctrl
         self.acc_type = acc_type
         self.user = user
-        self.create_view()
+        self.create_widgets()
 
-    def create_view(self):
+    def create_widgets(self):
         container = ttk.Frame(self)
         container.pack()
         user_info = "Customer Service, %s — %s" % (self.acc_type, self.user)

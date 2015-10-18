@@ -10,9 +10,9 @@ class NewRequestDetails(ttk.Frame):
         self.model = model
         self.ctrl = ctrl
         self.id = id
-        self.create_form()
+        self.create_widgets()
 
-    def create_form(self):
+    def create_widgets(self):
 
         self.e1 = tkst.ScrolledText(self, width=30, height=5)
         self.e2 = tkst.ScrolledText(self, width=30, height=5)
