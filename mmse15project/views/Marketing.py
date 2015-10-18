@@ -9,9 +9,9 @@ class Marketing(ttk.Frame):
         self.ctrl = ctrl
         self.acc_type = acc_type
         self.user = user
-        self.create_view()
+        self.create_widgets()
 
-    def create_view(self):
+    def create_widgets(self):
         container = ttk.Frame(self)
         container.pack()
         user_info = "Marketing, " + self.acc_type + " - logged in as " + self.user

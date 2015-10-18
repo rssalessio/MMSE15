@@ -7,9 +7,9 @@ class NewClient(ttk.Frame):
         ttk.Frame.__init__(self, master)
         self.model = model
         self.ctrl = ctrl
-        self.create_form()
+        self.create_widgets()
 
-    def create_form(self):
+    def create_widgets(self):
         ttk.Label(self, text="Full name:").grid(row=0, sticky="E")
         ttk.Label(self, text="Email:").grid(row=1, sticky="E")
         ttk.Label(self, text="Address:").grid(row=2, sticky="E")
