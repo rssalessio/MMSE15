@@ -36,13 +36,17 @@ class AccountQualification(Enum):
 
 
 class Account:
-    def __init__(self,email="",password="",name="",atype= AccountType.InvalidType,accountTeam = AccountTeam.InvalidTeam, accountQualification= AccountQualification.InvalidQualification,department='', comment=''):
+    def __init__(self,email="", password="", name="",
+                 acc_type=AccountType.InvalidType.value,
+                 acc_team=AccountTeam.InvalidTeam.value,
+                 acc_q=AccountQualification.InvalidQualification.value,
+                 department='', comment=''):
         self.password = password
         self.email = email
         self.name = name
-        self.accountType = atype
-        self.accountTeam = accountTeam
-        self.accountQualification = accountQualification
+        self.accountType = acc_type
+        self.accountTeam = acc_team
+        self.accountQualification = acc_q
         self.department = department
         self.comment = comment
 

@@ -62,6 +62,7 @@ class MainController:
         new_account.setAccountType(data[4])
         new_account.setDepartment(data[5])
         new_account.setComment(data[6])
+        print(new_account.getAll())
         self.model.account_db.add(new_account)
 
     # Same problem...
