@@ -39,5 +39,5 @@ class Client:
     def setName(self,name): self.name = name
     def setAddress(self,address): self.address = address
     def setPostalCode(self, pc): self.postalCode = pc
-    def setCity(self): self.city
+    def setCity(self, city): self.city = city
     def setBirthDate(self, bd): self.birthdate = bd

@@ -31,7 +31,7 @@ class NewClient(ttk.Frame):
         self.e6.grid(row=5, column=1)
 
         b1 = ttk.Button(self, text="Submit",
-                       command=lambda: self.ctrl.submit(self))
+                       command=lambda: self.ctrl.new_client_submit(self))
         b1.grid(columnspan=2)
 
     def get_all(self):

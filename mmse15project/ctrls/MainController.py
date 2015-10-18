@@ -47,7 +47,6 @@ class MainController:
     def login_quit(self):
         sys.exit()
 
-    # Why does it not work?
     def new_account_submit(self, form):
         data = form.get_all()
         data[1] += "@sep.se"
@@ -65,7 +64,6 @@ class MainController:
         print(new_account.getAll())
         self.model.account_db.add(new_account)
 
-    # Same problem...
     def new_client_submit(self, form):
         data = form.get_all()
         print(data)
@@ -76,6 +74,7 @@ class MainController:
         new_client.setPostalCode(data[3])
         new_client.setCity(data[4])
         new_client.setBirthDate(data[5])
+        print(new_client.getAll())
         self.model.client_db.add(new_client)
 
     def str_to_enum(self, str):
