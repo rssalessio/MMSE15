@@ -11,6 +11,7 @@ from mmse15project.model.RecruitmentRequestDBInterface import *
 from mmse15project.model.RecruitmentRequest import *
 from mmse15project.model.RequestDetails import *
 from mmse15project.model.RequestDetailsDBInterface import *
+from mmse15project.model.DiscountDBInterface import *
 def AccountDBInterfaceTest(db):
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS account")
@@ -148,6 +149,27 @@ def RequestDetailsDBInterfaceTest(db):
     print('Passed RequestDetailsDBInterface test')
 
 
+def DiscountDBInterfaceTest(db):
+    assert (db.isConnectionOk() == 1)
+    db.executeDoQuery("DROP TABLE IF EXISTS discount")
+    db.executeDoQuery(
+        "CREATE TABLE IF NOT EXISTS discount(requestID INTEGER,amount INTEGER,comment text,date text,FOREIGN KEY(requestID) references request(id))")
+    reqDB = DiscountDBinterface(db)
+    request = Discount(1,1000,'won the lottery','10/10/2015')
+    reqDB.add(request)
+    request = reqDB.get(request)
+    assert(request.amount==1000)
+    request.amount = 3000
+    reqDB.update(request)
+    request = reqDB.get(request)
+    assert(request.amount==3000)
+    req2 = Discount(1,2000,'won the lottery twice','10/10/2015')
+    reqDB.add(req2)
+    a = reqDB.getAll()
+    assert(len(a)==2)
+    assert(a[1].amount == 2000)
+    print('Passed DiscountDBInterface test')
+
 def DBTest(connection_name):
     db = DBConnectionSQLite(connection_name)
     AccountDBInterfaceTest(db)
@@ -156,3 +178,4 @@ def DBTest(connection_name):
     FinancialRequestDBInterfaceTest(db)
     RecruitmentRequestDBInterfaceTest(db)
     RequestDetailsDBInterfaceTest(db)
+    DiscountDBInterfaceTest(db)
