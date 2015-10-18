@@ -3,17 +3,16 @@ from datetime import datetime
 
 class RequestStatus(Enum):
     invalid         = 0
-    pending         = 1  #senior officer need to review
+    pending         = 1
     accepted        = 2
     rejected        = 3
-    firstStage      = 4 #financial manager
-    secondStage     = 5 #administration
-    thirdStage      = 6 #back to senior officer
-    detailsCreated  = 7
+    beingReviewed   = 4
+    reviewed        = 5
+    detailsCreated  = 6
 
 
 class Request:
-        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.invalid):
+        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.invalid.value):
             self.id = id
             self.clientid = clientid
             self.eventType = eventType

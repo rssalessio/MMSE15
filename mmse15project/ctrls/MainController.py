@@ -11,6 +11,8 @@ from mmse15project.model.Account import AccountTeam
 from mmse15project.model.Account import AccountType
 from mmse15project.model.Account import Account
 from mmse15project.model.Client import Client
+from mmse15project.model.Request import Request
+from mmse15project.model.RequestDetails import RequestDetails
 
 class MainController:
     def __init__(self, model, view):
@@ -47,35 +49,24 @@ class MainController:
     def login_quit(self):
         sys.exit()
 
+    # Submit forms
+
     def new_account_submit(self, form):
         data = form.get_all()
         data[1] += "@sep.se"
         data[3] = self.str_to_enum(data[3]).value
         data[4] = self.str_to_enum(data[4]).value
         print(data)
-        new_account = Account()
-        new_account.setName(data[0])
-        new_account.setEmail(data[1])
-        new_account.setPassword(data[2])
-        new_account.setAccountTeam(data[3])
-        new_account.setAccountType(data[4])
-        new_account.setDepartment(data[5])
-        new_account.setComment(data[6])
-        print(new_account.getAll())
-        self.model.account_db.add(new_account)
-
-    def new_client_submit(self, form):
-        data = form.get_all()
-        print(data)
-        new_client = Client()
-        new_client.setName(data[0])
-        new_client.setEmail(data[1])
-        new_client.setAddress(data[2])
-        new_client.setPostalCode(data[3])
-        new_client.setCity(data[4])
-        new_client.setBirthDate(data[5])
-        print(new_client.getAll())
-        self.model.client_db.add(new_client)
+        new = Account()
+        new.setName(data[0])
+        new.setEmail(data[1])
+        new.setPassword(data[2])
+        new.setAccountTeam(data[3])
+        new.setAccountType(data[4])
+        new.setDepartment(data[5])
+        new.setComment(data[6])
+        print(new.getAll())
+        self.model.account_db.add(new)
 
     def str_to_enum(self, str):
         if str == "Administration":
@@ -103,5 +94,37 @@ class MainController:
         else:
             print("error: MainController.str_to_enum()")
 
-    def submit(self, subview):
-        print(subview.get_all())
+    def new_client_submit(self, form):
+        data = form.get_all()
+        print(data)
+        new= Client()
+        new.setName(data[0])
+        new.setEmail(data[1])
+        new.setAddress(data[2])
+        new.setPostalCode(data[3])
+        new.setCity(data[4])
+        new.setBirthDate(data[5])
+        print(new.getAll())
+        self.model.client_db.add(new)
+
+    def new_request_submit(self, form):
+        data = form.get_all()
+        print(data)
+        new = Request()
+        new.setClientID(data[0])
+        new.setEventType(data[1])
+        new.setStartDate(data[2])
+        new.setEndDate(data[3])
+        new.setExpectedParticipants(data[4])
+        new.setPreferences(data[5])
+        new.setExpectedBudget(data[6])
+        print(new.getAll())
+        self.model.request_db.add(new)
+
+    def new_request_details_submit(self, form):
+        data = form.get_all()
+        print(data)
+        new = RequestDetails()
+        new.setAll(data)
+        print(new.getAll())
+        self.model.request_details_db.add(new)

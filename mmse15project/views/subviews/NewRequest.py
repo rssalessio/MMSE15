@@ -1,5 +1,6 @@
 import tkinter.ttk as ttk
 import tkinter as tk
+import tkinter.scrolledtext as tkst
 
 
 # Form for creating a new Request
@@ -12,47 +13,36 @@ class NewRequest(ttk.Frame):
 
     def create_form(self):
         ttk.Label(self, text="ClientID:").grid(row=0, sticky="E")
-        ttk.Label(self, text="Client name:").grid(row=1, sticky="E")
-        ttk.Label(self, text="Event type:").grid(row=2, sticky="E")
-        ttk.Label(self, text="From:").grid(row=3, sticky="E")
-        ttk.Label(self, text="To:").grid(row=4, sticky="E")
-        ttk.Label(self, text="Attendees:").grid(row=5, sticky="E")
-        ttk.Label(self, text="Preferences", font="-underline true").grid(row=6, sticky="E")
-        ttk.Label(self, text="Expected budget:").grid(row=10, sticky="E")
+        ttk.Label(self, text="Event type:").grid(row=1, sticky="E")
+        ttk.Label(self, text="From:").grid(row=2, sticky="E")
+        ttk.Label(self, text="To:").grid(row=3, sticky="E")
+        ttk.Label(self, text="Attendees:").grid(row=4, sticky="E")
 
         self.e1 = ttk.Entry(self)  # ClientID
         self.e1.grid(row=0, column=1)
-        self.e2 = ttk.Entry(self)  # Client name
+        self.e2 = ttk.Entry(self)  # Event type
         self.e2.grid(row=1, column=1)
-        self.e3 = ttk.Entry(self)  # Event type
+        self.e3 = ttk.Entry(self)  # From
         self.e3.grid(row=2, column=1)
-        self.e4 = ttk.Entry(self)  # From
+        self.e4 = ttk.Entry(self)  # To
         self.e4.grid(row=3, column=1)
-        self.e5 = ttk.Entry(self)  # To
+        self.e5 = ttk.Entry(self)  # Attendees
         self.e5.grid(row=4, column=1)
-        self.e6 = ttk.Entry(self)  # Attendees
-        self.e6.grid(row=5, column=1)
 
         # Preferences
-        self.e7 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Decorations", variable=self.e7).grid(row=7, sticky="W")
-        self.e8 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Breakfast, lunch, dinner", variable=self.e8).grid(row=7, column=1, sticky="W")
-        self.e9 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Parties", variable=self.e9).grid(row=8, sticky="W")
-        self.e10 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Soft/hotdrinks", variable=self.e10).grid(row=8, column=1, sticky="W")
-        self.e11 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Photos/filming", variable=self.e11).grid(row=9, sticky="W")
+        ttk.Label(self, text="Preferences:").grid(row=5, sticky="NE")
+        self.e6 = tkst.ScrolledText(self, width=20, height=5)
+        self.e6.grid(row=5, column=1, columnspan=2)
 
-        self.e12 = ttk.Entry(self) # Expected budget
-        self.e12.grid(row=10, column=1)
+         # Expected budget
+        ttk.Label(self, text="Expected budget:").grid(row=6, sticky="E")
+        self.e7 = ttk.Entry(self)
+        self.e7.grid(row=6, column=1)
 
         b1 = ttk.Button(self, text="Submit",
-                       command=lambda: self.ctrl.submit(self))
+                       command=lambda: self.ctrl.new_request_submit(self))
         b1.grid(columnspan=2)
 
     def get_all(self):
         return [self.e1.get(), self.e2.get(), self.e3.get(), self.e4.get(),
-                self.e5.get(), self.e6.get(), self.e7.get(), self.e8.get(),
-                self.e9.get(), self.e10.get(), self.e11.get(), self.e12.get()]
+                self.e5.get(), self.e6.get(1.0, tk.END), self.e7.get()]
