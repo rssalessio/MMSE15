@@ -134,6 +134,8 @@ CREATE TABLE IF NOT EXISTS task
     operator text,
     priority integer,
     deadline text,
+    status integer,
+    comment text,
     FOREIGN KEY(requestID) references request(id),
     FOREIGN KEY(operator) references account(email)
 );

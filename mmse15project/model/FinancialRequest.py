@@ -2,9 +2,9 @@ from enum import Enum
 
 
 class FinancialRequestStatus(Enum):
-    invalidType = 0,
-    pending     = 1,
-    approved    = 2,
+    invalidType = 0
+    pending     = 1
+    approved    = 2
     rejected    = 3
 
 class FinancialRequest:

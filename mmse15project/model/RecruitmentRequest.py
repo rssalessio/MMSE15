@@ -1,13 +1,13 @@
 from enum import Enum
 
 class RecruitmentType(Enum):
-    invalidType =0,
+    invalidType =0
     outsource   =1,
     hire        =2
 
 class RecruitmentStatus(Enum):
-    invalidType =0,
-    active = 1,
+    invalidType =0
+    active = 1
     completed = 2
 
 
