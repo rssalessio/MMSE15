@@ -1,5 +1,6 @@
 import tkinter as tk
-from tests.views.MainControllerStandin import MainControllerStandin
+from mmse15project.model.Model import Model
+from mmse15project.ctrls.MainController import MainController
 
 
 class FrameTests(tk.Tk):
@@ -9,9 +10,11 @@ class FrameTests(tk.Tk):
         self.resizable(tk.FALSE, tk.FALSE)
         self.attributes("-topmost", True)
 
+        model = Model()
+        ctrl = MainController(model, None)
+
         if (acc_type is None) and (user is None):
-            f = frame_class(self, model=None, ctrl=MainControllerStandin(None, None))
+            f = frame_class(self, model, ctrl)
         else:
-            f = frame_class(self, model=None, ctrl=MainControllerStandin(None, None),
-                            acc_type=acc_type, user=user)
+            f = frame_class(self, model, ctrl, acc_type, user)
         f.pack()

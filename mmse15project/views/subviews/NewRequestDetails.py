@@ -3,8 +3,8 @@ import tkinter.ttk as ttk
 import tkinter.scrolledtext as tkst
 
 
-# Form for creating a new Client Request Details
-class NewClientRequestDetails(ttk.Frame):
+# Form for creating a new RequestDetails
+class NewRequestDetails(ttk.Frame):
     def __init__(self, master, model, ctrl):
         ttk.Frame.__init__(self, master)
         self.model = model

@@ -1,4 +1,4 @@
-from mmse15project.views.subviews.NewRequestForEvent import NewRequestForEvent
+from mmse15project.views.subviews.NewRequest import NewRequestForEvent
 from tests.views.FrameTests import FrameTests
 
 

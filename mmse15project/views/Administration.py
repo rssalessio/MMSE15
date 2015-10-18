@@ -14,13 +14,10 @@ class Administration(ttk.Frame):
     def create_view(self):
         container = ttk.Frame(self)
         container.pack()
-        user_info = "Administration - logged in as " + self.user
+        print(self.acc_type)
+        user_info = "Administration, %s — %s" % (self.acc_type, self.user)
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
         f1 = ttk.Frame(n)
-        f2 = ttk.Frame(n)
-        f3 = ttk.Frame(n)
-        n.add(f1, text="One")
-        n.add(f2, text="Two")
-        n.add(f3, text="Three")
+        n.add(f1, text="Empty")

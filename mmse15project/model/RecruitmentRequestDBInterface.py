@@ -1,7 +1,6 @@
-from mmse15project.model.DBConnection import  DBConnection
 from mmse15project.model.RecruitmentRequest import *
 from mmse15project.model.DBInterface import DBInterface
-from mmse15project.GenericMethods import *
+from mmse15project.model.GenericMethods import *
 
 class RecruitmentRequestDBInterface(DBInterface):
     def __init__(self,database):

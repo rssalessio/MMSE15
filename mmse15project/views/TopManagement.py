@@ -15,11 +15,9 @@ class TopManagement(ttk.Frame):
     def create_view(self):
         container = ttk.Frame(self)
         container.pack()
-        user_info = "Top Management - logged in as " + self.user
+        user_info = "Top Management, %s — %s" % (self.acc_type, self.user)
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
         f1 = NewAccount(n, self.model, self.ctrl)
-        f2 = ttk.Frame(self)
         n.add(f1, text='Create new account')
-        n.add(f2, text='Two')

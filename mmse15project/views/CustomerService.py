@@ -1,9 +1,9 @@
 import tkinter.ttk as ttk
-import tkinter as tk
-from mmse15project.views.subviews.SearchClientRecord import SearchClientRecord
-from mmse15project.views.subviews.NewClientRecord import NewClientRecord
-from mmse15project.views.subviews.SearchRequestForEvent import SearchRequestForEvent
-from mmse15project.views.subviews.NewRequestForEvent import NewRequestForEvent
+from mmse15project.views.subviews.SearchClient import SearchClient
+from mmse15project.views.subviews.NewClient import NewClient
+from mmse15project.views.subviews.SearchRequest import SearchRequest
+from mmse15project.views.subviews.NewRequest import NewRequest
+
 
 # AccountTeam view for CustomerService
 class CustomerService(ttk.Frame):
@@ -18,15 +18,15 @@ class CustomerService(ttk.Frame):
     def create_view(self):
         container = ttk.Frame(self)
         container.pack()
-        user_info = "Customer Service - logged in as " + self.user
+        user_info = "Customer Service, %s — %s" % (self.acc_type, self.user)
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
-        f1 = SearchClientRecord(n, self.model, self.ctrl)
-        f2 = NewClientRecord(n, self.model, self.ctrl)
-        f3 = SearchRequestForEvent(n, self.model, self.ctrl)
-        f4 = NewRequestForEvent(n, self.model, self.ctrl)
+        f1 = SearchClient(n, self.model, self.ctrl)
+        f2 = NewClient(n, self.model, self.ctrl)
+        f3 = SearchRequest(n, self.model, self.ctrl)
+        f4 = NewRequest(n, self.model, self.ctrl)
         n.add(f1, text="Search for client", sticky="NS")
         n.add(f2, text="Create new client", sticky="NS")
-        n.add(f3, text="Search for Request for Event", sticky="NS")
-        n.add(f4, text="Create new Request for Event", sticky="NS")
+        n.add(f3, text="Search for request for event", sticky="NS")
+        n.add(f4, text="Create new request for event", sticky="NS")

@@ -8,6 +8,7 @@ from mmse15project.views.Production import Production
 from mmse15project.views.Service import Service
 from mmse15project.views.TopManagement import TopManagement
 from mmse15project.model.Account import AccountTeam
+from mmse15project.model.Account import AccountType
 
 class MainController:
     def __init__(self, model, view):
@@ -20,7 +21,8 @@ class MainController:
             frame = frame_class(self.view.container, self.model, self)
         else:
             frame = frame_class(self.view.container, self.model, self,
-                                account.getAccountType(), account.getEmail())
+                                AccountType(account.getAccountType()).name,
+                                account.getEmail())
         frame.pack()
 
     def clear_frame(self, frame):

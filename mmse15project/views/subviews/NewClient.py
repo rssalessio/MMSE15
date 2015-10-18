@@ -2,8 +2,8 @@ import tkinter as tk
 import tkinter.ttk as ttk
 
 
-# Form for creating a new client record
-class NewClientRecord(ttk.Frame):
+# Form for creating a new Client
+class NewClient(ttk.Frame):
     def __init__(self, master, model, ctrl):
         ttk.Frame.__init__(self, master)
         self.model = model

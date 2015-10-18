@@ -1,6 +1,9 @@
+#!/usr/bin/env python3
+
 import sqlite3
 
-#executes script "tables" located in the SQLDatabase folder. It Will destroy all database tables and reinstall everything.
+# executes script "tables" located in the SQLDatabase folder.
+# It Will destroy all database tables and reinstall everything.
 # User data is lost, Warning
 connectionName = "sepdb.db"
 connection = sqlite3.connect(connectionName)

@@ -1,4 +1,3 @@
-import tkinter as tk
 import tkinter.ttk as ttk
 
 
@@ -11,8 +10,8 @@ class Login(ttk.Frame):
         self.auth()
 
     def auth(self):
-        ttk.Label(self, text="User:").grid(row=0, sticky=tk.E)
-        ttk.Label(self, text="Pass:").grid(row=1, sticky=tk.E)
+        ttk.Label(self, text="User:").grid(row=0, sticky="E")
+        ttk.Label(self, text="Pass:").grid(row=1, sticky="E")
 
         self.e1 = ttk.Entry(self)  # User
         self.e1.grid(row=0, column=1)

@@ -1,4 +1,4 @@
-from mmse15project.views.subviews.NewClientRequestDetails import NewClientRequestDetails
+from mmse15project.views.subviews.NewRequestDetails import NewClientRequestDetails
 from tests.views.FrameTests import FrameTests
 
 
