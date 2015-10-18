@@ -1,5 +1,5 @@
-import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter as tk
 
 
 # Form for creating a new account
@@ -11,13 +11,13 @@ class NewAccount(ttk.Frame):
         self.create_form()
 
     def create_form(self):
-        ttk.Label(self, text="Full name:").grid(row=0, sticky=tk.E)
-        ttk.Label(self, text="Username:").grid(row=1, sticky=tk.E)
-        ttk.Label(self, text="Password:").grid(row=2, sticky=tk.E)
-        ttk.Label(self, text="Account team:").grid(row=3, sticky=tk.E)
-        ttk.Label(self, text="Account type:").grid(row=4, sticky=tk.E)
-        ttk.Label(self, text="Job title:").grid(row=5, sticky=tk.E)
-        ttk.Label(self, text="Comment:").grid(row=6, sticky=tk.E)
+        ttk.Label(self, text="Full name:").grid(row=0, sticky="E")
+        ttk.Label(self, text="Username:").grid(row=1, sticky="E")
+        ttk.Label(self, text="Password:").grid(row=2, sticky="E")
+        ttk.Label(self, text="Account team:").grid(row=3, sticky="E")
+        ttk.Label(self, text="Account type:").grid(row=4, sticky="E")
+        ttk.Label(self, text="Job title:").grid(row=5, sticky="E")
+        ttk.Label(self, text="Comment:").grid(row=6, sticky="E")
 
         self.e1 = ttk.Entry(self)  # Full name
         self.e1.grid(row=0, column=1)
@@ -30,12 +30,12 @@ class NewAccount(ttk.Frame):
         acc_teams=["Administration", "HR", "Customer Service", "Marketing",
                    "Financial", "Production", "Service", "Top Management"]
         self.e4.set(acc_teams[0])
-        ttk.OptionMenu(self, self.e4, self.e4.get(), *acc_teams).grid(row=3, column=1, sticky=tk.E)
+        ttk.OptionMenu(self, self.e4, self.e4.get(), *acc_teams).grid(row=3, column=1, sticky="E")
 
         self.e5 = tk.StringVar(self)  # Account type
         acc_types=["Employee", "Senior", "Manager"]
         self.e5.set(acc_types[0])
-        ttk.OptionMenu(self, self.e5, self.e5.get(), *acc_types).grid(row=4, column=1, sticky=tk.E)
+        ttk.OptionMenu(self, self.e5, self.e5.get(), *acc_types).grid(row=4, column=1, sticky="E")
 
         self.e6 = ttk.Entry(self)  # Job title
         self.e6.grid(row=5, column=1)
@@ -43,7 +43,7 @@ class NewAccount(ttk.Frame):
         self.e7.grid(row=6, column=1)
 
         b1 = ttk.Button(self, text="Submit",
-                       command=lambda: self.ctrl.submit(self))
+                       command=lambda: self.ctrl.new_account_submit(self))
         b1.grid(columnspan=2)
 
     def get_all(self):

@@ -1,4 +1,3 @@
-import tkinter as tk
 import tkinter.ttk as ttk
 
 
@@ -11,12 +10,12 @@ class NewClient(ttk.Frame):
         self.create_form()
 
     def create_form(self):
-        ttk.Label(self, text="Full name:").grid(row=0, sticky=tk.E)
-        ttk.Label(self, text="Email:").grid(row=1, sticky=tk.E)
-        ttk.Label(self, text="Address:").grid(row=2, sticky=tk.E)
-        ttk.Label(self, text="Postal code:").grid(row=3, sticky=tk.E)
-        ttk.Label(self, text="City:").grid(row=4, sticky=tk.E)
-        ttk.Label(self, text="Day of birth:").grid(row=5, sticky=tk.E)
+        ttk.Label(self, text="Full name:").grid(row=0, sticky="E")
+        ttk.Label(self, text="Email:").grid(row=1, sticky="E")
+        ttk.Label(self, text="Address:").grid(row=2, sticky="E")
+        ttk.Label(self, text="Postal code:").grid(row=3, sticky="E")
+        ttk.Label(self, text="City:").grid(row=4, sticky="E")
+        ttk.Label(self, text="Day of birth:").grid(row=5, sticky="E")
 
         self.e1 = ttk.Entry(self)  # Full name
         self.e1.grid(row=0, column=1)

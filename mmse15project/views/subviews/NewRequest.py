@@ -1,5 +1,5 @@
-import tkinter as tk
 import tkinter.ttk as ttk
+import tkinter as tk
 
 
 # Form for creating a new Request
@@ -11,14 +11,14 @@ class NewRequest(ttk.Frame):
         self.create_form()
 
     def create_form(self):
-        ttk.Label(self, text="ClientID:").grid(row=0, sticky=tk.E)
-        ttk.Label(self, text="Client name:").grid(row=1, sticky=tk.E)
-        ttk.Label(self, text="Event type:").grid(row=2, sticky=tk.E)
-        ttk.Label(self, text="From:").grid(row=3, sticky=tk.E)
-        ttk.Label(self, text="To:").grid(row=4, sticky=tk.E)
-        ttk.Label(self, text="Attendees:").grid(row=5, sticky=tk.E)
-        ttk.Label(self, text="Preferences", font="-underline true").grid(row=6, sticky=tk.E)
-        ttk.Label(self, text="Expected budget:").grid(row=10, sticky=tk.E)
+        ttk.Label(self, text="ClientID:").grid(row=0, sticky="E")
+        ttk.Label(self, text="Client name:").grid(row=1, sticky="E")
+        ttk.Label(self, text="Event type:").grid(row=2, sticky="E")
+        ttk.Label(self, text="From:").grid(row=3, sticky="E")
+        ttk.Label(self, text="To:").grid(row=4, sticky="E")
+        ttk.Label(self, text="Attendees:").grid(row=5, sticky="E")
+        ttk.Label(self, text="Preferences", font="-underline true").grid(row=6, sticky="E")
+        ttk.Label(self, text="Expected budget:").grid(row=10, sticky="E")
 
         self.e1 = ttk.Entry(self)  # ClientID
         self.e1.grid(row=0, column=1)
@@ -35,15 +35,15 @@ class NewRequest(ttk.Frame):
 
         # Preferences
         self.e7 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Decorations", variable=self.e7).grid(row=7, sticky=tk.W)
+        ttk.Checkbutton(self, text="Decorations", variable=self.e7).grid(row=7, sticky="W")
         self.e8 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Breakfast, lunch, dinner", variable=self.e8).grid(row=7, column=1, sticky=tk.W)
+        ttk.Checkbutton(self, text="Breakfast, lunch, dinner", variable=self.e8).grid(row=7, column=1, sticky="W")
         self.e9 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Parties", variable=self.e9).grid(row=8, sticky=tk.W)
+        ttk.Checkbutton(self, text="Parties", variable=self.e9).grid(row=8, sticky="W")
         self.e10 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Soft/hotdrinks", variable=self.e10).grid(row=8, column=1, sticky=tk.W)
+        ttk.Checkbutton(self, text="Soft/hotdrinks", variable=self.e10).grid(row=8, column=1, sticky="W")
         self.e11 = tk.IntVar(self)
-        ttk.Checkbutton(self, text="Photos/filming", variable=self.e11).grid(row=9, sticky=tk.W)
+        ttk.Checkbutton(self, text="Photos/filming", variable=self.e11).grid(row=9, sticky="W")
 
         self.e12 = ttk.Entry(self) # Expected budget
         self.e12.grid(row=10, column=1)

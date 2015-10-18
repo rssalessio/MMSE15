@@ -49,16 +49,17 @@ class NewRequestDetails(ttk.Frame):
         self.e6.grid(row=4, column=3)
 
     def text_boxes(self):
-        print("t_b")
-        editArea = tkst.ScrolledText(
+        self.e7 = tkst.ScrolledText(
             master = self,
             wrap   = tk.WORD,
-            width  = 30,
-            height = 10
+            width  = 70,
+            height = 10,
+            undo=True
         )
-        editArea.grid(row=5, columnspan=2)
+
+        ttk.Label(self, text="Comments", font="-underline true").grid(row=5, column=0, sticky="E")
+        self.e7.grid(row=6, column=0, columnspan=4)
 
     def get_all(self):
         return [self.e1.get(), self.e2.get(), self.e3.get(), self.e4.get(),
-                self.e5.get(), self.e6.get(), self.e7.get(), self.e8.get(),
-                self.e9.get(), self.e10.get(), self.e11.get(), self.e12.get()]
+                self.e5.get(), self.e6.get(), self.e7.get()]
