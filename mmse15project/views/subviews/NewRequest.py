@@ -45,4 +45,4 @@ class NewRequest(ttk.Frame):
 
     def get_all(self):
         return [self.e1.get(), self.e2.get(), self.e3.get(), self.e4.get(),
-                self.e5.get(), self.e6.get(1.0, tk.END), self.e7.get()]
+                self.e5.get(), self.e6.get(1.0, tk.END)[:-1], self.e7.get()]

@@ -10,6 +10,8 @@ class Login(ttk.Frame):
         self.auth()
 
     def auth(self):
+        self.ctrl.clear_frame(self)
+
         ttk.Label(self, text="User:").grid(row=0, sticky="E")
         ttk.Label(self, text="Pass:").grid(row=1, sticky="E")
 
@@ -26,6 +28,8 @@ class Login(ttk.Frame):
         return [self.e1.get(), self.e2.get()]
 
     def fail(self):
+        self.ctrl.clear_frame(self)
+
         l1 = ttk.Label(self, text="Authentication failed")
         b1 = ttk.Button(self, text="Try again",
                        command=lambda: self.ctrl.login_try_again(self))

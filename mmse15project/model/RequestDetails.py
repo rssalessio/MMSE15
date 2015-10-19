@@ -31,6 +31,9 @@ class RequestDetails:
         self.detail5=values[5]
         self.detail6=values[6]
         self.needs = values[7]
+
+    def getID(self):
+        return self.id
         
     def getAll(self):
         return (self.id, self.detail1,self.detail2,self.detail3,self.detail4,self.detail5,self.detail6,self.needs)

@@ -25,6 +25,7 @@ class MainController:
             frame = frame_class(self.view.container, self.model, self)
         else:
             frame = frame_class(self.view.container, self.model, self,
+                                AccountType(account.getAccountTeam()).name,
                                 AccountType(account.getAccountType()).name,
                                 account.getEmail())
         frame.pack()
@@ -36,14 +37,12 @@ class MainController:
     def login_auth(self, login):
         account = self.model.account_db.login(login.e1.get()+"@sep.se", login.e2.get())
         if account is False:
-            self.clear_frame(login)
             login.fail()
         else:
             team_name = AccountTeam(account.getAccountTeam()).name
             self.set_frame(getattr(sys.modules[__name__], team_name), account)
 
     def login_try_again(self, login):
-        self.clear_frame(login)
         login.auth()
 
     def login_quit(self):
@@ -51,8 +50,8 @@ class MainController:
 
     # Submit forms
 
-    def new_account_submit(self, form):
-        data = form.get_all()
+    def new_account_submit(self, subview):
+        data = subview.get_all()
         data[1] += "@sep.se"
         data[3] = self.str_to_enum(data[3]).value
         data[4] = self.str_to_enum(data[4]).value
@@ -67,6 +66,8 @@ class MainController:
         new.setComment(data[6])
         print(new.getAll())
         self.model.account_db.add(new)
+        self.clear_frame(subview)
+        subview.create_widgets()
 
     def str_to_enum(self, str):
         if str == "Administration":
@@ -94,8 +95,8 @@ class MainController:
         else:
             print("error: MainController.str_to_enum()")
 
-    def new_client_submit(self, form):
-        data = form.get_all()
+    def new_client_submit(self, subview):
+        data = subview.get_all()
         print(data)
         new= Client()
         new.setName(data[0])
@@ -106,9 +107,11 @@ class MainController:
         new.setBirthDate(data[5])
         print(new.getAll())
         self.model.client_db.add(new)
+        self.clear_frame(subview)
+        subview.create_widgets()
 
-    def new_request_submit(self, form):
-        data = form.get_all()
+    def new_request_submit(self, subview):
+        data = subview.get_all()
         print(data)
         new = Request()
         new.setClientID(data[0])
@@ -120,11 +123,57 @@ class MainController:
         new.setExpectedBudget(data[6])
         print(new.getAll())
         self.model.request_db.add(new)
+        self.clear_frame(subview)
+        subview.create_widgets()
 
-    def new_request_details_submit(self, form):
-        data = form.get_all()
+    def new_request_details_create(self, subview):
+        request = self.model.request_db.getByID(subview.e1.get())
+        if request is not False and request.getStatus() == 4:
+            subview.form.create_widgets()
+        else:
+            subview.form.no_request_found()
+
+    def new_request_details_submit(self, subview):
+        data = subview.get_all()
         print(data)
         new = RequestDetails()
         new.setAll(data)
         print(new.getAll())
         self.model.request_details_db.add(new)
+
+        request = self.model.request_db.getByID(new.getID())
+        request.setStatus(5)
+        self.model.request_db.update(request)
+
+        self.clear_frame(subview)
+        subview.create_widgets()
+
+    # Search
+
+    def search_client_search(self, subview):
+        subview.result.create_widgets()
+
+    def search_request_search(self, subview):
+        subview.result.create_widgets()
+
+    def search_request_approve(self, subview):
+        status = subview.request.getStatus()
+        subview.request.setStatus(status+1)
+        self.model.request_db.update(subview.request)
+
+        self.clear_frame(subview)
+        subview.create_widgets()
+
+    def search_request_reject(self, subview):
+        subview.request.setStatus(0)
+        self.model.request_db.update(subview.request)
+        self.clear_frame(subview)
+        subview.create_widgets()
+
+    def search_request_details_search(self, subview):
+        subview.result.create_widgets()
+
+    # Update
+
+    def pending_requests_update(self, subview):
+        subview.update.create_widgets()

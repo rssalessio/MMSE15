@@ -50,6 +50,15 @@ class ClientDBInterface(DBInterface):
             return False
         return ans
 
+    def getByID(self, id):
+        all = self.getAll()
+        for c in all:
+            temp = Client()
+            temp.setAll(c)
+            if temp.getID() == id:
+                return temp
+        return None
+
 
 
 

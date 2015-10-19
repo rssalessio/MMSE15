@@ -1,18 +1,18 @@
 from enum import Enum
 from datetime import datetime
 
+
 class RequestStatus(Enum):
-    invalid         = 0
-    pending         = 1
-    accepted        = 2
-    rejected        = 3
-    beingReviewed   = 4
-    reviewed        = 5
-    detailsCreated  = 6
+    rejected        = 0
+    pending         = 1  # wait CustomerService
+    accepted1       = 2  # wait Financial
+    accepted2       = 3  # wait Administration
+    accepted3       = 4  # wait details creation
+    detailsCreated  = 5
 
 
 class Request:
-        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.invalid.value):
+        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.pending.value):
             self.id = id
             self.clientid = clientid
             self.eventType = eventType

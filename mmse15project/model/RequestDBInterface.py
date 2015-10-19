@@ -49,3 +49,13 @@ class RequestDBInterface (DBInterface):
         if (len(ans)==0):
             return False
         return ans
+
+    def getByStatus(self, status):
+        all = self.getAll()
+        ret = []
+        for r in all:
+            temp = Request()
+            temp.setAll(r)
+            if temp.getStatus() == status:
+                ret.append(temp)
+        return ret
