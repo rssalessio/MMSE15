@@ -36,3 +36,7 @@ class TaskDBInterface(DBInterface):
             temp.setAll(row)
             ret.append(temp)
         return ret
+
+    def getByRequestID(self,id):
+        temp = Task(id,'','',TaskPriority.invalid.value,'',TaskStatus.invalid.value,'')
+        return self.get(temp)
