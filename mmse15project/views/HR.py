@@ -1,5 +1,5 @@
 import tkinter.ttk as ttk
-
+from mmse15project.views.subviews.SearchEmployee import *
 
 # AccountTeam view for HR
 class HR(ttk.Frame):
@@ -19,7 +19,7 @@ class HR(ttk.Frame):
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
-        f1 = ttk.Frame(n)
+        f1 = SearchEmployee(n, self.model, self.ctrl)
         f2 = ttk.Frame(n)
         f3 = ttk.Frame(n)
         n.add(f1, text="Search employee")

@@ -2,6 +2,8 @@ import tkinter.ttk as ttk
 from mmse15project.views.subviews.MakeDiscount import *
 from mmse15project.views.subviews.SearchClient import *
 from mmse15project.views.subviews.SearchRequest import *
+from mmse15project.views.subviews.SearchEmployee import *
+from mmse15project.views.subviews.SearchDiscount import *
 # AccountTeam view for Financial
 class Financial(ttk.Frame):
     def __init__(self, master, model, ctrl, acc_team, acc_type, user):
@@ -24,9 +26,9 @@ class Financial(ttk.Frame):
         f1 = ttk.Frame(n)
         f2 = SearchClient(n, self.model, self.ctrl)
         f3 = SearchRequest(n, self.model, self.ctrl)
-        f4 = ttk.Frame(n)
+        f4 = SearchDiscount(n, self.model, self.ctrl)
         f5 = MakeDiscount(n, self.model, self.ctrl)
-        f6 = ttk.Frame(n)
+        f6 = SearchEmployee(n,self.model,self.ctrl)
         n.add(f1, text="Pending requests", sticky="NS")
         n.add(f2, text="Search client", sticky="NS")
         n.add(f3, text="Search request", sticky="NS")
