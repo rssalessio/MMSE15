@@ -73,7 +73,7 @@ def RequestDBInterfaceTest(db):
     db.executeDoQuery(
         "CREATE TABLE IF NOT EXISTS request(id INTEGER PRIMARY KEY AUTOINCREMENT,clientID INTEGER,eventType text,startDate text,endDate   text,expectedParticipants integer,expectedBudget integer,preferences text,status integer,FOREIGN KEY(clientID) REFERENCES client(id))")
     reqDB = RequestDBInterface(db)
-    request = Request(0,1,'Party','10/10/2015','10/10/2015',100,10000,'None',RequestStatus.pending.value)
+    request = Request(0,1,'Party','10/10/2015','10/10/2015',100,10000,'None',RequestStatus.Pending.value)
     request.id = reqDB.add(request)
     request = reqDB.getByID(request.id)
     assert(request.clientid == 1)
