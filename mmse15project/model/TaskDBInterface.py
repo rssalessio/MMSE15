@@ -40,3 +40,15 @@ class TaskDBInterface(DBInterface):
     def getByRequestID(self,id):
         temp = Task(id,'','',TaskPriority.invalid.value,'',TaskStatus.invalid.value,'')
         return self.get(temp)
+
+    def getByStatus(self,status):
+        ans = self.database.executeKnowQuery('SELECT * FROM task WHERE status = ?', (status,))
+        if (len(ans) == 0):
+            return False
+        ret = []
+        for r in ans:
+            temp = Task()
+            temp.setAll(r)
+            if temp.status== status:
+                ret.append(temp)
+        return ret
