@@ -13,7 +13,7 @@ from mmse15project.model.Account import Account
 from mmse15project.model.Client import Client
 from mmse15project.model.Request import Request
 from mmse15project.model.RequestDetails import RequestDetails
-
+from mmse15project.model.Discount import Discount
 class MainController:
     def __init__(self, model, view):
         self.model = model
@@ -165,6 +165,13 @@ class MainController:
 
         self.clear_frame(subview)
 
+    def new_discount(self,subview):
+        data = subview.get_all()
+        print(data)
+        new = Discount()
+        new.setAll(data)
+        self.model.discount_db.add(new)
+        self.clear_frame(subview)
     # Search
 
     def search_client_search(self, subview):
@@ -194,3 +201,4 @@ class MainController:
 
     def pending_requests_update(self, subview):
         subview.update.create_widgets()
+

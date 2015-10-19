@@ -21,4 +21,4 @@ class Administration(ttk.Frame):
         n = ttk.Notebook(container)
         n.pack()
         f1 = ttk.Frame(n)
-        n.add(f1, text="Empty")
+        n.add(f1, text="Pending requests")

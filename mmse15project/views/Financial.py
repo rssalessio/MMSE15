@@ -1,6 +1,7 @@
 import tkinter.ttk as ttk
-
-
+from mmse15project.views.subviews.MakeDiscount import *
+from mmse15project.views.subviews.SearchClient import *
+from mmse15project.views.subviews.SearchRequest import *
 # AccountTeam view for Financial
 class Financial(ttk.Frame):
     def __init__(self, master, model, ctrl, acc_team, acc_type, user):
@@ -19,5 +20,16 @@ class Financial(ttk.Frame):
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
+
         f1 = ttk.Frame(n)
-        n.add(f1, text="Empty")
+        f2 = SearchClient(n, self.model, self.ctrl)
+        f3 = SearchRequest(n, self.model, self.ctrl)
+        f4 = ttk.Frame(n)
+        f5 = MakeDiscount(n, self.model, self.ctrl)
+        f6 = ttk.Frame(n)
+        n.add(f1, text="Pending requests", sticky="NS")
+        n.add(f2, text="Search client", sticky="NS")
+        n.add(f3, text="Search request", sticky="NS")
+        n.add(f4, text="Search discount", sticky="NS")
+        n.add(f5, text="Make discount", sticky="NS")
+        n.add(f6, text="Search employee", sticky="NS")
