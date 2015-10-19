@@ -66,7 +66,7 @@ class TaskDBInterface(DBInterface):
         return ret
 
     def getByTaskID(self,id):
-        ans = self.database.executeKnowQuery('SELECT * FROM task WHERE id = ?', (id,))
+        ans = self.database.executeKnowQuery('SELECT * FROM task WHERE id = ?', (id,))[0]
         if (len(ans) == 0):
             return False
         ret = Task()
