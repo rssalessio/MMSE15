@@ -212,10 +212,17 @@ class MainController:
         subview.result.create_widgets()
 
     def search_tasks_search(self, subview):
-        tasks = self.model.task_db.getByStatusAndEmail(1, subview.user) +\
-                self.model.task_db.getByStatusAndEmail(2, subview.user)
+        print("hej: " + subview.acc_type)
+        if subview.acc_type == "Manager":
+            tasks = self.model.task_db.getByStatus(3)
+        else:
+            tasks = self.model.task_db.getByStatusAndEmail(1, subview.user) +\
+                    self.model.task_db.getByStatusAndEmail(2, subview.user)
+
         tasks_len = len(tasks)
+        print(tasks_len)
         task_num = int(subview.e1.get())
+        print(task_num)
         if task_num < 1 or task_num > tasks_len:
             subview.result.not_found()
         else:
@@ -252,4 +259,6 @@ class MainController:
     def search_tasks_approve(self, subview):
         subview.task.status += 1
         self.model.task_db.update(subview.task)
+        self.clear_frame(subview)
+        subview.create_widgets(subview.task)
 

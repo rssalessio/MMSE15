@@ -129,6 +129,7 @@ CREATE TABLE IF NOT EXISTS requestDetails
 DROP TABLE IF EXISTS  task;
 CREATE TABLE IF NOT EXISTS task
 (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     requestID integer,
     description text,
     operator text,
@@ -151,7 +152,7 @@ CREATE TABLE IF NOT EXISTS department
 DROP TABLE IF EXISTS  schedule;
 CREATE TABLE IF NOT EXISTS schedule
 (
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     employee text,
     startHour integer,
     endHour integer,

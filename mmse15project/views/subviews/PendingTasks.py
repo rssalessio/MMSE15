@@ -27,10 +27,15 @@ class PendingTasks(ttk.Frame):
         def create_widgets(self):
             self.ctrl.clear_frame(self)
             user = self.master.master.master.master.user
-            #tasks = self.model.task_db.getByStatusAndEmail(1, user) + self.model.task_db.getByStatusAndEmail(2, user)
-            #tasks = self.model.task_db.getByStatus(1)
-            tasks = self.model.task_db.getByStatusAndEmail(1, user)
-            print(tasks)
+            acc_type = self.master.master.master.master.acc_type
+
+            print(acc_type)
+            if acc_type == "Manager":
+                tasks = self.model.task_db.getByStatus(3)
+            else:
+                tasks = self.model.task_db.getByStatusAndEmail(1, user) +\
+                        self.model.task_db.getByStatusAndEmail(2, user)
+
             ttk.Label(self, text="Task#(Priority):").grid(row=0, sticky="E")
             ttk.Label(self, text="Status").grid(row=0, column=1, sticky="W")
             row = 1
@@ -40,4 +45,3 @@ class PendingTasks(ttk.Frame):
                 status = TaskStatus(t.status).name
                 ttk.Label(self, text=status).grid(row=row, column=1, sticky="W")
                 row += 1
-                print(t.operator)

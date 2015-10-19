@@ -12,7 +12,7 @@ class RequestStatus(Enum):
 
 
 class Request:
-        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.pending.value):
+        def __init__(self,id=0,clientid=0,eventType='', startdate='01/01/1991', enddate='01/01/1991', epar = 0, ebudg=0,pref='',status=RequestStatus.Pending.value):
             self.id = id
             self.clientid = clientid
             self.eventType = eventType

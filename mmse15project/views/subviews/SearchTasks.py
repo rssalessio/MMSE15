@@ -20,6 +20,7 @@ class SearchTasks(ttk.Frame):
         b1.grid(row=1, columnspan=2)
 
         self.user = self.master.master.master.user
+        self.acc_type = self.master.master.master.acc_type
         self.result = self.SearchResult(self, self.model, self.ctrl)
         self.result.grid(row=2, columnspan=2)
 
@@ -58,7 +59,11 @@ class SearchTasks(ttk.Frame):
             if TaskStatus.Pending.value == status:
                 b1_text = "Accept"
             elif TaskStatus.Accepted.value == status:
-                b1_text = "Completed"
+                b1_text = "Request close"
+            elif TaskStatus.Completed.value == status:
+                b1_text = "Close"
+            else:
+                return
 
             b1 = ttk.Button(self, text=b1_text,
                         command=lambda: self.ctrl.search_tasks_approve(self))

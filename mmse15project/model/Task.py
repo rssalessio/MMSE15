@@ -6,7 +6,7 @@ class TaskStatus(Enum):
     Pending         = 1
     Accepted        = 2
     Completed       = 3
-    Other           = 4
+    Closed          = 4
 
 class TaskPriority(Enum):
     Invalid         = 0

@@ -49,7 +49,7 @@ class NewTask(ttk.Frame):
             self.e3.grid(row=2, column=1)
 
             ttk.Label(self, text="Priority:").grid(row=3, sticky="E")
-            priorities=[1, 2, 3, 4]
+            priorities=[1, 2, 3]
             self.e4 = tk.IntVar(self)
             self.e4.set(priorities[0])
             ttk.OptionMenu(self, self.e4, self.e4.get(), *priorities).grid(row=3, column=1, sticky="E")
