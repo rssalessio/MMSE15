@@ -3,6 +3,7 @@ from mmse15project.views.subviews.SearchRequest import SearchRequest
 from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
 from mmse15project.views.subviews.NewTask import NewTask
 from mmse15project.views.subviews.PendingTasks import PendingTasks
+from mmse15project.views.subviews.SearchTasks import SearchTasks
 
 
 # AccountTeam view for Production
@@ -32,4 +33,6 @@ class Production(ttk.Frame):
             n.add(f3, text="New task", sticky="NS")
         if self.acc_type == "Employee" or self.acc_type == "Senior":
             f4 = PendingTasks(n, self.model, self.ctrl)
-            n.add(f4, text="My task", sticky="NS")
+            n.add(f4, text="My tasks", sticky="NS")
+            f5 = SearchTasks(n, self.model, self.ctrl)
+            n.add(f5, text="View task", sticky="NS")

@@ -54,10 +54,10 @@ class TaskDBInterface(DBInterface):
 
     def getByStatusAndEmail(self, status, email):
         correct_status = self.getByStatus(status)
+        if correct_status is False:
+            return []
         ret = []
         for task in correct_status:
-            print(task.operator)
-            print(email)
             if task.operator == email:
                 ret.append(task)
         return ret

@@ -1,6 +1,6 @@
 import tkinter.ttk as ttk
 from mmse15project.model.Task import TaskStatus
-
+from mmse15project.model.Task import TaskPriority
 
 class PendingTasks(ttk.Frame):
     def __init__(self, master, model, ctrl):
@@ -31,11 +31,12 @@ class PendingTasks(ttk.Frame):
             #tasks = self.model.task_db.getByStatus(1)
             tasks = self.model.task_db.getByStatusAndEmail(1, user)
             print(tasks)
-            ttk.Label(self, text="TaskID(Priority):").grid(row=0, sticky="E")
+            ttk.Label(self, text="Task#(Priority):").grid(row=0, sticky="E")
             ttk.Label(self, text="Status").grid(row=0, column=1, sticky="W")
             row = 1
             for t in tasks:
-                ttk.Label(self, text="[id]" + "(" + str(t.priority) + "):").grid(row=row, sticky="E")
+                priority = TaskPriority(t.priority).name
+                ttk.Label(self, text=str(row) + "(" + priority + "):").grid(row=row, sticky="E")
                 status = TaskStatus(t.status).name
                 ttk.Label(self, text=status).grid(row=row, column=1, sticky="W")
                 row += 1

@@ -50,7 +50,9 @@ class MainController:
     def login_quit(self):
         sys.exit()
 
+    ###########################################################################
     # Submit forms
+    ###########################################################################
 
     def new_account_create(self, subview):
         test = Account()
@@ -159,15 +161,15 @@ class MainController:
     def new_request_details_submit(self, subview):
         data = subview.get_all()
         print(data)
+        # add request details
         new = RequestDetails()
         new.setAll(data)
         print(new.getAll())
         self.model.request_details_db.add(new)
-
+        # update request status
         request = self.model.request_db.getByID(new.getID())
         request.setStatus(5)
         self.model.request_db.update(request)
-
         self.clear_frame(subview)
 
     def new_discount(self,subview):
@@ -196,8 +198,9 @@ class MainController:
         self.model.task_db.add(new)
         self.clear_frame(subview)
 
-
+    ###########################################################################
     # Search
+    ###########################################################################
 
     def search_client_search(self, subview):
         subview.result.create_widgets()
@@ -205,11 +208,38 @@ class MainController:
     def search_request_search(self, subview):
         subview.result.create_widgets()
 
+    def search_request_details_search(self, subview):
+        subview.result.create_widgets()
+
+    def search_tasks_search(self, subview):
+        tasks = self.model.task_db.getByStatusAndEmail(1, subview.user) +\
+                self.model.task_db.getByStatusAndEmail(2, subview.user)
+        tasks_len = len(tasks)
+        task_num = int(subview.e1.get())
+        if task_num < 1 or task_num > tasks_len:
+            subview.result.not_found()
+        else:
+            subview.result.create_widgets(tasks[task_num-1])
+
+
+    ###########################################################################
+    # Update
+    ###########################################################################
+
+    def pending_requests_update(self, subview):
+        subview.update.create_widgets()
+
+    def pending_tasks_update(self, subview):
+        subview.update.create_widgets()
+
+    ###########################################################################
+    # Approve/reject
+    ###########################################################################
+
     def search_request_approve(self, subview):
         status = subview.request.getStatus()
         subview.request.setStatus(status+1)
         self.model.request_db.update(subview.request)
-
         self.clear_frame(subview)
         subview.create_widgets()
 
@@ -219,14 +249,7 @@ class MainController:
         self.clear_frame(subview)
         subview.create_widgets()
 
-    def search_request_details_search(self, subview):
-        subview.result.create_widgets()
-
-    # Update
-
-    def pending_requests_update(self, subview):
-        subview.update.create_widgets()
-
-    def pending_tasks_update(self, subview):
-        subview.update.create_widgets()
+    def search_tasks_approve(self, subview):
+        subview.request.status += 1
+        self.model.task_db.update(subview.task)
 
