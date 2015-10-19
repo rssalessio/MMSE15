@@ -58,6 +58,5 @@ class RequestDBInterface (DBInterface):
         for r in ans:
             temp = Request()
             temp.setAll(r)
-            if temp.getStatus() == status:
-                ret.append(temp)
+            ret.append(temp)
         return ret

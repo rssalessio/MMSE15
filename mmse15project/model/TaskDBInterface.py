@@ -49,6 +49,5 @@ class TaskDBInterface(DBInterface):
         for r in ans:
             temp = Task()
             temp.setAll(r)
-            if temp.status== status:
-                ret.append(temp)
+            ret.append(temp)
         return ret
