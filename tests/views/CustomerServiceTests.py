@@ -6,6 +6,6 @@ from tests.views.FrameTests import FrameTests
 
 class CustomerServiceTests:
     def __init__(self):
-        self.root = FrameTests(CustomerService, AccountTeam(3).name, AccountType(3).name, "name@test.com")
+        self.root = FrameTests(CustomerService, AccountTeam(3).name, AccountType(2).name, "name@test.com")
 
 CustomerServiceTests().root.mainloop()

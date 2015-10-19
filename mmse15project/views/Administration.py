@@ -1,4 +1,7 @@
 import tkinter.ttk as ttk
+from mmse15project.views.subviews.SearchClient import SearchClient
+from mmse15project.views.subviews.SearchRequest import SearchRequest
+from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
 
 
 # AccountTeam view for Administration
@@ -21,4 +24,10 @@ class Administration(ttk.Frame):
         n = ttk.Notebook(container)
         n.pack()
         f1 = ttk.Frame(n)
+        f2 = SearchClient(n, self.model, self.ctrl)
+        f3 = SearchRequest(n, self.model, self.ctrl)
+        f4 = SearchRequestDetails(n, self.model, self.ctrl)
         n.add(f1, text="Pending requests")
+        n.add(f2, text="Search client", sticky="NS")
+        n.add(f3, text="Search request", sticky="NS")
+        n.add(f4, text="Search request details", sticky="NS")

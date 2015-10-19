@@ -1,4 +1,6 @@
 import tkinter.ttk as ttk
+from mmse15project.views.subviews.SearchRequest import SearchRequest
+from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
 
 
 # AccountTeam view for Service
@@ -19,5 +21,8 @@ class Service(ttk.Frame):
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)
         n.pack()
-        f1 = ttk.Frame(n)
-        n.add(f1, text="Empty")
+        if self.acc_type == "Manager":
+            f3 = SearchRequest(n, self.model, self.ctrl)
+            f4 = SearchRequestDetails(n, self.model, self.ctrl)
+            n.add(f3, text="Search request", sticky="NS")
+            n.add(f4, text="Search request details", sticky="NS")
