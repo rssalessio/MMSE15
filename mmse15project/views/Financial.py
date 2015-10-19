@@ -32,7 +32,7 @@ class Financial(ttk.Frame):
             f2 = SearchClient(n, self.model, self.ctrl)
             f3 = SearchRequest(n, self.model, self.ctrl)
             f4 = SearchRequestDetails(n, self.model, self.ctrl)
-            n.add(f1, text="Pending requests")
+            n.add(f1, text="Pending requests", sticky="NS")
             n.add(f2, text="Search client", sticky="NS")
             n.add(f3, text="Search request", sticky="NS")
             n.add(f4, text="Search request details", sticky="NS")
