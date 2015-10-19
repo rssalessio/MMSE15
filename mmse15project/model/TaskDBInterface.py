@@ -70,6 +70,6 @@ class TaskDBInterface(DBInterface):
         if (len(ans) == 0):
             return False
         ret = Task()
-        ret.setAll(ans[0])
+        ret.setAll(ans)
         return ret
 
