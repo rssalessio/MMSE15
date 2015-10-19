@@ -5,6 +5,7 @@ from mmse15project.views.subviews.SearchRequest import SearchRequest
 from mmse15project.views.subviews.SearchEmployee import SearchEmployee
 from mmse15project.views.subviews.SearchDiscount import SearchDiscount
 from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
+from mmse15project.views.subviews.PendingRequests import PendingRequests
 
 
 # AccountTeam view for Financial
@@ -27,9 +28,11 @@ class Financial(ttk.Frame):
         n.pack()
 
         if self.acc_type == "Manager":
+            f1 = PendingRequests(n, self.model, self.ctrl)
             f2 = SearchClient(n, self.model, self.ctrl)
             f3 = SearchRequest(n, self.model, self.ctrl)
             f4 = SearchRequestDetails(n, self.model, self.ctrl)
+            n.add(f1, text="Pending requests")
             n.add(f2, text="Search client", sticky="NS")
             n.add(f3, text="Search request", sticky="NS")
             n.add(f4, text="Search request details", sticky="NS")
