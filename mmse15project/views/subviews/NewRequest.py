@@ -29,6 +29,11 @@ class NewRequest(ttk.Frame):
             self.model = model
             self.ctrl = ctrl
 
+        def not_found(self):
+            self.ctrl.clear_frame(self)
+            ttk.Label(self, text="ClientID not found!").grid()
+
+
         def create_widgets(self):
             self.ctrl.clear_frame(self)
             ttk.Label(self, text="ClientID:").grid(row=0, sticky="E")

@@ -1,6 +1,7 @@
 import tkinter.ttk as ttk
 from mmse15project.views.subviews.SearchRequest import SearchRequest
 from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
+from mmse15project.views.subviews.NewTask import NewTask
 
 
 # AccountTeam view for Service
@@ -24,5 +25,7 @@ class Service(ttk.Frame):
         if self.acc_type == "Manager":
             f3 = SearchRequest(n, self.model, self.ctrl)
             f4 = SearchRequestDetails(n, self.model, self.ctrl)
+            f5 = NewTask(n, self.model, self.ctrl)
             n.add(f3, text="Search request", sticky="NS")
             n.add(f4, text="Search request details", sticky="NS")
+            n.add(f5, text="My task", sticky="NS")

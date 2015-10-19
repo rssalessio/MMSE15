@@ -2,22 +2,22 @@ from enum import Enum
 from datetime import datetime
 
 class TaskStatus(Enum):
-    invalid         = 0
-    pending         = 1
-    accepted        = 2
-    completed       = 3
-    other           = 4
+    Invalid         = 0
+    Pending         = 1
+    Accepted        = 2
+    Completed       = 3
+    Other           = 4
 
 class TaskPriority(Enum):
-    invalid         = 0
-    low             = 1
-    medium          = 2
-    high            = 3
-    immediate       = 4
+    Invalid         = 0
+    Low             = 1
+    Medium          = 2
+    High            = 3
+    Immediate       = 4
 
 class Task:
 
-    def __init__(self,requestid=0,description='', operator='', priority=TaskPriority.invalid.value, deadline='',status=TaskStatus.invalid.value,comment=''):
+    def __init__(self,requestid=0,description='', operator='', priority=TaskPriority.Invalid.value, deadline='',status=TaskStatus.Pending.value,comment=''):
         self.requestID = requestid
         self.description = description
         self.operator = operator

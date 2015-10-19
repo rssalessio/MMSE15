@@ -14,6 +14,8 @@ from mmse15project.model.Client import Client
 from mmse15project.model.Request import Request
 from mmse15project.model.RequestDetails import RequestDetails
 from mmse15project.model.Discount import Discount
+from mmse15project.model.Task import Task
+
 class MainController:
     def __init__(self, model, view):
         self.model = model
@@ -127,7 +129,10 @@ class MainController:
         self.clear_frame(subview)
 
     def new_request_create(self, subview):
-        subview.form.create_widgets()
+        if self.model.client_db.getByID(int(subview.e1.get())) is False:
+            subview.form.not_found()
+        else:
+            subview.form.create_widgets()
 
     def new_request_submit(self, subview):
         data = subview.get_all()
@@ -172,6 +177,26 @@ class MainController:
         new.setAll(data)
         self.model.discount_db.add(new)
         self.clear_frame(subview)
+
+    def new_task_create(self, subview):
+        if self.model.request_db.getByID(int(subview.e1.get())) is False:
+            subview.form.not_found()
+        else:
+            subview.form.create_widgets()
+
+    def new_task_submit(self, subview):
+        data = subview.get_all()
+        print(data)
+        new = Task()
+        new.requestID = data[0]
+        new.description = data[1]
+        new.operator = data[2] + "@sep.se"
+        new.priority = data[3]
+        print(new.getAll())
+        self.model.task_db.add(new)
+        self.clear_frame(subview)
+
+
     # Search
 
     def search_client_search(self, subview):
@@ -200,5 +225,8 @@ class MainController:
     # Update
 
     def pending_requests_update(self, subview):
+        subview.update.create_widgets()
+
+    def pending_tasks_update(self, subview):
         subview.update.create_widgets()
 

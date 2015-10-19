@@ -6,6 +6,6 @@ from tests.views.FrameTests import FrameTests
 
 class TopManagementTests:
     def __init__(self):
-        self.root = FrameTests(TopManagement, AccountTeam(8).name, AccountType(3).name, "name@test.com")
+        self.root = FrameTests(TopManagement, AccountTeam(8).name, AccountType(3).name, "tm@sep.se")
 
 TopManagementTests().root.mainloop()

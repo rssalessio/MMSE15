@@ -6,6 +6,6 @@ from tests.views.FrameTests import FrameTests
 
 class FinancialTests:
     def __init__(self):
-        self.root = FrameTests(Financial, AccountTeam(5).name, AccountType(3).name, "name@test.com")
+        self.root = FrameTests(Financial, AccountTeam(5).name, AccountType(3).name, "f@sep.se")
 
 FinancialTests().root.mainloop()

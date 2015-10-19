@@ -57,7 +57,7 @@ class ClientDBInterface(DBInterface):
             temp.setAll(c)
             if temp.getID() == id:
                 return temp
-        return None
+        return False
 
 
 

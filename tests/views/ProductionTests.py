@@ -6,6 +6,6 @@ from tests.views.FrameTests import FrameTests
 
 class ProductionTests:
     def __init__(self):
-        self.root = FrameTests(Production, AccountTeam(6).name, AccountType(3).name, "name@test.com")
+        self.root = FrameTests(Production, AccountTeam(6).name, AccountType(2).name, "p@sep.se")
 
 ProductionTests().root.mainloop()
