@@ -25,7 +25,7 @@ class MainController:
             frame = frame_class(self.view.container, self.model, self)
         else:
             frame = frame_class(self.view.container, self.model, self,
-                                AccountType(account.getAccountTeam()).name,
+                                AccountTeam(account.getAccountTeam()).name,
                                 AccountType(account.getAccountType()).name,
                                 account.getEmail())
         frame.pack()
