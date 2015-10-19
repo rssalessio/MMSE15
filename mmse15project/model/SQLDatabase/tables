@@ -129,6 +129,7 @@ CREATE TABLE IF NOT EXISTS requestDetails
 DROP TABLE IF EXISTS  task;
 CREATE TABLE IF NOT EXISTS task
 (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
     requestID integer,
     description text,
     operator text,

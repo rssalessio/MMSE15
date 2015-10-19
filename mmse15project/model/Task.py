@@ -17,7 +17,8 @@ class TaskPriority(Enum):
 
 class Task:
 
-    def __init__(self,requestid=0,description='', operator='', priority=TaskPriority.Invalid.value, deadline='',status=TaskStatus.Pending.value,comment=''):
+    def __init__(self,id=0,requestid=0,description='', operator='', priority=TaskPriority.Invalid.value, deadline='',status=TaskStatus.Pending.value,comment=''):
+        self.id = id
         self.requestID = requestid
         self.description = description
         self.operator = operator
@@ -27,12 +28,13 @@ class Task:
         self.comment = comment
 
     def setAll(self,values):
-        self.requestID = values[0]
-        self.description = values[1]
-        self.operator = values[2]
-        self.priority = values[3]
-        self.deadline = values[4]
-        self.status = values[5]
-        self.comment = values[6]
+        self.id = values[0]
+        self.requestID = values[1]
+        self.description = values[2]
+        self.operator = values[3]
+        self.priority = values[4]
+        self.deadline = values[5]
+        self.status = values[6]
+        self.comment = values[7]
 
-    def getAll(self): return (self.requestID,self.description,self.operator,self.priority,self.deadline,self.status,self.comment)
+    def getAll(self): return (self.id, self.requestID,self.description,self.operator,self.priority,self.deadline,self.status,self.comment)

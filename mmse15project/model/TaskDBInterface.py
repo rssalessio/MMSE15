@@ -9,13 +9,16 @@ class TaskDBInterface(DBInterface):
 
     def add(self,task):
         values = task.getAll()
+        values = tuple_without(values,0)
         self.database.executeDoQuery('INSERT INTO task (requestID,description,operator,priority,deadline,status,comment) VALUES (?,?,?,?,?,?,?)',values)
+        task.id=self.database.getLastRow()
+        return task.id
 
     def update(self,task):
         values = task.getAll()
         values = tuple_without(values,0)
-        values = values +(task.requestID,)
-        self.database.executeDoQuery('UPDATE task SET description=?,operator=?,priority=?,deadline=?,status=?,comment=? where requestID=?',values)
+        values = values +(task.id,)
+        self.database.executeDoQuery('UPDATE task SET requestID=?,description=?,operator=?,priority=?,deadline=?,status=?,comment=? where id=?',values)
 
     def get(self,task):
         ans = self.database.executeKnowQuery('SELECT * FROM task WHERE requestID = ?', (task.requestID,))
@@ -61,3 +64,12 @@ class TaskDBInterface(DBInterface):
             if task.operator == email:
                 ret.append(task)
         return ret
+
+    def getByTaskID(self,id):
+        ans = self.database.executeKnowQuery('SELECT * FROM task WHERE id = ?', (id,))
+        if (len(ans) == 0):
+            return False
+        ret = Task()
+        ret.setAll(ans[0])
+        return ret
+
