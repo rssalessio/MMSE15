@@ -19,7 +19,6 @@ class Administration(ttk.Frame):
     def create_widgets(self):
         container = ttk.Frame(self)
         container.pack()
-        print(self.acc_type)
         user_info = "Administration, %s — %s" % (self.acc_type, self.user)
         ttk.Label(container, text=user_info).pack()
         n = ttk.Notebook(container)

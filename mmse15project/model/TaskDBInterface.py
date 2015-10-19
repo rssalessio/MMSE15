@@ -47,7 +47,7 @@ class TaskDBInterface(DBInterface):
     def getByStatus(self,status):
         ans = self.database.executeKnowQuery('SELECT * FROM task WHERE status = ?', (status,))
         if (len(ans) == 0):
-            return False
+            return []
         ret = []
         for r in ans:
             temp = Task()
@@ -72,4 +72,13 @@ class TaskDBInterface(DBInterface):
         ret = Task()
         ret.setAll(ans)
         return ret
+
+    def getTasksByAccTypeUser(self, acc_type, user):
+        if acc_type == "Manager":
+            tasks = self.getByStatus(3)
+        else:
+            tasks = self.getByStatusAndEmail(1, user) +\
+                    self.getByStatusAndEmail(2, user) +\
+                    self.getByStatusAndEmail(3, user)
+        return tasks
 

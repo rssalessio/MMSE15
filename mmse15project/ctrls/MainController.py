@@ -68,7 +68,6 @@ class MainController:
         data[1] += "@sep.se"
         data[3] = self.str_to_enum(data[3]).value
         data[4] = self.str_to_enum(data[4]).value
-        print(data)
         new = Account()
         new.setName(data[0])
         new.setEmail(data[1])
@@ -77,7 +76,6 @@ class MainController:
         new.setAccountType(data[4])
         new.setDepartment(data[5])
         new.setComment(data[6])
-        print(new.getAll())
         self.model.account_db.add(new)
         self.clear_frame(subview)
 
@@ -105,7 +103,7 @@ class MainController:
         elif str == "Manager":
             return AccountType.Manager
         else:
-            print("error: MainController.str_to_enum()")
+            return None
 
     def new_client_create(self, subview):
         test = Client()
@@ -118,7 +116,6 @@ class MainController:
 
     def new_client_submit(self, subview):
         data = subview.get_all()
-        print(data)
         new= Client()
         new.setName(data[0])
         new.setEmail(data[1])
@@ -126,7 +123,6 @@ class MainController:
         new.setPostalCode(data[3])
         new.setCity(data[4])
         new.setBirthDate(data[5])
-        print(new.getAll())
         self.model.client_db.add(new)
         self.clear_frame(subview)
 
@@ -138,7 +134,6 @@ class MainController:
 
     def new_request_submit(self, subview):
         data = subview.get_all()
-        print(data)
         new = Request()
         new.setClientID(data[0])
         new.setEventType(data[1])
@@ -147,7 +142,6 @@ class MainController:
         new.setExpectedParticipants(data[4])
         new.setPreferences(data[5])
         new.setExpectedBudget(data[6])
-        print(new.getAll())
         self.model.request_db.add(new)
         self.clear_frame(subview)
 
@@ -160,11 +154,9 @@ class MainController:
 
     def new_request_details_submit(self, subview):
         data = subview.get_all()
-        print(data)
         # add request details
         new = RequestDetails()
         new.setAll(data)
-        print(new.getAll())
         self.model.request_details_db.add(new)
         # update request status
         request = self.model.request_db.getByID(new.getID())
@@ -174,7 +166,6 @@ class MainController:
 
     def new_discount(self,subview):
         data = subview.get_all()
-        print(data)
         new = Discount()
         new.setAll(data)
         self.model.discount_db.add(new)
@@ -188,13 +179,11 @@ class MainController:
 
     def new_task_submit(self, subview):
         data = subview.get_all()
-        print(data)
         new = Task()
         new.requestID = data[0]
         new.description = data[1]
         new.operator = data[2] + "@sep.se"
         new.priority = data[3]
-        print(new.getAll())
         self.model.task_db.add(new)
         self.clear_frame(subview)
 
@@ -212,17 +201,11 @@ class MainController:
         subview.result.create_widgets()
 
     def search_tasks_search(self, subview):
-        print("hej: " + subview.acc_type)
-        if subview.acc_type == "Manager":
-            tasks = self.model.task_db.getByStatus(3)
-        else:
-            tasks = self.model.task_db.getByStatusAndEmail(1, subview.user) +\
-                    self.model.task_db.getByStatusAndEmail(2, subview.user)
-
+        user = subview.master.master.master.user
+        acc_type = subview.master.master.master.acc_type
+        tasks = self.model.task_db.getTasksByAccTypeUser(acc_type, user)
         tasks_len = len(tasks)
-        print(tasks_len)
         task_num = int(subview.e1.get())
-        print(task_num)
         if task_num < 1 or task_num > tasks_len:
             subview.result.not_found()
         else:
@@ -238,6 +221,7 @@ class MainController:
 
     def pending_tasks_update(self, subview):
         subview.update.create_widgets()
+
 
     ###########################################################################
     # Approve/reject

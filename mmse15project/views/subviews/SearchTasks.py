@@ -19,8 +19,6 @@ class SearchTasks(ttk.Frame):
                         command=lambda: self.ctrl.search_tasks_search(self))
         b1.grid(row=1, columnspan=2)
 
-        self.user = self.master.master.master.user
-        self.acc_type = self.master.master.master.acc_type
         self.result = self.SearchResult(self, self.model, self.ctrl)
         self.result.grid(row=2, columnspan=2)
 
@@ -49,18 +47,19 @@ class SearchTasks(ttk.Frame):
             ttk.Label(self, text=task.operator).grid(row=2, column=1, sticky="W")
 
             ttk.Label(self, text="Priority:").grid(row=3, sticky="E")
-            print(task.priority)
             ttk.Label(self, text=TaskPriority(task.priority).name).grid(row=3, column=1, sticky="W")
 
             ttk.Label(self, text="Status:").grid(row=4, sticky="E")
             status = task.status
             ttk.Label(self, text=TaskStatus(status).name).grid(row=4, column=1, sticky="W")
 
+            acc_type = self.master.master.master.master.acc_type
+
             if TaskStatus.Pending.value == status:
                 b1_text = "Accept"
             elif TaskStatus.Accepted.value == status:
                 b1_text = "Request close"
-            elif TaskStatus.Completed.value == status:
+            elif TaskStatus.Completed.value == status and acc_type == "Master":
                 b1_text = "Close"
             else:
                 return
