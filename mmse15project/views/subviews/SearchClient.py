@@ -60,9 +60,11 @@ class SearchClient(ttk.Frame):
                 if requests is False:
                     ttk.Label(self, text="No requests found").grid(row=8, columnspan=2)
                 else:
-                    ttk.Label(self, text="[RequestID]: [Even type]").grid(row=8, columnspan=2, sticky="W")
+                    ttk.Label(self, text="RequestID(Status):").grid(row=8, sticky="E")
+                    ttk.Label(self, text="Event type").grid(row=8, column=1, sticky="W")
                     row = 9
                     for r in requests:
-                        ttk.Label(self, text=str(r.getID()) + ": " + r.getEventType()).grid(row=row, columnspan=2, sticky="W")
+                        ttk.Label(self, text=str(r.getID()) + "(" + str(r.getStatus()) + "):").grid(row=row, sticky="E")
+                        ttk.Label(self, text=r.getEventType()).grid(row=row, column=1, sticky="W")
                         row += 1
 

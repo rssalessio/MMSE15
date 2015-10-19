@@ -50,6 +50,15 @@ class MainController:
 
     # Submit forms
 
+    def new_account_create(self, subview):
+        test = Account()
+        test.setEmail(subview.e1.get() + "@sep.se")
+        exist = self.model.account_db.get(test)
+        if exist is False:
+            subview.form.create_widgets()
+        else:
+            subview.form.already_exist()
+
     def new_account_submit(self, subview):
         data = subview.get_all()
         data[1] += "@sep.se"
@@ -67,7 +76,6 @@ class MainController:
         print(new.getAll())
         self.model.account_db.add(new)
         self.clear_frame(subview)
-        subview.create_widgets()
 
     def str_to_enum(self, str):
         if str == "Administration":
@@ -95,6 +103,15 @@ class MainController:
         else:
             print("error: MainController.str_to_enum()")
 
+    def new_client_create(self, subview):
+        test = Client()
+        test.setEmail(subview.e1.get())
+        exist = self.model.client_db.get(test)
+        if exist is False:
+            subview.form.create_widgets()
+        else:
+            subview.form.already_exist()
+
     def new_client_submit(self, subview):
         data = subview.get_all()
         print(data)
@@ -108,7 +125,9 @@ class MainController:
         print(new.getAll())
         self.model.client_db.add(new)
         self.clear_frame(subview)
-        subview.create_widgets()
+
+    def new_request_create(self, subview):
+        subview.form.create_widgets()
 
     def new_request_submit(self, subview):
         data = subview.get_all()
@@ -124,7 +143,6 @@ class MainController:
         print(new.getAll())
         self.model.request_db.add(new)
         self.clear_frame(subview)
-        subview.create_widgets()
 
     def new_request_details_create(self, subview):
         request = self.model.request_db.getByID(subview.e1.get())
@@ -146,7 +164,6 @@ class MainController:
         self.model.request_db.update(request)
 
         self.clear_frame(subview)
-        subview.create_widgets()
 
     # Search
 

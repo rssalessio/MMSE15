@@ -36,9 +36,10 @@ class PendingRequests(ttk.Frame):
             else:
                 requests = []
 
-            ttk.Label(self, text="[RequestID]: [Even type]").grid(row=0, sticky="W")
+            ttk.Label(self, text="RequestID(Status):").grid(row=0, sticky="E")
+            ttk.Label(self, text="Event type").grid(row=0, column=1, sticky="W")
             row = 1
             for r in requests:
-                ttk.Label(self, text=str(r.getID()) + ": " + r.getEventType()).grid(row=row, sticky="W")
+                ttk.Label(self, text=str(r.getID()) + "(" + str(r.getStatus()) + "):").grid(row=row, sticky="E")
+                ttk.Label(self, text=r.getEventType()).grid(row=row, column=1, sticky="W")
                 row += 1
-
