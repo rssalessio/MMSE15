@@ -250,6 +250,6 @@ class MainController:
         subview.create_widgets()
 
     def search_tasks_approve(self, subview):
-        subview.request.status += 1
+        subview.task.status += 1
         self.model.task_db.update(subview.task)
 

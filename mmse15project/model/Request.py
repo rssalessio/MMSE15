@@ -3,12 +3,12 @@ from datetime import datetime
 
 
 class RequestStatus(Enum):
-    rejected        = 0
-    pending         = 1  # wait CustomerService
-    accepted1       = 2  # wait Financial
-    accepted2       = 3  # wait Administration
-    accepted3       = 4  # wait details creation
-    detailsCreated  = 5
+    Rejected        = 0
+    Pending         = 1  # waits CustomerService
+    Accepted1       = 2  # waits Financial
+    Accepted2       = 3  # waits Administration
+    Accepted3       = 4  # waits details creation
+    DetailsCreated  = 5
 
 
 class Request:
