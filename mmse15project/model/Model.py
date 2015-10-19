@@ -5,8 +5,10 @@ from mmse15project.model.FinancialRequestDBInterface   import FinancialRequestDB
 from mmse15project.model.RecruitmentRequestDBInterface import RecruitmentRequestDBInterface
 from mmse15project.model.RequestDBInterface            import RequestDBInterface
 from mmse15project.model.RequestDetailsDBInterface     import RequestDetailsDBInterface
-
-
+from mmse15project.model.DiscountDBInterface           import DiscountDBinterface
+from mmse15project.model.TaskDBInterface               import TaskDBInterface
+from mmse15project.model.ClientMeetingDBInterface      import ClientMeetingDBInterface
+from mmse15project.model.ScheduleDBInterface           import ScheduleDBInterface
 class Model:
     def __init__(self):
         database = DBConnectionSQLite("SEP.db")
@@ -16,3 +18,7 @@ class Model:
         self.recruitment_request_db = RecruitmentRequestDBInterface(database)
         self.request_db             = RequestDBInterface(database)
         self.request_details_db     = RequestDetailsDBInterface(database)
+        self.discount_db            = DiscountDBinterface(database)
+        self.task_db                = TaskDBInterface(database)
+        self.client_meeting_db      = ClientMeetingDBInterface(database)
+        self.schedule_db            = ScheduleDBInterface(database)
