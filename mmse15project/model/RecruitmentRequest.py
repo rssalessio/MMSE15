@@ -6,13 +6,14 @@ class RecruitmentType(Enum):
     Hire        =2
 
 class RecruitmentStatus(Enum):
-    InvalidType =0
-    Active = 1
-    Completed = 2
+    InvalidType = 0
+    Pending     = 1
+    Accepted    = 2
+    Rejected    = 3
 
 
 class RecruitmentRequest:
-    def __init__(self, id=0, type=RecruitmentType.InvalidType.value, date='01/01/1991',department='',title='',status=RecruitmentStatus.Active.value, description=''):
+    def __init__(self, id=0, type=RecruitmentType.InvalidType.value, date='01/01/1991',department='',title='',status=RecruitmentStatus.Pending.value, description=''):
         self.id=id
         self.type = type
         self.date = date

@@ -269,7 +269,13 @@ class MainController:
         subview.create_widgets()
 
     def search_recruitment_request_approve(self, subview):
-        subview.r.status += 1
+        subview.r.status = 2
+        self.model.recruitment_request_db.update(subview.r)
+        self.clear_frame(subview)
+        subview.create_widgets()
+
+    def search_recruitment_request_reject(self, subview):
+        subview.r.status = 3
         self.model.recruitment_request_db.update(subview.r)
         self.clear_frame(subview)
         subview.create_widgets()

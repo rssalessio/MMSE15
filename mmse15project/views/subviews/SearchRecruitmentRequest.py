@@ -50,11 +50,10 @@ class SearchRecruitmentRequest(ttk.Frame):
                 ttk.Label(self, text=r.description).grid(row=3, column=1, sticky="W")
                 ttk.Label(self, text=RecruitmentStatus(r.status).name).grid(row=4, column=1, sticky="W")
 
-                if r.status == RecruitmentStatus.Active.value:
-                    b1 = ttk.Button(self, text="Completed",
+                if r.status == RecruitmentStatus.Pending.value:
+                    b1 = ttk.Button(self, text="Approve",
                                     command=lambda: self.ctrl.search_recruitment_request_approve(self))
-                    b1.grid(row=5, columnspan=2)
-
-
-
-
+                    b1.grid(row=5, column=0)
+                    b2 = ttk.Button(self, text="Reject",
+                                    command=lambda: self.ctrl.search_recruitment_request_reject(self))
+                    b2.grid(row=5, column=1)
