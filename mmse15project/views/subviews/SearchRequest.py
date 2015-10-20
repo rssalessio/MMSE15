@@ -1,4 +1,6 @@
 import tkinter.ttk as ttk
+from mmse15project.model.Task import TaskStatus
+from mmse15project.model.Task import TaskPriority
 
 
 class SearchRequest(ttk.Frame):
@@ -13,14 +15,14 @@ class SearchRequest(ttk.Frame):
         self.e1 = ttk.Entry(self)
         self.e1.grid(row=0, column=1)
 
-        b1 = ttk.Button(self, text="Search",
-                        command=lambda: self.ctrl.search_request_search(self))
+        b1 = ttk.Button(self, text="Get",
+                        command=lambda: self.ctrl.search_request_get(self))
         b1.grid(row=1, columnspan=2)
 
-        self.result = self.SearchResult(self, self.model, self.ctrl)
+        self.result = self.Result(self, self.model, self.ctrl)
         self.result.grid(row=2, columnspan=2)
 
-    class SearchResult(ttk.Frame):
+    class Result(ttk.Frame):
         def __init__(self, master, model, ctrl):
             ttk.Frame.__init__(self, master)
             self.master = master
@@ -32,11 +34,11 @@ class SearchRequest(ttk.Frame):
             request = self.model.request_db.getByID(self.master.e1.get())
             self.request = request
             if request is False:
-                ttk.Label(self, text="Request not found").grid(row=0, columnspan=2)
+                ttk.Label(self, text="No such request").grid(row=0, columnspan=2)
             else:
                 client = self.model.client_db.getByID(request.getClientID())
                 if client is None:
-                    ttk.Label(self, text="Request is invalid").grid(row=0, columnspan=2)
+                    ttk.Label(self, text="Invalid request").grid(row=0, columnspan=2)
                 else:
                     #ttk.Label(self, text="ClientID:").grid(row=0, sticky="E")
                     #ttk.Label(self, text=str(request.getClientID())).grid(row=0, column=1, sticky="W")
@@ -66,6 +68,25 @@ class SearchRequest(ttk.Frame):
                     ttk.Label(self, text="Status:").grid(row=7, sticky="E")
                     ttk.Label(self, text=str(request.getStatus())).grid(row=7, column=1, sticky="W")
 
+                    ttk.Label(self, text="").grid(row=8, columnspan=2, sticky="WE")
+
+                    # View assigned tasks
+                    row = 9
+                    tasks = self.model.task_db.getByRequestID(request.getID())
+                    if tasks is False:
+                        ttk.Label(self, text="No tasks found").grid(row=row, columnspan=2)
+                    else:
+                        ttk.Label(self, text="TaskID(Priority):").grid(row=row, sticky="E")
+                        ttk.Label(self, text="Status").grid(row=row, column=1, sticky="W")
+                        row += 1
+                        for t in tasks:
+                            priority = TaskPriority(t.priority).name
+                            ttk.Label(self, text=str(t.id) + "(" + priority + "):").grid(row=row, sticky="E")
+                            status = TaskStatus(t.status).name
+                            ttk.Label(self, text=status).grid(row=row, column=1, sticky="W")
+                            row += 1
+
+                    # Buttons
                     status = request.getStatus()
                     acc_team = self.master.master.master.master.acc_team
                     acc_type = self.master.master.master.master.acc_type
@@ -75,10 +96,10 @@ class SearchRequest(ttk.Frame):
                             (status == 3 and acc_team == "Administration" and acc_type == "Manager"):
                         b1 = ttk.Button(self, text="Approve",
                             command=lambda: self.ctrl.search_request_approve(self))
-                        b1.grid(row=8, column=0)
+                        b1.grid(row=row, column=0)
                         b2 = ttk.Button(self, text="Reject",
                                         command=lambda: self.ctrl.search_request_reject(self))
-                        b2.grid(row=8, column=1)
+                        b2.grid(row=row, column=1)
 
 
 

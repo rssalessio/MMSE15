@@ -16,17 +16,17 @@ class SearchRequestDetails(ttk.Frame):
         self.e2 = ttk.Entry(self)  # Email
         self.e2.grid(row=0, column=1)
 
-        b1 = ttk.Button(self, text="Search",
-                        command=lambda: self.ctrl.search_request_details_search(self))
+        b1 = ttk.Button(self, text="Get",
+                        command=lambda: self.ctrl.search_request_details_get(self))
         b1.grid(row=1, columnspan=2)
 
-        self.result = self.SearchResult(self, self.model, self.ctrl)
+        self.result = self.Result(self, self.model, self.ctrl)
         self.result.grid(row=2, columnspan=2)
 
     def get_all(self):
         return [self.e1.get()]
 
-    class SearchResult(ttk.Frame):
+    class Result(ttk.Frame):
         def __init__(self, master, model, ctrl):
             ttk.Frame.__init__(self, master)
             self.master = master
@@ -37,7 +37,7 @@ class SearchRequestDetails(ttk.Frame):
             self.ctrl.clear_frame(self)
             request_details = self.model.request_details_db.getByID(self.master.e2.get())
             if request_details is False:
-                ttk.Label(self, text="Request not found").grid(row=0, columnspan=2)
+                ttk.Label(self, text="No such request details").grid(row=0, columnspan=2)
             else:
                 data = request_details.getAll()
 

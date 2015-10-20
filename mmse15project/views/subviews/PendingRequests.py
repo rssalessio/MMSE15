@@ -15,6 +15,7 @@ class PendingRequests(ttk.Frame):
 
         self.update = self.Update(self, self.model, self.ctrl)
         self.update.grid(row=1)
+        self.update.create_widgets()
 
     class Update(ttk.Frame):
         def __init__(self, master, model, ctrl):
@@ -34,6 +35,10 @@ class PendingRequests(ttk.Frame):
                 requests = self.model.request_db.getByStatus(3)
             else:
                 requests = []
+
+            if len(requests) == 0:
+                ttk.Label(self, text="No pending requests").grid()
+                return
 
             ttk.Label(self, text="RequestID(Status):").grid(row=0, sticky="E")
             ttk.Label(self, text="Event type").grid(row=0, column=1, sticky="W")

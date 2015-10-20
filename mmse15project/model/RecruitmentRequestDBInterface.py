@@ -2,6 +2,7 @@ from mmse15project.model.RecruitmentRequest import *
 from mmse15project.model.DBInterface import DBInterface
 from mmse15project.model.GenericMethods import *
 
+
 class RecruitmentRequestDBInterface(DBInterface):
     def __init__(self,database):
         self.database = database
@@ -10,7 +11,7 @@ class RecruitmentRequestDBInterface(DBInterface):
         values = request.getAll()
         values = tuple_without(values,0)
         self.database.executeDoQuery('INSERT INTO recruitmentRequest (type,date, department,title,status,description ) VALUES (?,?,?,?,?,?)',values)
-        request.id= self.database.getLastRow()
+        request.id = self.database.getLastRow()
         return request.id
 
     def update(self,request):
@@ -39,7 +40,17 @@ class RecruitmentRequestDBInterface(DBInterface):
             ret.append(temp)
         return ret
 
-    def getByID(self,request):
-        request = RecruitmentRequest()
-        request.id = id
-        return self.get(request)
+    def getByID(self,r_id):
+        temp = RecruitmentRequest()
+        temp.id = r_id
+        return self.get(temp)
+
+    def getByStatus(self, status):
+        all = self.getAll()
+        if all is False:
+            return []
+        ret = []
+        for req in all:
+            if req.status == status:
+                ret.append(req)
+        return ret

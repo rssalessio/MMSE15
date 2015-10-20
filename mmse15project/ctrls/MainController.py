@@ -15,6 +15,9 @@ from mmse15project.model.Request import Request
 from mmse15project.model.RequestDetails import RequestDetails
 from mmse15project.model.Discount import Discount
 from mmse15project.model.Task import Task
+from mmse15project.model.RecruitmentRequest import RecruitmentRequest
+from mmse15project.model.FinancialRequest import FinancialRequest
+
 
 class MainController:
     def __init__(self, model, view):
@@ -164,13 +167,6 @@ class MainController:
         self.model.request_db.update(request)
         self.clear_frame(subview)
 
-    def new_discount(self,subview):
-        data = subview.get_all()
-        new = Discount()
-        new.setAll(data)
-        self.model.discount_db.add(new)
-        self.clear_frame(subview)
-
     def new_task_create(self, subview):
         if self.model.request_db.getByID(int(subview.e1.get())) is False:
             subview.form.not_found()
@@ -187,30 +183,73 @@ class MainController:
         self.model.task_db.add(new)
         self.clear_frame(subview)
 
+    def new_recruitment_requests_submit(self, subview):
+        data = subview.get_all()
+        new = RecruitmentRequest()
+        new.date = data[0]
+        new.department = data[1]
+        new.title = data[2]
+        new.description = data[3]
+        self.model.recruitment_request_db.add(new)
+        self.clear_frame(subview)
+        subview.create_widgets()
+
+    def new_financial_request_create(self, subview):
+        if self.model.request_db.getByID(int(subview.e1.get())) is False:
+            subview.form.not_found()
+        else:
+            subview.form.create_widgets()
+
+    def new_financial_request_submit(self, subview):
+        data = subview.get_all()
+        new = FinancialRequest()
+        new.department = data[0]
+        new.requestID = data[1]
+        new.amount = int(data[2])
+        new.reason = data[3]
+        self.model.financial_request_db.add(new)
+        self.clear_frame(subview.master)
+        subview.master.create_widgets()
+
+    def new_discount_create(self, subview):
+        subview.form.create_widgets()
+
+    def new_discount_submit(self,subview):
+        data = subview.get_all()
+        print(data)
+        new = Discount()
+        new.requestID = int(data[0])
+        new.amount = int(data[1])
+        new.comment = data[2]
+        new.date = data[3]
+        print(new.getAll())
+        self.model.discount_db.add(new)
+        self.clear_frame(subview)
+
     ###########################################################################
     # Search
     ###########################################################################
 
-    def search_client_search(self, subview):
+    def search_client_get(self,subview):
         subview.result.create_widgets()
 
-    def search_request_search(self, subview):
+    def search_request_get(self,subview):
         subview.result.create_widgets()
 
-    def search_request_details_search(self, subview):
+    def search_request_details_get(self,subview):
         subview.result.create_widgets()
 
-    def search_tasks_search(self, subview):
-        user = subview.master.master.master.user
-        acc_type = subview.master.master.master.acc_type
-        tasks = self.model.task_db.getTasksByAccTypeUser(acc_type, user)
-        tasks_len = len(tasks)
-        task_num = int(subview.e1.get())
-        if task_num < 1 or task_num > tasks_len:
-            subview.result.not_found()
-        else:
-            subview.result.create_widgets(tasks[task_num-1])
+    def search_tasks_get(self, subview):
+        subview.result.create_widgets()
 
+    def search_recruitment_request_get(self,subview):
+        subview.result.create_widgets()
+
+    def search_financial_request_get(self,subview):
+        subview.result.create_widgets()
+
+    def search_discount_get(self,subview):
+        subview.result.create_widgets()
 
     ###########################################################################
     # Update
@@ -220,6 +259,12 @@ class MainController:
         subview.update.create_widgets()
 
     def pending_tasks_update(self, subview):
+        subview.update.create_widgets()
+
+    def pending_recruitment_request_update(self, subview):
+        subview.update.create_widgets()
+
+    def pending_financial_request_update(self, subview):
         subview.update.create_widgets()
 
 
@@ -241,8 +286,18 @@ class MainController:
         subview.create_widgets()
 
     def search_tasks_approve(self, subview):
-        subview.task.status += 1
-        self.model.task_db.update(subview.task)
+        subview.t.status += 1
+        self.model.task_db.update(subview.t)
         self.clear_frame(subview)
-        subview.create_widgets(subview.task)
+        subview.create_widgets()
+
+    def search_recruitment_request_approve(self, subview):
+        subview.r.status += 1
+        self.model.recruitment_request_db.update(subview.r)
+        self.clear_frame(subview)
+        subview.create_widgets()
+
+    def search_financial_request_decide(self, subview, new_status):
+        subview.f.status = new_status
+        self.model.financial_request_db.update(subview.f)
 

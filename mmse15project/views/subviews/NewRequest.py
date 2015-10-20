@@ -31,7 +31,7 @@ class NewRequest(ttk.Frame):
 
         def not_found(self):
             self.ctrl.clear_frame(self)
-            ttk.Label(self, text="ClientID not found!").grid()
+            ttk.Label(self, text="No such ClientID").grid()
 
 
         def create_widgets(self):
@@ -56,7 +56,7 @@ class NewRequest(ttk.Frame):
             # Preferences
             ttk.Label(self, text="Preferences:").grid(row=5, sticky="NE")
             self.e6 = tkst.ScrolledText(self, width=20, height=5)
-            self.e6.grid(row=5, column=1, columnspan=2)
+            self.e6.grid(row=5, column=1)
 
              # Expected budget
             ttk.Label(self, text="Expected budget:").grid(row=6, sticky="E")

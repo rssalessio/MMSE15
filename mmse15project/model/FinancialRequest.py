@@ -2,13 +2,14 @@ from enum import Enum
 
 
 class FinancialRequestStatus(Enum):
-    invalidType = 0
-    pending     = 1
-    approved    = 2
-    rejected    = 3
+    InvalidType = 0
+    Pending     = 1
+    Approved    = 2
+    Rejected    = 3
 
 class FinancialRequest:
-    def __init__(self, id=0, date='', department='', requestID = 0, amount = 0, reason='',status=FinancialRequestStatus.invalidType):
+    def __init__(self, id=0, date='', department='', requestID = 0, amount = 0, reason='',
+                 status=FinancialRequestStatus.Pending.value):
         self.id=id
         self.date = date
         self.department = department
@@ -28,3 +29,4 @@ class FinancialRequest:
 
     def getAll(self):
         return (self.id,self.date,self.department,self.requestID,self.amount,self.reason,self.status)
+

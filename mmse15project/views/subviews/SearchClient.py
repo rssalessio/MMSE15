@@ -13,8 +13,8 @@ class SearchClient(ttk.Frame):
         self.e1 = ttk.Entry(self)
         self.e1.grid(row=0, column=1)
 
-        b1 = ttk.Button(self, text="Search",
-                       command=lambda: self.ctrl.search_client_search(self))
+        b1 = ttk.Button(self, text="Get",
+                       command=lambda: self.ctrl.search_client_get(self))
         b1.grid(row=1, columnspan=2)
 
         self.result = self.SearchResult(self, self.model, self.ctrl)
@@ -31,7 +31,7 @@ class SearchClient(ttk.Frame):
             self.ctrl.clear_frame(self)
             client = self.model.client_db.getByEmail(self.master.e1.get())
             if client is False:
-                ttk.Label(self, text="No result").grid(row=0, columnspan=2)
+                ttk.Label(self, text="No such client").grid(row=0, columnspan=2)
             else:
                 ttk.Label(self, text="ClientID:").grid(row=0, sticky="E")
                 ttk.Label(self, text=str(client.getID())).grid(row=0, column=1, sticky="W")
@@ -56,6 +56,7 @@ class SearchClient(ttk.Frame):
 
                 ttk.Label(self, text="").grid(row=7, columnspan=2, sticky="WE")
 
+                # View the clients requests
                 requests = self.model.request_db.getByClientID(client.getID())
                 if requests is False:
                     ttk.Label(self, text="No requests found").grid(row=8, columnspan=2)

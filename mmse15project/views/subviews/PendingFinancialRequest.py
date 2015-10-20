@@ -2,7 +2,8 @@ import tkinter.ttk as ttk
 from mmse15project.model.Task import TaskStatus
 from mmse15project.model.Task import TaskPriority
 
-class PendingTasks(ttk.Frame):
+
+class PendingFinancialRequest(ttk.Frame):
     def __init__(self, master, model, ctrl):
         ttk.Frame.__init__(self, master)
         self.model = model
@@ -11,7 +12,7 @@ class PendingTasks(ttk.Frame):
 
     def create_widgets(self):
         b1 = ttk.Button(self, text="Update",
-                       command=lambda: self.ctrl.pending_tasks_update(self))
+                       command=lambda: self.ctrl.pending_financial_request_update(self))
         b1.grid(row=0)
 
         self.update = self.Update(self, self.model, self.ctrl)
@@ -29,17 +30,15 @@ class PendingTasks(ttk.Frame):
             self.ctrl.clear_frame(self)
             acc_type = self.master.master.master.master.acc_type
             user = self.master.master.master.master.user
-            tasks = self.model.task_db.getTasksByAccTypeUser(acc_type, user)
-            if len(tasks) == 0:
-                ttk.Label(self, text="No pending tasks").grid()
-                return
 
-            ttk.Label(self, text="TaskID(Priority):").grid(row=0, sticky="E")
-            ttk.Label(self, text="Status").grid(row=0, column=1, sticky="W")
+            financials = self.model.financial_request_db.getByStatus(1)
+            if len(financials) == 0:
+                ttk.Label(self, text="No pending financial requests").grid()
+                return
+            ttk.Label(self, text="FinancialID:").grid(row=0, sticky="E")
+            ttk.Label(self, text="Department").grid(row=0, column=1, sticky="W")
             row = 1
-            for t in tasks:
-                priority = TaskPriority(t.priority).name
-                ttk.Label(self, text=str(t.id) + "(" + priority + "):").grid(row=row, sticky="E")
-                status = TaskStatus(t.status).name
-                ttk.Label(self, text=status).grid(row=row, column=1, sticky="W")
+            for f in financials:
+                ttk.Label(self, text=str(f.id) + ":").grid(row=row, sticky="E")
+                ttk.Label(self, text=f.department).grid(row=row, column=1, sticky="W")
                 row += 1

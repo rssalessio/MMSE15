@@ -1,18 +1,18 @@
 from enum import Enum
 
 class RecruitmentType(Enum):
-    invalidType =0
-    outsource   =1,
-    hire        =2
+    InvalidType =0
+    Outsource   =1,
+    Hire        =2
 
 class RecruitmentStatus(Enum):
-    invalidType =0
-    active = 1
-    completed = 2
+    InvalidType =0
+    Active = 1
+    Completed = 2
 
 
 class RecruitmentRequest:
-    def __init__(self, id=0, type=RecruitmentType.invalidType, date='01/01/1991',department='',title='',status=RecruitmentStatus.invalidType, description=''):
+    def __init__(self, id=0, type=RecruitmentType.InvalidType.value, date='01/01/1991',department='',title='',status=RecruitmentStatus.Active.value, description=''):
         self.id=id
         self.type = type
         self.date = date

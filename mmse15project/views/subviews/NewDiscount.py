@@ -4,7 +4,7 @@ import tkinter.scrolledtext as tkst
 
 
 # Form for making a discount
-class MakeDiscount(ttk.Frame):
+class NewDiscount(ttk.Frame):
     def __init__(self, master, model, ctrl):
         ttk.Frame.__init__(self, master)
         self.model = model
@@ -17,7 +17,7 @@ class MakeDiscount(ttk.Frame):
         self.e1.grid(row=0, column=1, sticky="W")
 
         b1 = ttk.Button(self, text="Create",
-                        command=lambda:self.form.create_widgets())
+                        command=lambda:self.ctrl.new_discount_create(self))
         b1.grid(row=1, columnspan=2)
 
         self.form = self.Form(self, self.model, self.ctrl)
@@ -26,11 +26,20 @@ class MakeDiscount(ttk.Frame):
     class Form(ttk.Frame):
         def __init__(self, master, model, ctrl):
             ttk.Frame.__init__(self, master)
+            self.master = master
             self.model = model
             self.ctrl = ctrl
 
         def create_widgets(self):
             self.ctrl.clear_frame(self)
+
+            if self.model.request_db.getByID(int(self.master.e1.get())) is False:
+                ttk.Label(self, text="No such RequestID").grid()
+                return
+            elif self.model.discount_db.existRequestID(int(self.master.e1.get())):
+                ttk.Label(self, text="Discount already done").grid()
+                return
+
             ttk.Label(self, text="RequestID:").grid(row=0, sticky="E")
             ttk.Label(self, text="Amount:").grid(row=1, sticky="E")
             ttk.Label(self, text="Comment:").grid(row=2, sticky="E")
@@ -47,7 +56,7 @@ class MakeDiscount(ttk.Frame):
 
 
             b1 = ttk.Button(self, text="Submit",
-                           command=lambda: self.ctrl.new_discount(self))
+                           command=lambda: self.ctrl.new_discount_submit(self))
             b1.grid(columnspan=2)
 
         def get_all(self):

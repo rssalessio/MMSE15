@@ -4,6 +4,8 @@ from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetai
 from mmse15project.views.subviews.NewTask import NewTask
 from mmse15project.views.subviews.PendingTasks import PendingTasks
 from mmse15project.views.subviews.SearchTasks import SearchTasks
+from mmse15project.views.subviews.NewRecruitmentRequest import NewRecruitmentRequest
+from mmse15project.views.subviews.NewFinancialRequest import NewFinancialRequest
 
 
 # AccountTeam view for Service
@@ -25,13 +27,20 @@ class Service(ttk.Frame):
         n = ttk.Notebook(container)
         n.pack()
         f1 = PendingTasks(n, self.model, self.ctrl)
-        f2 = SearchTasks(n, self.model, self.ctrl)
-        n.add(f1, text="Pending tasks", sticky="NS")
-        n.add(f2, text="View task", sticky="NS")
+        n.add(f1, text="Active tasks", sticky="NS")
         if self.acc_type == "Manager":
-            f3 = NewTask(n, self.model, self.ctrl)
-            f4 = SearchRequest(n, self.model, self.ctrl)
-            f5 = SearchRequestDetails(n, self.model, self.ctrl)
-            n.add(f3, text="New task", sticky="NS")
-            n.add(f4, text="Search request", sticky="NS")
-            n.add(f5, text="Search request details", sticky="NS")
+            f2 = SearchRequest(n, self.model, self.ctrl)
+            f3 = SearchRequestDetails(n, self.model, self.ctrl)
+            n.add(f2, text="View request", sticky="NS")
+            n.add(f3, text="View request details", sticky="NS")
+
+        f4 = SearchTasks(n, self.model, self.ctrl)
+        n.add(f4, text="View task", sticky="NS")
+
+        if self.acc_type == "Manager":
+            f5 = NewRecruitmentRequest(n, self.model, self.ctrl)
+            f6 = NewFinancialRequest(n, self.model, self.ctrl)
+            f7 = NewTask(n, self.model, self.ctrl)
+            n.add(f5, text="New recruitment", sticky="NS")
+            n.add(f6, text="New financial", sticky="NS")
+            n.add(f7, text="New task", sticky="NS")

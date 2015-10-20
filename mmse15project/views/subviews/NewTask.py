@@ -31,7 +31,7 @@ class NewTask(ttk.Frame):
 
         def not_found(self):
             self.ctrl.clear_frame(self)
-            ttk.Label(self, text="RequestID not found!").grid()
+            ttk.Label(self, text="No such RequestID").grid()
 
         def create_widgets(self):
             self.ctrl.clear_frame(self)

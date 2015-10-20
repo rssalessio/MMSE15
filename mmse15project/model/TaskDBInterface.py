@@ -29,6 +29,16 @@ class TaskDBInterface(DBInterface):
         ret.setAll(ans)
         return ret
 
+    def getByID(self, t_id):
+        ans = self.database.executeKnowQuery('SELECT * FROM task WHERE id = ?', (t_id,))
+        if (len(ans) == 0):
+            return False
+        ans=ans[0]
+        ret = Task()
+        ret.setAll(ans)
+        return ret
+
+
     def getAll(self):
         ans = self.database.executeKnowQuery('SELECT * FROM task')
         if (len(ans) == 0):
@@ -40,9 +50,16 @@ class TaskDBInterface(DBInterface):
             ret.append(temp)
         return ret
 
-    def getByRequestID(self,id):
-        temp = Task(id,'','',TaskPriority.invalid.value,'',TaskStatus.invalid.value,'')
-        return self.get(temp)
+    def getByRequestID(self, r_id):
+        ans = self.database.executeKnowQuery('SELECT * FROM task WHERE requestID = ?', (r_id,))
+        if (len(ans) == 0):
+            return False
+        ret = []
+        for r in ans:
+            temp = Task()
+            temp.setAll(r)
+            ret.append(temp)
+        return ret
 
     def getByStatus(self,status):
         ans = self.database.executeKnowQuery('SELECT * FROM task WHERE status = ?', (status,))
@@ -75,7 +92,7 @@ class TaskDBInterface(DBInterface):
 
     def getTasksByAccTypeUser(self, acc_type, user):
         if acc_type == "Manager":
-            tasks = self.getByStatus(3)
+            tasks = self.getByStatus(1) + self.getByStatus(2) + self.getByStatus(3)
         else:
             tasks = self.getByStatusAndEmail(1, user) +\
                     self.getByStatusAndEmail(2, user) +\

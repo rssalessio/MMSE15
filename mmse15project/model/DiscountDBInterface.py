@@ -25,6 +25,19 @@ class DiscountDBinterface(DBInterface):
         ret.setAll(ans)
         return ret
 
+    def getByRequestID(self, r_id):
+        temp = Discount()
+        temp.requestID = r_id
+        return self.get(temp)
+
+    def existRequestID(self, r_id):
+        temp = Discount()
+        temp.requestID = r_id
+        if self.get(temp) is False:
+            return False
+        else:
+            return True
+
     def getAll(self):
         ans = self.database.executeKnowQuery('SELECT * FROM discount')
         if (len(ans) == 0):

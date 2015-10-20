@@ -11,55 +11,58 @@ class SearchTasks(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        ttk.Label(self, text="Task#:").grid(row=0, sticky="E")
+        ttk.Label(self, text="TaskID:").grid(row=0, sticky="E")
         self.e1 = ttk.Entry(self)
         self.e1.grid(row=0, column=1)
 
-        b1 = ttk.Button(self, text="Show",
-                        command=lambda: self.ctrl.search_tasks_search(self))
+        b1 = ttk.Button(self, text="Get",
+                        command=lambda: self.ctrl.search_tasks_get(self))
         b1.grid(row=1, columnspan=2)
 
-        self.result = self.SearchResult(self, self.model, self.ctrl)
+        self.result = self.Result(self, self.model, self.ctrl)
         self.result.grid(row=2, columnspan=2)
 
-    class SearchResult(ttk.Frame):
+    class Result(ttk.Frame):
         def __init__(self, master, model, ctrl):
             ttk.Frame.__init__(self, master)
             self.master = master
             self.model = model
             self.ctrl = ctrl
 
-        def not_found(self):
+        def create_widgets(self):
             self.ctrl.clear_frame(self)
-            ttk.Label(self, text="No such task").grid(row=0, columnspan=2)
 
-        def create_widgets(self, task):
-            self.ctrl.clear_frame(self)
-            self.task = task
+            wanted = int(self.master.e1.get())
+            t = self.model.task_db.getByID(wanted)
+            self.t = t
+
+            if t is False:
+                ttk.Label(self, text="No such task").grid(row=0, columnspan=2)
+                return
 
             ttk.Label(self, text="RequestID:").grid(row=0, sticky="E")
-            ttk.Label(self, text=str(task.requestID)).grid(row=0, column=1, sticky="W")
+            ttk.Label(self, text=str(t.requestID)).grid(row=0, column=1, sticky="W")
 
             ttk.Label(self, text="Description:").grid(row=1, sticky="NE")
-            ttk.Label(self, text=task.description).grid(row=1, column=1, sticky="W")
+            ttk.Label(self, text=t.description).grid(row=1, column=1, sticky="W")
 
             ttk.Label(self, text="Operator:").grid(row=2, sticky="E")
-            ttk.Label(self, text=task.operator).grid(row=2, column=1, sticky="W")
+            ttk.Label(self, text=t.operator).grid(row=2, column=1, sticky="W")
 
             ttk.Label(self, text="Priority:").grid(row=3, sticky="E")
-            ttk.Label(self, text=TaskPriority(task.priority).name).grid(row=3, column=1, sticky="W")
+            ttk.Label(self, text=TaskPriority(t.priority).name).grid(row=3, column=1, sticky="W")
 
             ttk.Label(self, text="Status:").grid(row=4, sticky="E")
-            status = task.status
-            ttk.Label(self, text=TaskStatus(status).name).grid(row=4, column=1, sticky="W")
+            ttk.Label(self, text=TaskStatus(t.status).name).grid(row=4, column=1, sticky="W")
 
             acc_type = self.master.master.master.master.acc_type
+            user = self.master.master.master.master.user
 
-            if TaskStatus.Pending.value == status:
+            if t.status == TaskStatus.Pending.value and t.operator == user:
                 b1_text = "Accept"
-            elif TaskStatus.Accepted.value == status:
+            elif t.status == TaskStatus.Accepted.value and t.operator == user:
                 b1_text = "Request close"
-            elif TaskStatus.Completed.value == status and acc_type == "Master":
+            elif t.status == TaskStatus.Completed.value and acc_type == "Manager":
                 b1_text = "Close"
             else:
                 return

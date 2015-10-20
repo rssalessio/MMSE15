@@ -32,9 +32,9 @@ class CustomerService(ttk.Frame):
         f2 = SearchClient(n, self.model, self.ctrl)
         f3 = SearchRequest(n, self.model, self.ctrl)
         f4 = SearchRequestDetails(n, self.model, self.ctrl)
-        n.add(f2, text="Search client", sticky="NS")
-        n.add(f3, text="Search request", sticky="NS")
-        n.add(f4, text="Search request details", sticky="NS")
+        n.add(f2, text="View client", sticky="NS")
+        n.add(f3, text="View request", sticky="NS")
+        n.add(f4, text="View request details", sticky="NS")
         if self.acc_type == "Employee":
             f5 = NewClient(n, self.model, self.ctrl)
             f6 = NewRequest(n, self.model, self.ctrl)

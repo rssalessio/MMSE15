@@ -28,6 +28,11 @@ class FinancialRequestDBInterface(DBInterface):
         ret.setAll(ans)
         return ret
 
+    def getByID(self, fr_id):
+        temp = FinancialRequest()
+        temp.id = fr_id
+        return self.get(temp)
+
     def getAll(self):
         ans= self.database.executeKnowQuery('SELECT * from financialRequest')
         if (len(ans)==0):
@@ -48,6 +53,16 @@ class FinancialRequestDBInterface(DBInterface):
             temp = FinancialRequest()
             temp.setAll(row)
             ret.append(temp)
+        return ret
+
+    def getByStatus(self, status):
+        all = self.getAll()
+        if all is False:
+            return []
+        ret = []
+        for fr in all:
+            if fr.status == status:
+                ret.append(fr)
         return ret
 
 
