@@ -93,7 +93,7 @@ def FinancialRequestDBInterfaceTest(db):
         "CREATE TABLE IF NOT EXISTS financialRequest(id INTEGER PRIMARY KEY AUTOINCREMENT,date text,department text,requestID integer,amount integer,reason  text,status integer,FOREIGN KEY(requestID) REFERENCES request(id))")
 
     reqDB = FinancialRequestDBInterface(db)
-    request = FinancialRequest(0,'10/10/2015','Administration',1,1000,'Test',FinancialRequestStatus.pending.value)
+    request = FinancialRequest(0,'10/10/2015','Administration',1,1000,'Test',FinancialRequestStatus.Pending.value)
     request.id=reqDB.add(request)
     assert(request.id != 0)
     request= reqDB.get(request)
