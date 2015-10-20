@@ -27,8 +27,8 @@ class PendingTasks(ttk.Frame):
 
         def create_widgets(self):
             self.ctrl.clear_frame(self)
-            acc_type = self.master.master.master.master.acc_type
-            user = self.master.master.master.master.user
+            acc_type = self.master.master.master.acc_type
+            user = self.master.master.master.user
             tasks = self.model.task_db.getTasksByAccTypeUser(acc_type, user)
             if len(tasks) == 0:
                 ttk.Label(self, text="No pending tasks").grid()

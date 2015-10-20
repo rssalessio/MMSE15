@@ -74,7 +74,8 @@ class SearchRequest(ttk.Frame):
                     row = 9
                     tasks = self.model.task_db.getByRequestID(request.getID())
                     if tasks is False:
-                        ttk.Label(self, text="No tasks found").grid(row=row, columnspan=2)
+                        ttk.Label(self, text="No assigned tasks found").grid(row=row, columnspan=2)
+                        row += 1
                     else:
                         ttk.Label(self, text="TaskID(Priority):").grid(row=row, sticky="E")
                         ttk.Label(self, text="Status").grid(row=row, column=1, sticky="W")
@@ -88,8 +89,8 @@ class SearchRequest(ttk.Frame):
 
                     # Buttons
                     status = request.getStatus()
-                    acc_team = self.master.master.master.master.acc_team
-                    acc_type = self.master.master.master.master.acc_type
+                    acc_team = self.master.master.master.acc_team
+                    acc_type = self.master.master.master.acc_type
 
                     if (status == 1 and acc_team == "CustomerService" and acc_type == "Senior") or\
                             (status == 2 and acc_team == "Financial" and acc_type == "Manager") or\

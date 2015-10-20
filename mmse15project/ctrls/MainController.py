@@ -216,13 +216,11 @@ class MainController:
 
     def new_discount_submit(self,subview):
         data = subview.get_all()
-        print(data)
         new = Discount()
         new.requestID = int(data[0])
         new.amount = int(data[1])
         new.comment = data[2]
         new.date = data[3]
-        print(new.getAll())
         self.model.discount_db.add(new)
         self.clear_frame(subview)
 

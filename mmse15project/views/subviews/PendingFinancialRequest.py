@@ -28,8 +28,8 @@ class PendingFinancialRequest(ttk.Frame):
 
         def create_widgets(self):
             self.ctrl.clear_frame(self)
-            acc_type = self.master.master.master.master.acc_type
-            user = self.master.master.master.master.user
+            acc_type = self.master.master.master.acc_type
+            user = self.master.master.master.user
 
             financials = self.model.financial_request_db.getByStatus(1)
             if len(financials) == 0:
