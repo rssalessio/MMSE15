@@ -40,12 +40,10 @@ class PendingRequests(ttk.Frame):
                 ttk.Label(self, text="No pending requests").grid()
                 return
 
-            ttk.Label(self, text="RequestID").grid(row=0, sticky="E")
-            ttk.Label(self, text="- Status").grid(row=0, column=1)
-            ttk.Label(self, text="- Event type").grid(row=0, column=2, sticky="W")
-            row = 1
+            ttk.Label(self, text="RequestID(Status):").grid(row=8, sticky="E")
+            ttk.Label(self, text="Event type").grid(row=8, column=1, sticky="W")
+            row = 0
             for r in requests:
-                ttk.Label(self, text=str(r.getID())).grid(row=row, sticky="E")
-                ttk.Label(self, text = "- "+ RequestStatus(r.getStatus()).name).grid(row=row,column=1)
-                ttk.Label(self, text="- " + r.getEventType()).grid(row=row, column=2, sticky="W")
+                ttk.Label(self, text=str(r.getID()) + "(" + str(r.getStatus()) + "):").grid(row=row, sticky="E")
+                ttk.Label(self, text=r.getEventType()).grid(row=row, column=1, sticky="W")
                 row += 1
