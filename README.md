@@ -2,7 +2,7 @@
 
 ## Start
 
-First run `$ python3 setup_db.py` to setup the database, followed by `$ python3 run.py` to start the application.
+First run `$ python3 setup_db.py` to setup the database, followed by `$ python3 run.py` to start the application. This will implemented a unit tests before startup.
 
 
 ## Pre installed users
@@ -18,3 +18,7 @@ First run `$ python3 setup_db.py` to setup the database, followed by `$ python3 
 - Service, employee: kate/kate
 - Service, manager: natalie/natalie
 - Vice president: charlie/charlie
+
+
+## View tests
+To test views for specific user types, without login, run the executables in the `/tests/views` directory.
