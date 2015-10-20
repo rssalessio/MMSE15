@@ -1,4 +1,6 @@
 import tkinter.ttk as ttk
+from mmse15project.views.Config import Config
+from mmse15project.views.GenericMethods import get_header
 from mmse15project.views.subviews.NewFinancialRequest import NewFinancialRequest
 from mmse15project.views.subviews.NewRecruitmentRequest import NewRecruitmentRequest
 from mmse15project.views.subviews.NewTask import NewTask
@@ -20,10 +22,10 @@ class Production(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        user_info = "Production, %s — %s" % (self.acc_type, self.user)
-        ttk.Label(self, text=user_info).pack()
+        self.ctrl.clear_frame(self)
+        get_header(self, "Config", lambda: self.config())
         n = ttk.Notebook(self)
-        n.pack()
+        n.grid(row=1, columnspan=2)
         f1 = PendingTasks(n, self.model, self.ctrl)
         n.add(f1, text="Active tasks", sticky="NS")
         if self.acc_type == "Manager":
@@ -42,3 +44,9 @@ class Production(ttk.Frame):
             n.add(f5, text="New recruitment", sticky="NS")
             n.add(f6, text="New financial", sticky="NS")
             n.add(f7, text="New task", sticky="NS")
+
+    def config(self):
+        self.ctrl.clear_frame(self)
+        get_header(self, "General", lambda: self.create_widgets())
+        c = Config(self, self.model, self. ctrl)
+        c.grid(row=1, columnspan=2)

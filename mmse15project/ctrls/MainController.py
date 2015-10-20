@@ -57,31 +57,6 @@ class MainController:
     # Submit forms
     ###########################################################################
 
-    def new_account_create(self, subview):
-        test = Account()
-        test.setEmail(subview.e1.get() + "@sep.se")
-        exist = self.model.account_db.get(test)
-        if exist is False:
-            subview.form.create_widgets()
-        else:
-            subview.form.already_exist()
-
-    def new_account_submit(self, subview):
-        data = subview.get_all()
-        data[1] += "@sep.se"
-        data[3] = self.str_to_enum(data[3]).value
-        data[4] = self.str_to_enum(data[4]).value
-        new = Account()
-        new.setName(data[0])
-        new.setEmail(data[1])
-        new.setPassword(data[2])
-        new.setAccountTeam(data[3])
-        new.setAccountType(data[4])
-        new.setDepartment(data[5])
-        new.setComment(data[6])
-        self.model.account_db.add(new)
-        self.clear_frame(subview)
-
     def str_to_enum(self, str):
         if str == "Administration":
             return AccountTeam.Administration
@@ -305,3 +280,43 @@ class MainController:
         self.clear_frame(subview)
         subview.create_widgets()
 
+    ###########################################################################
+    # Edit account
+    ###########################################################################
+
+    def new_account_create(self, subview):
+        test = Account()
+        test.setEmail(subview.e1.get() + "@sep.se")
+        exist = self.model.account_db.get(test)
+        if exist is False:
+            subview.form.create_widgets()
+        else:
+            subview.form.already_exist()
+
+    def new_account_submit(self, subview):
+        data = subview.get_all()
+        data[1] += "@sep.se"
+        data[3] = self.str_to_enum(data[3]).value
+        data[4] = self.str_to_enum(data[4]).value
+        new = Account()
+        new.setName(data[0])
+        new.setEmail(data[1])
+        new.setPassword(data[2])
+        new.setAccountTeam(data[3])
+        new.setAccountType(data[4])
+        new.setDepartment(data[5])
+        new.setComment(data[6])
+        self.model.account_db.add(new)
+        self.clear_frame(subview)
+
+    def config_save(self, subview):
+        data = subview.get_all()
+        new = Account()
+        new.setName(data[0])
+        new.setEmail(data[1])
+        new.setPassword(data[2])
+        new.setAccountTeam(data[3])
+        new.setAccountType(data[4])
+        new.setDepartment(data[5])
+        new.setComment(data[6])
+        self.model.account_db.update(new)

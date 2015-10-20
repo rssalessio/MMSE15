@@ -44,3 +44,8 @@ class AccountDBInterface(DBInterface):
         ret = Account()
         ret.setAll(ans)
         return ret
+
+    def getByEmail(self, email):
+        temp = Account()
+        temp.email = email
+        return self.get(temp)

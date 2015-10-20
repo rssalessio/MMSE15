@@ -1,4 +1,6 @@
 import tkinter.ttk as ttk
+from mmse15project.views.Config import Config
+from mmse15project.views.GenericMethods import get_header
 from mmse15project.views.subviews.PendingRequests import PendingRequests
 from mmse15project.views.subviews.SearchClient import SearchClient
 from mmse15project.views.subviews.SearchRequest import SearchRequest
@@ -17,10 +19,10 @@ class Administration(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        user_info = "Administration, %s — %s" % (self.acc_type, self.user)
-        ttk.Label(self, text=user_info).pack()
+        self.ctrl.clear_frame(self)
+        get_header(self, "Config", lambda: self.config())
         n = ttk.Notebook(self)
-        n.pack()
+        n.grid(row=1, columnspan=2)
         if self.acc_type == "Manager":
             f1 = PendingRequests(n, self.model, self.ctrl)
             f2 = SearchClient(n, self.model, self.ctrl)
@@ -30,3 +32,9 @@ class Administration(ttk.Frame):
             n.add(f2, text="View client", sticky="NS")
             n.add(f3, text="View request", sticky="NS")
             n.add(f4, text="View request details", sticky="NS")
+
+    def config(self):
+        self.ctrl.clear_frame(self)
+        get_header(self, "General", lambda: self.create_widgets())
+        c = Config(self, self.model, self. ctrl)
+        c.grid(row=1, columnspan=2)
