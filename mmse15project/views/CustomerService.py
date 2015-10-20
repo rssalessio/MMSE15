@@ -1,11 +1,11 @@
 import tkinter.ttk as ttk
+from mmse15project.views.subviews.NewClient import NewClient
+from mmse15project.views.subviews.NewRequest import NewRequest
+from mmse15project.views.subviews.NewRequestDetails import NewRequestDetails
+from mmse15project.views.subviews.PendingRequests import PendingRequests
 from mmse15project.views.subviews.SearchClient import SearchClient
 from mmse15project.views.subviews.SearchRequest import SearchRequest
 from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
-from mmse15project.views.subviews.NewClient import NewClient
-from mmse15project.views.subviews.NewRequest import NewRequest
-from mmse15project.views.subviews.PendingRequests import PendingRequests
-from mmse15project.views.subviews.NewRequestDetails import NewRequestDetails
 
 
 # AccountTeam view for CustomerService
@@ -20,11 +20,9 @@ class CustomerService(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        container = ttk.Frame(self)
-        container.pack()
         user_info = "Customer Service, %s — %s" % (self.acc_type, self.user)
-        ttk.Label(container, text=user_info).pack()
-        n = ttk.Notebook(container)
+        ttk.Label(self, text=user_info).pack()
+        n = ttk.Notebook(self)
         n.pack()
         if self.acc_type == "Senior":
             f1 = PendingRequests(n, self.model, self.ctrl)
@@ -43,4 +41,3 @@ class CustomerService(ttk.Frame):
         if self.acc_type == "Senior":
             f7 = NewRequestDetails(n, self.model, self.ctrl)
             n.add(f7, text="New request details", sticky="NS")
-

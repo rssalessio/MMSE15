@@ -26,7 +26,7 @@ class PendingRequests(ttk.Frame):
 
         def create_widgets(self):
             self.ctrl.clear_frame(self)
-            acc_team = self.master.master.master.master.acc_team
+            acc_team = self.master.master.master.acc_team
             if acc_team == "CustomerService":
                 requests = self.model.request_db.getByStatus(1) + self.model.request_db.getByStatus(4)
             elif acc_team == "Financial":

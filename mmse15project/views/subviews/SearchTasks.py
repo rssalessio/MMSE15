@@ -55,8 +55,8 @@ class SearchTasks(ttk.Frame):
             ttk.Label(self, text="Status:").grid(row=4, sticky="E")
             ttk.Label(self, text=TaskStatus(t.status).name).grid(row=4, column=1, sticky="W")
 
-            acc_type = self.master.master.master.master.acc_type
-            user = self.master.master.master.master.user
+            acc_type = self.master.master.master.acc_type
+            user = self.master.master.master.user
 
             if t.status == TaskStatus.Pending.value and t.operator == user:
                 b1_text = "Accept"
