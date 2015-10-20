@@ -15,7 +15,48 @@ from mmse15project.model.DiscountDBInterface import *
 from mmse15project.model.TaskDBInterface               import *
 from mmse15project.model.ClientMeetingDBInterface      import *
 from mmse15project.model.ScheduleDBInterface           import *
-def AccountDBInterfaceTest(db):
+from mmse15project.model.GenericMethods import tuple_without
+import os.path
+def GenericMethodsTest():
+    tuple_test = (1,2,3)
+    tuple_test = tuple_without(tuple_test,0)
+    assert(tuple_test[0]==2)
+    assert(len(tuple_test)==2)
+    assert(equal_tuples(tuple_test,(3,2))==False)
+    assert(equal_tuples(tuple_test,(3))==False)
+    assert(equal_tuples(tuple_test,(2,3))==True)
+    assert(equal_tuples(tuple_test,(1,1,1,1))==False)
+    print("Passed GenericMethods test")
+
+def DBTest():
+    db = DBConnectionSQLite('test_connection.test')
+    assert(os.path.isfile('test_connection.test')==True)
+    assert(db.isConnectionOk() == True)
+    assert(db.getConnectionName() == 'test_connection.test')
+    db.executeDoQuery('DROP TABLE IF EXISTS test')
+    db.executeDoQuery('create TABLE test (id integer)')
+    db.executeDoQuery('insert into test (id) values (1)')
+    assert(db.getLastRow()==1)
+    a=db.executeKnowQuery('select * from test')
+    assert(len(a)==1)
+    assert(a[0][0]==1)
+    db.executeDoQuery('DROP TABLE IF EXISTS test')
+    db.executeDoQuery('create TABLE test (id integer PRIMARY KEY AUTOINCREMENT,name text)')
+    db.executeDoQuery('insert into test (name) values (?)',('test',))
+    assert(db.getLastRow()==1)
+    a=db.executeKnowQuery('select * from test')
+    assert(len(a)==1)
+    assert(a[0][0]==1)
+    assert(a[0][1]=='test')
+    print('Passed DBConnection test')
+
+def AccountTest(db):
+    account = Account('test','test','test',AccountType.InvalidType.value,AccountTeam.InvalidTeam.value,AccountQualification.InvalidQualification.value,'test','test')
+    assert(account.name == 'test')
+    assert(len(account.getAll()) ==8)
+    assert(equal_tuples(account.getAll(), ('test','test','test',AccountType.InvalidType.value,AccountTeam.InvalidTeam.value,AccountQualification.InvalidQualification.value,'test','test')))
+    account.setAll(('tes1t','tes2t','te3st',AccountType.Employee.value,AccountTeam.InvalidTeam.value,AccountQualification.Audio.value,'t4est','te5st'))
+    assert(equal_tuples(account.getAll(), ('tes1t','tes2t','te3st',AccountType.Employee.value,AccountTeam.InvalidTeam.value,AccountQualification.Audio.value,'t4est','te5st')))
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS account")
     db.executeDoQuery(
@@ -40,9 +81,21 @@ def AccountDBInterfaceTest(db):
     assert (account.getName() == 'bob')
     account = DBAcc.login("wrong","wrong")
     assert(account == False)
-    print("Passed AccountDBInterface test")
+    account = DBAcc.getByEmail('test@kth.se')
+    assert(account.email=='test@kth.se')
+    a = DBAcc.getAll()
+    assert(len(a)==2)
+    assert(a[0].email == 'test@kth.se')
+    print("Passed Account test")
 
-def ClientDBInterfaceTest(db):
+def ClientTest(db):
+    client = Client(1,'test','tess','test',100,'Genova','01/01/1990')
+    assert(client.email == 'test')
+    assert(len(client.getAll()) ==7)
+    assert(equal_tuples(client.getAll(), (1,'test','tess','test',100,'Genova','01/01/1990')))
+    client.setAll((12,'te2st','te1ss','tes2t',1200,'Gen2ova','03/01/1990'))
+    assert(equal_tuples(client.getAll(), (12,'te2st','te1ss','tes2t',1200,'Gen2ova','03/01/1990')))
+
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS client")
     db.executeDoQuery(
@@ -65,9 +118,21 @@ def ClientDBInterfaceTest(db):
     assert(client.getName() == 'Russo Alessio')
     a = ClientDB.getAll()
     assert(len(a) ==1)
-    print("Passed ClientDBInterface test")
+    assert(a[0].getName() == 'Russo Alessio')
+    client =  ClientDB.getByID(1)
+    assert(client.getName() == 'Russo Alessio')
+    client = ClientDB.getByID(2)
+    assert(client == False)
+    print("Passed Client test")
 
-def RequestDBInterfaceTest(db):
+def RequestTest(db):
+    request = Request(1,1,'party','01/01/1000','10/10/2000',1000,100,'no',RequestStatus.Pending.value,'comments')
+    assert(request.eventType == 'party')
+    assert(len(request.getAll()) ==10)
+    assert(equal_tuples(request.getAll(), (1,1,'party','01/01/1000','10/10/2000',1000,100,'no',RequestStatus.Pending.value,'comments')))
+    request.setAll((12,12,'pa2rty','02/01/1000','12/10/2000',1003,3,'n1o',RequestStatus.Accepted1.value,'comm3ents'))
+    assert(equal_tuples(request.getAll(), (12,12,'pa2rty','02/01/1000','12/10/2000',1003,3,'n1o',RequestStatus.Accepted1.value,'comm3ents')))
+
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS request")
     db.executeDoQuery(
@@ -85,8 +150,22 @@ def RequestDBInterfaceTest(db):
     reqDB.update(request)
     request = reqDB.get(request)[0]
     assert(request.expectedBudget == 10)
-    print("Passed RequestDBInterface test")
-def FinancialRequestDBInterfaceTest(db):
+    request = reqDB.getByClientID(1)
+    assert(len(request)==1)
+    assert(request[0].expectedBudget==10)
+    a = reqDB.getAll()
+    assert(len(a)==1)
+    assert(a[0].expectedBudget==10)
+    a = reqDB.getByStatus(RequestStatus.Pending.value)
+    assert(a[0].expectedBudget==10)
+    print("Passed Request test")
+def FinancialRequestTest(db):
+    fr = FinancialRequest(1,'10/10/2015','dep1',1,1000,'test',FinancialRequestStatus.Pending.value)
+    assert(fr.department == 'dep1')
+    assert(len(fr.getAll()) ==7)
+    assert(equal_tuples(fr.getAll(), (1,'10/10/2015','dep1',1,1000,'test',FinancialRequestStatus.Pending.value)))
+    fr.setAll((12,'10/12/2015','dep31',31,10300,'te3st',FinancialRequestStatus.Approved.value))
+    assert(equal_tuples(fr.getAll(), (12,'10/12/2015','dep31',31,10300,'te3st',FinancialRequestStatus.Approved.value)))
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS financialRequest")
     db.executeDoQuery(
@@ -109,9 +188,19 @@ def FinancialRequestDBInterfaceTest(db):
     a=reqDB.getByRequestID(1)
     assert(len(a)==1)
     assert(a[0].amount == 2000)
-    print("Passed FinancialRequestDBInterface test")
+    a = reqDB.getByStatus(1)
+    assert(len(a)==1)
+    a = reqDB.getByID(1)
+    assert(a.amount == 2000)
+    print("Passed FinancialRequest test")
 
-def RecruitmentRequestDBInterfaceTest(db):
+def RecruitmentRequestTest(db):
+    rr = RecruitmentRequest(1,RecruitmentType.invalidType.value,'01/01/1991','test','test',RecruitmentStatus.invalidType.value,'test')
+    assert(rr.id== 1)
+    assert(len(rr.getAll()) ==7)
+    assert(equal_tuples(rr.getAll(), (1,RecruitmentType.invalidType.value,'01/01/1991','test','test',RecruitmentStatus.invalidType.value,'test')))
+    rr.setAll((12,RecruitmentType.hire.value,'01/03/1991','te3st','t3est',RecruitmentStatus.completed.value,'tes3t'))
+    assert(equal_tuples(rr.getAll(), (12,RecruitmentType.hire.value,'01/03/1991','te3st','t3est',RecruitmentStatus.completed.value,'tes3t')))
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS recruitmentRequest")
     db.executeDoQuery(
@@ -129,9 +218,19 @@ def RecruitmentRequestDBInterfaceTest(db):
     a=reqDB.getAll()
     assert(len(a)==1)
     assert(a[0].department=='HR')
-    print('Passed RecruitmentRequestDBInterface test')
+    a = reqDB.getByID(2)
+    assert(a==False)
+    a = reqDB.getByStatus(RecruitmentStatus.active.value)
+    assert(len(a)==1)
+    print('Passed RecruitmentRequest test')
 
-def RequestDetailsDBInterfaceTest(db):
+def RequestDetailsTest(db):
+    rqd = RequestDetails(1,'test1','test','test','test','test','test','test')
+    assert(rqd.id == 1)
+    assert(len(rqd.getAll()) ==8)
+    assert(equal_tuples(rqd.getAll(), (1,'test1','test','test','test','test','test','test')))
+    rqd.setAll((12,'test12','test2','tes2t','tes2t','tes3t','te4st','tes5t'))
+    assert(equal_tuples(rqd.getAll(), (12,'test12','test2','tes2t','tes2t','tes3t','te4st','tes5t')))
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS requestDetails")
     db.executeDoQuery(
@@ -149,10 +248,19 @@ def RequestDetailsDBInterfaceTest(db):
     a=reqDB.getAll()
     assert(len(a)==1)
     assert(a[0].detail1=='test2')
-    print('Passed RequestDetailsDBInterface test')
+    a = reqDB.getByID(1)
+    assert(a.detail1=='test2')
+    print('Passed RequestDetails test')
 
 
-def DiscountDBInterfaceTest(db):
+def DiscountTest(db):
+    d = Discount(1,100,'comment','10/10/2015')
+    assert(d.requestID == 1)
+    assert(len(d.getAll()) ==4)
+    assert(equal_tuples(d.getAll(),(1,100,'comment','10/10/2015')))
+    d.setAll((12,1002,'comm2ent','13/10/2015'))
+    assert(equal_tuples(d.getAll(), (12,1002,'comm2ent','13/10/2015')))
+
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS discount")
     db.executeDoQuery(
@@ -171,9 +279,21 @@ def DiscountDBInterfaceTest(db):
     a = reqDB.getAll()
     assert(len(a)==2)
     assert(a[1].amount == 2000)
-    print('Passed DiscountDBInterface test')
+    assert(reqDB.existRequestID(3)==False)
+    assert(reqDB.existRequestID(1)==True)
+    request1 = reqDB.getByRequestID(1)
+    request2 = reqDB.getByRequestID(3)
+    assert(request1.amount == 3000)
+    assert(request2 == False)
+    print('Passed Discount test')
 
-def ClientMeetingDBInterfaceTest(db):
+def ClientMeetingTest(db):
+    cm = ClientMeeting(1,'10/10/2015','test')
+    assert(cm.clientID == 1)
+    assert(len(cm.getAll()) ==3)
+    assert(equal_tuples(cm.getAll(),(1,'10/10/2015','test')))
+    cm.setAll((12,'12/10/2015','te2st'))
+    assert(equal_tuples(cm.getAll(), (12,'12/10/2015','te2st')))
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS clientMeeting")
     db.executeDoQuery(
@@ -192,9 +312,15 @@ def ClientMeetingDBInterfaceTest(db):
     a = reqDB.getAll()
     assert(len(a)==2)
     assert(a[1].date =='22/10/2015')
-    print('Passed ClientMeetingDBInterface test')
+    print('Passed ClientMeeting test')
 
-def TaskDBInterfaceTest(db):
+def TaskTest(db):
+    t = Task(1,1,'test','op',TaskPriority.Invalid.value,'10/10/2015',TaskStatus.Pending.value,'')
+    assert(t.id == 1)
+    assert(len(t.getAll()) ==8)
+    assert(equal_tuples(t.getAll(),(1,1,'test','op',TaskPriority.Invalid.value,'10/10/2015',TaskStatus.Pending.value,'')))
+    t.setAll((12,12,'te2st','o2p',TaskPriority.High.value,'10/12/2015',TaskStatus.Invalid.value,'1'))
+    assert(equal_tuples(t.getAll(), (12,12,'te2st','o2p',TaskPriority.High.value,'10/12/2015',TaskStatus.Invalid.value,'1')))
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS task")
     db.executeDoQuery(
@@ -213,9 +339,40 @@ def TaskDBInterfaceTest(db):
     a = reqDB.getAll()
     assert(len(a)==2)
     assert(a[1].deadline =='21/10/2015')
-    print('Passed TaskDBInterface test')
+    a = reqDB.getByID(1)
+    assert(a.deadline =='10/10/2015')
+    a = reqDB.getByRequestID(1)
+    assert(len(a)==2)
+    assert(a[0].deadline == '10/10/2015')
+    assert(a[1].deadline == '21/10/2015')
+    a = reqDB.getByStatus(TaskStatus.Pending.value)
+    assert(len(a)==2)
+    assert(a[0].deadline == '10/10/2015')
+    assert(a[1].deadline == '21/10/2015')
+    a = reqDB.getByStatusAndEmail(TaskStatus.Pending.value,'sarah@sep.se')
+    assert(len(a)==2)
+    assert(a[0].deadline == '10/10/2015')
+    a = reqDB.getByStatusAndEmail(TaskStatus.Pending.value,'test@sep.se')
+    assert(a == False)
+    a = reqDB.getByTaskID(1)
+    assert(a.deadline =='10/10/2015')
+    a = reqDB.getTasksByAccTypeUser("User",'sarah@sep.se')
+    assert(len(a)==2)
+    assert(a[0].deadline == '10/10/2015')
+    assert(a[1].deadline == '21/10/2015')
+    a = reqDB.getTasksByAccTypeUser("Manager",'sarah@sep.se')
+    assert(len(a)==2)
+    assert(a[0].deadline == '10/10/2015')
+    assert(a[1].deadline == '21/10/2015')
+    print('Passed Task test')
 
-def ScheduleDBInterfaceTest(db):
+def ScheduleTest(db):
+    s = Schedule(1,'test',10,12,'10/10/2015')
+    assert(s.id == 1)
+    assert(len(s.getAll()) ==5)
+    assert(equal_tuples(s.getAll(),(1,'test',10,12,'10/10/2015')))
+    s.setAll((12,'te2st',12,13,'10/13/2015'))
+    assert(equal_tuples(s.getAll(), (12,'te2st',12,13,'10/13/2015')))
     assert (db.isConnectionOk() == 1)
     db.executeDoQuery("DROP TABLE IF EXISTS schedule")
     db.executeDoQuery(
@@ -234,20 +391,26 @@ def ScheduleDBInterfaceTest(db):
     a = reqDB.getAll()
     assert(len(a)==2)
     assert(a[1].date =='22/10/2015')
-    print('Passed ScheduleDBInterface test')
+    print('Passed Schedule test')
 
-def DBTest(connection_name):
+def ModelTests(connection_name):
+    GenericMethodsTest()
+    DBTest()
     db = DBConnectionSQLite(connection_name)
-    AccountDBInterfaceTest(db)
-    ClientDBInterfaceTest(db)
-    RequestDBInterfaceTest(db)
-    FinancialRequestDBInterfaceTest(db)
-    RecruitmentRequestDBInterfaceTest(db)
-    RequestDetailsDBInterfaceTest(db)
-    DiscountDBInterfaceTest(db)
-    ClientDBInterfaceTest(db)
-    TaskDBInterfaceTest(db)
-    ScheduleDBInterfaceTest(db)
+    AccountTest(db)
+    ClientTest(db)
+    RequestTest(db)
+    FinancialRequestTest(db)
+    RecruitmentRequestTest(db)
+    RequestDetailsTest(db)
+    DiscountTest(db)
+    ClientTest(db)
+    TaskTest(db)
+    ScheduleTest(db)
+    ClientMeetingTest(db)
+    os.remove('test_connection.test')
+    assert(os.path.isfile('test_connection.test')==False)
+
 
 
 

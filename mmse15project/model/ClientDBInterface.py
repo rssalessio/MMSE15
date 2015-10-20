@@ -33,7 +33,7 @@ class ClientDBInterface(DBInterface):
         return self.get(temp)
 
     def getByName(self,name):
-        ans = self.getAll()
+        ans = self.database.executeKnowQuery('SELECT * FROM client ')
         if (ans== False):
             return False
         ret = []
@@ -45,21 +45,24 @@ class ClientDBInterface(DBInterface):
         return ret
 
     def getAll(self):
-        ans= self.database.executeKnowQuery('SELECT * from client')
-        if (len(ans)==0):
+        ans = self.database.executeKnowQuery('SELECT * FROM client')
+        if (len(ans) == 0):
             return False
-        return ans
+        ret = []
+        for row in ans:
+            temp = Client()
+            temp.setAll(row)
+            ret.append(temp)
+        return ret
 
     def getByID(self, id):
-        all = self.getAll()
-        if all is False:
+        ans = self.database.executeKnowQuery('SELECT * FROM client WHERE id = ?', (id,))
+        if (len(ans) == 0):
             return False
-        for c in all:
-            temp = Client()
-            temp.setAll(c)
-            if temp.getID() == id:
-                return temp
-        return False
+        ans = ans[0]
+        ret = Client()
+        ret.setAll(ans)
+        return ret
 
 
 
