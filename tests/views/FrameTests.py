@@ -1,3 +1,4 @@
+import os
 import tkinter as tk
 from mmse15project.model.Model import Model
 from mmse15project.ctrls.MainController import MainController
@@ -9,6 +10,11 @@ class FrameTests(tk.Tk):
         self.title("FrameTests")
         self.resizable(tk.FALSE, tk.FALSE)
         self.attributes("-topmost", True)
+
+        try:
+            os.chdir("../..")  # Unix
+        except:
+            os.chdir("..\..")  # Windows
 
         model = Model()
         ctrl = MainController(model, None)
