@@ -80,6 +80,7 @@ class TaskDBInterface(DBInterface):
         for task in correct_status:
             if task.operator == email:
                 ret.append(task)
+        if (len(ret)==0): return False
         return ret
 
     def getByTaskID(self,id):
@@ -92,10 +93,16 @@ class TaskDBInterface(DBInterface):
 
     def getTasksByAccTypeUser(self, acc_type, user):
         if acc_type == "Manager":
-            tasks = self.getByStatus(1) + self.getByStatus(2) + self.getByStatus(3)
+            tasks =[]
+            for num in range(1,3):
+                t = self.getByStatus(num)
+                if (t == False): continue
+                tasks = tasks + t
         else:
-            tasks = self.getByStatusAndEmail(1, user) +\
-                    self.getByStatusAndEmail(2, user) +\
-                    self.getByStatusAndEmail(3, user)
+            tasks =[]
+            for num in range(1,3):
+                t = self.getByStatusAndEmail(num,user)
+                if (t == False): continue
+                tasks = tasks + t
         return tasks
 

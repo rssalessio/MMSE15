@@ -49,3 +49,14 @@ class AccountDBInterface(DBInterface):
         temp = Account()
         temp.email = email
         return self.get(temp)
+
+    def getAll(self):
+        ans = self.database.executeKnowQuery('SELECT * FROM account')
+        if (len(ans) == 0):
+            return False
+        ret = []
+        for row in ans:
+            temp = Account()
+            temp.setAll(row)
+            ret.append(temp)
+        return ret

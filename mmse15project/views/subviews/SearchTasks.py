@@ -1,7 +1,8 @@
 import tkinter.ttk as ttk
 from mmse15project.model.Task import TaskPriority
 from mmse15project.model.Task import TaskStatus
-
+import tkinter.scrolledtext as tkst
+import tkinter as tk
 
 class SearchTasks(ttk.Frame):
     def __init__(self, master, model, ctrl):
@@ -52,8 +53,16 @@ class SearchTasks(ttk.Frame):
             ttk.Label(self, text="Priority:").grid(row=3, sticky="E")
             ttk.Label(self, text=TaskPriority(t.priority).name).grid(row=3, column=1, sticky="W")
 
-            ttk.Label(self, text="Status:").grid(row=4, sticky="E")
-            ttk.Label(self, text=TaskStatus(t.status).name).grid(row=4, column=1, sticky="W")
+            ttk.Label(self, text="Deadline:").grid(row=4, sticky="E")
+            ttk.Label(self, text=t.status).grid(row=4, column=1, sticky="W")
+
+            ttk.Label(self, text="Status:").grid(row=5, sticky="E")
+            ttk.Label(self, text=TaskStatus(t.status).name).grid(row=5, column=1, sticky="W")
+
+            ttk.Label(self, text="Comment:").grid(row=6, sticky="E")
+            self.e8 = tkst.ScrolledText(self, width=20, height=5)
+            self.e8.grid(row=6, column=1)
+            self.e8.insert(tk.INSERT,t.comment)
 
             acc_type = self.master.master.master.acc_type
             user = self.master.master.master.user
@@ -69,4 +78,10 @@ class SearchTasks(ttk.Frame):
 
             b1 = ttk.Button(self, text=b1_text,
                         command=lambda: self.ctrl.search_tasks_approve(self))
-            b1.grid(columnspan=2)
+            b1.grid(row=7,column=0)
+
+
+            if t.status == TaskStatus.Accepted.value and t.operator == user:
+                b2 = ttk.Button(self, text="Update",
+                            command=lambda: self.ctrl.search_task_update(self))
+                b2.grid(row=7, column=1)

@@ -48,15 +48,24 @@ class NewTask(ttk.Frame):
             self.e3 = ttk.Entry(self)
             self.e3.grid(row=2, column=1)
 
-            ttk.Label(self, text="Priority:").grid(row=3, sticky="E")
+            ttk.Label(self, text="Deadline:").grid(row=3, sticky="E")
+            self.e5 = ttk.Entry(self)
+            self.e5.grid(row=3, column=1)
+
+            ttk.Label(self, text="Comment:").grid(row=4, sticky="E")
+            self.e6 = tkst.ScrolledText(self, width=20, height=5)
+            self.e6.grid(row=4, column=1)
+
+
+            ttk.Label(self, text="Priority:").grid(row=5, sticky="E")
             priorities=[1, 2, 3]
             self.e4 = tk.IntVar(self)
             self.e4.set(priorities[0])
-            ttk.OptionMenu(self, self.e4, self.e4.get(), *priorities).grid(row=3, column=1, sticky="E")
+            ttk.OptionMenu(self, self.e4, self.e4.get(), *priorities).grid(row=5, column=1, sticky="E")
 
             b1 = ttk.Button(self, text="Submit",
                            command=lambda: self.ctrl.new_task_submit(self))
             b1.grid(columnspan=2)
 
         def get_all(self):
-            return [self.e1, self.e2.get(1.0, tk.END)[:-1], self.e3.get(), self.e4.get()]
+            return [self.e1, self.e2.get(1.0, tk.END)[:-1], self.e3.get(), self.e4.get(),self.e5.get(),self.e6.get(1.0, tk.END)[:-1]]

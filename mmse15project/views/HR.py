@@ -5,7 +5,7 @@ from mmse15project.views.subviews.PendingRecruitmentRequest import PendingRecrui
 from mmse15project.views.subviews.SearchRequest import SearchRequest
 from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
 from mmse15project.views.subviews.SearchRecruitmentRequest import SearchRecruitmentRequest
-
+from mmse15project.views.subviews.NewRecruitmentRequest import NewRecruitmentRequest
 
 # AccountTeam view for HR
 class HR(ttk.Frame):
@@ -27,10 +27,12 @@ class HR(ttk.Frame):
         f2 = SearchRecruitmentRequest(n, self.model, self.ctrl)
         f3 = SearchRequest(n, self.model, self.ctrl)
         f4 = SearchRequestDetails(n, self.model, self.ctrl)
+        f5 = NewRecruitmentRequest(n, self.model, self.ctrl)
         n.add(f1, text="Pending recruitments", sticky="NS")
         n.add(f2, text="View recruitment", sticky="NS")
         n.add(f3, text="View request", sticky="NS")
         n.add(f4, text="View request details", sticky="NS")
+        n.add(f5, text='New recruitment request')
 
     def config(self):
         self.ctrl.clear_frame(self)

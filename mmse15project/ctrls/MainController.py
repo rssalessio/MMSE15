@@ -126,7 +126,7 @@ class MainController:
 
     def new_request_details_create(self, subview):
         request = self.model.request_db.getByID(subview.e1.get())
-        if request is not False and request.getStatus() == 4:
+        if request is not False and request.getStatus() == 5:
             subview.form.create_widgets()
         else:
             subview.form.no_request_found()
@@ -139,7 +139,7 @@ class MainController:
         self.model.request_details_db.add(new)
         # update request status
         request = self.model.request_db.getByID(new.getID())
-        request.setStatus(5)
+        request.setStatus(6)
         self.model.request_db.update(request)
         self.clear_frame(subview)
 
@@ -156,6 +156,8 @@ class MainController:
         new.description = data[1]
         new.operator = data[2] + "@sep.se"
         new.priority = data[3]
+        new.deadline= data[4]
+        new.comment = data[5]
         self.model.task_db.add(new)
         self.clear_frame(subview)
 
@@ -259,6 +261,12 @@ class MainController:
         subview.request.setStatus(0)
         subview.request.comment = subview.e8.get(1.0, tk.END)[:-1]
         self.model.request_db.update(subview.request)
+        self.clear_frame(subview)
+        subview.create_widgets()
+
+    def search_task_update(self, subview):
+        subview.t.comment = subview.e8.get(1.0, tk.END)[:-1]
+        self.model.task_db.update(subview.t)
         self.clear_frame(subview)
         subview.create_widgets()
 

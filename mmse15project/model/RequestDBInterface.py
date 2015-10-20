@@ -48,7 +48,12 @@ class RequestDBInterface (DBInterface):
         ans= self.database.executeKnowQuery('SELECT * from request')
         if (len(ans)==0):
             return False
-        return ans
+        ret=[]
+        for r in ans:
+            temp = Request()
+            temp.setAll(r)
+            ret.append(temp)
+        return ret
 
     def getByStatus(self, status):
         ans = self.database.executeKnowQuery('SELECT * FROM request WHERE status = ?', (status,))

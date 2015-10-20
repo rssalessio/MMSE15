@@ -25,7 +25,6 @@ class DBConnectionSQLite(DBConnection):
         return self.connectionName
 
     def isConnectionOk(self):
-        #actually it doesn't check if the connection is ok when it is invoked
         return  0  if  self.connection == None else 1
 
     def executeDoQuery(self,query,var=()):

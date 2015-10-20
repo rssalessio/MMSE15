@@ -74,7 +74,8 @@ class SearchRequest(ttk.Frame):
 
                     if (status == 1 and acc_team == "CustomerService" and acc_type == "Senior") or\
                             (status == 2 and acc_team == "Financial" and acc_type == "Manager") or\
-                            (status == 3 and acc_team == "Administration" and acc_type == "Manager"):
+                            (status == 3 and acc_team == "Administration" and acc_type == "Manager") or\
+                            (status ==4 and acc_team=="CustomerService" and acc_type=="Senior"):
                         ttk.Label(self, text="Comment:").grid(row=8, sticky="E")
                         self.e8 = tkst.ScrolledText(self, width=20, height=5)
                         self.e8.grid(row=8, column=1)
@@ -110,7 +111,8 @@ class SearchRequest(ttk.Frame):
 
                     if (status == 1 and acc_team == "CustomerService" and acc_type == "Senior") or\
                             (status == 2 and acc_team == "Financial" and acc_type == "Manager") or\
-                            (status == 3 and acc_team == "Administration" and acc_type == "Manager"):
+                            (status == 3 and acc_team == "Administration" and acc_type == "Manager") or\
+                            (status ==4 and acc_team=="CustomerService" and acc_type=="Senior"):
                         b1 = ttk.Button(self, text="Approve",
                             command=lambda: self.ctrl.search_request_approve(self))
                         b1.grid(row=row, column=0)

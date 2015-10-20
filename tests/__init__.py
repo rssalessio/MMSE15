@@ -1,10 +1,10 @@
-from  tests.model.DBTests import *
-from tests.model.AccountTests import  *
-
+from  tests.model.ModelTests import *
+import os.path
 
 def main():
-    DBTest("test2.db")
-    print("Database test passed")
-    AccountTest()
-    print("Account test passed")
+    ModelTests("test2.db")
+    os.remove("test2.db")
+    assert(os.path.isfile("test2.db")==False)
+    print("Model test passed")
     print("All tests passed!")
+    assert (os.path.isfile('sep.db')==True),"Database must be installed first!"

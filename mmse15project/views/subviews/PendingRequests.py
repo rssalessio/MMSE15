@@ -28,7 +28,7 @@ class PendingRequests(ttk.Frame):
             self.ctrl.clear_frame(self)
             acc_team = self.master.master.master.acc_team
             if acc_team == "CustomerService":
-                requests = self.model.request_db.getByStatus(1) + self.model.request_db.getByStatus(4)
+                requests = self.model.request_db.getByStatus(1) + self.model.request_db.getByStatus(4) +self.model.request_db.getByStatus(5)
             elif acc_team == "Financial":
                 requests = self.model.request_db.getByStatus(2)
             elif acc_team == "Administration":
