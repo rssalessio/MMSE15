@@ -14,11 +14,11 @@ class TopManagement(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        container = ttk.Frame(self)
-        container.pack()
+        #container = ttk.Frame(self)
+        #container.pack()
         user_info = "Top Management, %s — %s" % (self.acc_type, self.user)
-        ttk.Label(container, text=user_info).pack()
-        n = ttk.Notebook(container)
+        ttk.Label(self, text=user_info).pack()
+        n = ttk.Notebook(self)
         n.pack()
         f1 = NewAccount(n, self.model, self.ctrl)
         n.add(f1, text="New account")

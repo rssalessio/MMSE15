@@ -1,11 +1,11 @@
 import tkinter.ttk as ttk
-from mmse15project.views.subviews.SearchRequest import SearchRequest
-from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
+from mmse15project.views.subviews.NewFinancialRequest import NewFinancialRequest
+from mmse15project.views.subviews.NewRecruitmentRequest import NewRecruitmentRequest
 from mmse15project.views.subviews.NewTask import NewTask
 from mmse15project.views.subviews.PendingTasks import PendingTasks
+from mmse15project.views.subviews.SearchRequest import SearchRequest
+from mmse15project.views.subviews.SearchRequestDetails import SearchRequestDetails
 from mmse15project.views.subviews.SearchTasks import SearchTasks
-from mmse15project.views.subviews.NewRecruitmentRequest import NewRecruitmentRequest
-from mmse15project.views.subviews.NewFinancialRequest import NewFinancialRequest
 
 
 # AccountTeam view for Service
@@ -20,11 +20,9 @@ class Service(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        container = ttk.Frame(self)
-        container.pack()
         user_info = "Service, %s — %s" % (self.acc_type, self.user)
-        ttk.Label(container, text=user_info).pack()
-        n = ttk.Notebook(container)
+        ttk.Label(self, text=user_info).pack()
+        n = ttk.Notebook(self)
         n.pack()
         f1 = PendingTasks(n, self.model, self.ctrl)
         n.add(f1, text="Active tasks", sticky="NS")

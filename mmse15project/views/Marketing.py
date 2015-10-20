@@ -16,11 +16,9 @@ class Marketing(ttk.Frame):
         self.create_widgets()
 
     def create_widgets(self):
-        container = ttk.Frame(self)
-        container.pack()
         user_info = "Marketing, " + self.acc_type + " - logged in as " + self.user
-        ttk.Label(container, text=user_info).pack()
-        n = ttk.Notebook(container)
+        ttk.Label(self, text=user_info).pack()
+        n = ttk.Notebook(self)
         n.pack()
         f2 = SearchClient(n, self.model, self.ctrl)
         f3 = SearchRequest(n, self.model, self.ctrl)
