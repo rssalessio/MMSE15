@@ -7,8 +7,9 @@ class RequestStatus(Enum):
     Pending         = 1  # waits CustomerService
     Accepted1       = 2  # waits Financial
     Accepted2       = 3  # waits Administration
-    Accepted3       = 4  # waits details creation
-    DetailsCreated  = 5
+    Accepted3       = 4  # waits officer customer service
+    Accepted4       = 5 # waits details creation
+    DetailsCreated  = 6
 
 
 class Request:

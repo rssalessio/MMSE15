@@ -126,7 +126,7 @@ class MainController:
 
     def new_request_details_create(self, subview):
         request = self.model.request_db.getByID(subview.e1.get())
-        if request is not False and request.getStatus() == 4:
+        if request is not False and request.getStatus() == 5:
             subview.form.create_widgets()
         else:
             subview.form.no_request_found()
@@ -139,7 +139,7 @@ class MainController:
         self.model.request_details_db.add(new)
         # update request status
         request = self.model.request_db.getByID(new.getID())
-        request.setStatus(5)
+        request.setStatus(6)
         self.model.request_db.update(request)
         self.clear_frame(subview)
 

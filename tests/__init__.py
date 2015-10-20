@@ -7,3 +7,4 @@ def main():
     assert(os.path.isfile("test2.db")==False)
     print("Model test passed")
     print("All tests passed!")
+    assert (os.path.isfile('sep.db')==True),"Database must be installed first!"
