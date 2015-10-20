@@ -9,7 +9,7 @@ class RequestDBInterface (DBInterface):
     def add(self, request):
         values = request.getAll()
         values =tuple_without(values,0)
-        self.database.executeDoQuery('INSERT INTO request (clientID, eventType,startDate, endDate, expectedParticipants, expectedBudget, preferences, status ) VALUES (?,?,?,?,?,?,?,?)',values)
+        self.database.executeDoQuery('INSERT INTO request (clientID, eventType,startDate, endDate, expectedParticipants, expectedBudget, preferences, status,comment ) VALUES (?,?,?,?,?,?,?,?,?)',values)
         request.setID(self.database.getLastRow())
         return request.getID()
 
@@ -17,7 +17,7 @@ class RequestDBInterface (DBInterface):
         values = request.getAll()
         values =tuple_without(values,0)
         values = values+  (request.getID(),)
-        self.database.executeDoQuery('UPDATE request SET clientID=?, eventType=?,startDate=?, endDate=?, expectedParticipants=?, expectedBudget=?, preferences=?, status=? where id=?',values)
+        self.database.executeDoQuery('UPDATE request SET clientID=?, eventType=?,startDate=?, endDate=?, expectedParticipants=?, expectedBudget=?, preferences=?, status=?,comment=? where id=?',values)
 
     def get(self,request):
         ans = self.database.executeKnowQuery('SELECT * FROM request WHERE clientID = ?', (request.getClientID(),))

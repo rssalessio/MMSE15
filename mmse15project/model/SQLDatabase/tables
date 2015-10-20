@@ -53,6 +53,7 @@ CREATE TABLE IF NOT EXISTS request
     expectedBudget text,
     preferences text,
     status integer,
+    comment text,
     FOREIGN KEY(clientID) REFERENCES client(id)
 );
 

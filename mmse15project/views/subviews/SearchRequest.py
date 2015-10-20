@@ -1,7 +1,8 @@
 import tkinter.ttk as ttk
 from mmse15project.model.Task import TaskStatus
 from mmse15project.model.Task import TaskPriority
-
+import tkinter as tk
+import tkinter.scrolledtext as tkst
 
 class SearchRequest(ttk.Frame):
     def __init__(self, master, model, ctrl):
@@ -67,11 +68,27 @@ class SearchRequest(ttk.Frame):
 
                     ttk.Label(self, text="Status:").grid(row=7, sticky="E")
                     ttk.Label(self, text=str(request.getStatus())).grid(row=7, column=1, sticky="W")
+                    status = request.getStatus()
+                    acc_team = self.master.master.master.acc_team
+                    acc_type = self.master.master.master.acc_type
 
-                    ttk.Label(self, text="").grid(row=8, columnspan=2, sticky="WE")
+                    if (status == 1 and acc_team == "CustomerService" and acc_type == "Senior") or\
+                            (status == 2 and acc_team == "Financial" and acc_type == "Manager") or\
+                            (status == 3 and acc_team == "Administration" and acc_type == "Manager"):
+                        ttk.Label(self, text="Comment:").grid(row=8, sticky="E")
+                        self.e8 = tkst.ScrolledText(self, width=20, height=5)
+                        self.e8.grid(row=8, column=1)
+                        self.e8.insert(tk.INSERT,request.comment)
+                    else:
+                        ttk.Label(self, text="Comment:").grid(row=8, sticky="E")
+                        ttk.Label(self, text=str(request.comment)).grid(row=8, column=1, sticky="W")
+
+
+
+                    ttk.Label(self, text="").grid(row=9, columnspan=2, sticky="WE")
 
                     # View assigned tasks
-                    row = 9
+                    row = 10
                     tasks = self.model.task_db.getByRequestID(request.getID())
                     if tasks is False:
                         ttk.Label(self, text="No assigned tasks found").grid(row=row, columnspan=2)
@@ -88,9 +105,8 @@ class SearchRequest(ttk.Frame):
                             row += 1
 
                     # Buttons
-                    status = request.getStatus()
-                    acc_team = self.master.master.master.acc_team
-                    acc_type = self.master.master.master.acc_type
+
+
 
                     if (status == 1 and acc_team == "CustomerService" and acc_type == "Senior") or\
                             (status == 2 and acc_team == "Financial" and acc_type == "Manager") or\

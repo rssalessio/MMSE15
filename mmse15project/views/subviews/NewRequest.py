@@ -38,8 +38,8 @@ class NewRequest(ttk.Frame):
             self.ctrl.clear_frame(self)
             ttk.Label(self, text="ClientID:").grid(row=0, sticky="E")
             ttk.Label(self, text="Event type:").grid(row=1, sticky="E")
-            ttk.Label(self, text="From:").grid(row=2, sticky="E")
-            ttk.Label(self, text="To:").grid(row=3, sticky="E")
+            ttk.Label(self, text="From (MM/DD/YYYY):").grid(row=2, sticky="E")
+            ttk.Label(self, text="To (MM/DD/YYYY):").grid(row=3, sticky="E")
             ttk.Label(self, text="Attendees:").grid(row=4, sticky="E")
 
             self.e1 = self.master.e1.get()  # ClientID
@@ -63,10 +63,16 @@ class NewRequest(ttk.Frame):
             self.e7 = ttk.Entry(self)
             self.e7.grid(row=6, column=1)
 
+             # Comment
+            ttk.Label(self, text="Comment:").grid(row=7, sticky="E")
+            self.e8 = tkst.ScrolledText(self, width=20, height=5)
+            self.e8.grid(row=7, column=1)
+
+
             b1 = ttk.Button(self, text="Submit",
                            command=lambda: self.ctrl.new_request_submit(self))
             b1.grid(columnspan=2)
 
         def get_all(self):
             return [self.e1, self.e2.get(), self.e3.get(), self.e4.get(),
-                    self.e5.get(), self.e6.get(1.0, tk.END)[:-1], self.e7.get()]
+                    self.e5.get(), self.e6.get(1.0, tk.END)[:-1], self.e7.get(),self.e8.get(1.0, tk.END)[:-1]]

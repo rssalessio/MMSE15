@@ -39,7 +39,7 @@ class NewClient(ttk.Frame):
             ttk.Label(self, text="Address:").grid(row=2, sticky="E")
             ttk.Label(self, text="Postal code:").grid(row=3, sticky="E")
             ttk.Label(self, text="City:").grid(row=4, sticky="E")
-            ttk.Label(self, text="Day of birth:").grid(row=5, sticky="E")
+            ttk.Label(self, text="Day of birth (MM/DD/YYYY):").grid(row=5, sticky="E")
 
             self.e1 = ttk.Entry(self)  # Full name
             self.e1.grid(row=0, column=1)

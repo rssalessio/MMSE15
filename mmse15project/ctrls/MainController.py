@@ -17,7 +17,7 @@ from mmse15project.model.Discount import Discount
 from mmse15project.model.Task import Task
 from mmse15project.model.RecruitmentRequest import RecruitmentRequest
 from mmse15project.model.FinancialRequest import FinancialRequest
-
+import tkinter as tk
 
 class MainController:
     def __init__(self, model, view):
@@ -145,6 +145,7 @@ class MainController:
         new.setExpectedParticipants(data[4])
         new.setPreferences(data[5])
         new.setExpectedBudget(data[6])
+        new.comment = data[7]
         self.model.request_db.add(new)
         self.clear_frame(subview)
 
@@ -234,6 +235,7 @@ class MainController:
     def search_request_get(self,subview):
         subview.result.create_widgets()
 
+
     def search_request_details_get(self,subview):
         subview.result.create_widgets()
 
@@ -272,6 +274,7 @@ class MainController:
 
     def search_request_approve(self, subview):
         status = subview.request.getStatus()
+        subview.request.comment = subview.e8.get(1.0, tk.END)[:-1]
         subview.request.setStatus(status+1)
         self.model.request_db.update(subview.request)
         self.clear_frame(subview)
@@ -279,6 +282,7 @@ class MainController:
 
     def search_request_reject(self, subview):
         subview.request.setStatus(0)
+        subview.request.comment = subview.e8.get(1.0, tk.END)[:-1]
         self.model.request_db.update(subview.request)
         self.clear_frame(subview)
         subview.create_widgets()
@@ -298,4 +302,6 @@ class MainController:
     def search_financial_request_decide(self, subview, new_status):
         subview.f.status = new_status
         self.model.financial_request_db.update(subview.f)
+        self.clear_frame(subview)
+        subview.create_widgets()
 

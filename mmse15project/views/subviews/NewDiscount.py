@@ -43,7 +43,7 @@ class NewDiscount(ttk.Frame):
             ttk.Label(self, text="RequestID:").grid(row=0, sticky="E")
             ttk.Label(self, text="Amount:").grid(row=1, sticky="E")
             ttk.Label(self, text="Comment:").grid(row=2, sticky="E")
-            ttk.Label(self, text="Date:").grid(row=3, sticky="E")
+            ttk.Label(self, text="Date (MM/DD/YYYY):").grid(row=3, sticky="E")
 
             self.e1 = self.master.e1.get()  # RequestID
             ttk.Label(self, text=self.e1).grid(row=0, column=1, sticky="W")

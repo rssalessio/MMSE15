@@ -51,7 +51,7 @@ class SearchClient(ttk.Frame):
                 ttk.Label(self, text="City:").grid(row=5, sticky="E")
                 ttk.Label(self, text=client.getCity()).grid(row=5, column=1, sticky="W")
 
-                ttk.Label(self, text="Day of birth:").grid(row=6, sticky="E")
+                ttk.Label(self, text="Day of birth (MM/DD/YYYY):").grid(row=6, sticky="E")
                 ttk.Label(self, text=client.getBirthDate()).grid(row=6, column=1, sticky="W")
 
                 ttk.Label(self, text="").grid(row=7, columnspan=2, sticky="WE")
