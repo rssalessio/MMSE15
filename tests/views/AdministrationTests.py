@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 from mmse15project.model.Account import AccountTeam
 from mmse15project.model.Account import AccountType
 from mmse15project.views.Administration import Administration
